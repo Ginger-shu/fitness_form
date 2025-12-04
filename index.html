@@ -1943,45 +1943,43 @@
 }
 
         async function checkUserSubmitted(lineId) {
-            try {
-                const response = await fetch(WEBHOOK_URL, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({ 
-                        action: 'check',
-                        lineId: lineId 
-                    })
+    try {
+        const response = await fetch(WEBHOOK_URL, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ 
+                action: 'check',
+                lineId: lineId 
+            })
+        });
+        
+        if (response.ok) {
+            const result = await response.json();
+            
+            // 如果用戶已填寫過，顯示完成頁面
+            if (result.submitted === true || result.submitted === 'true') {
+                document.querySelectorAll('.question-page').forEach(function(page) {
+                    page.classList.remove('active');
                 });
+                currentPage = 12;
+                document.querySelector('[data-page="12"]').classList.add('active');
                 
-                if (response.ok) {
-                    const result = await response.json();
-                    
-                    // 如果用戶已填寫過，顯示完成頁面
-                    if (result.submitted === true || result.submitted === 'true') {
-                        document.querySelectorAll('.question-page').forEach(function(page) {
-                            page.classList.remove('active');
-                        });
-                        currentPage = 12;
-                        document.querySelector('[data-page="12"]').classList.add('active');
-                        
-                        // 如果是「稍後預約」的用戶，顯示預約按鈕
-                        if (result.bookingType === '稍後預約') {
-                            document.getElementById('bookNowButtonContainer').style.display = 'block';
-                        }
-                        
-                        updateProgress();
-                    }
-                }
+                // ★★★ 修改：已提交的用戶都顯示預約按鈕 ★★★
+                document.getElementById('bookNowButtonContainer').style.display = 'block';
                 
-                hideLoading();
-                
-            } catch (error) {
-                console.error('檢查用戶狀態失敗:', error);
-                hideLoading();
+                updateProgress();
             }
         }
+        
+        hideLoading();
+        
+    } catch (error) {
+        console.error('檢查用戶狀態失敗:', error);
+        hideLoading();
+    }
+}
 
         function hideLoading() {
             var loadingOverlay = document.getElementById('loadingOverlay');
@@ -3125,4 +3123,3 @@ displayName: formData.displayName || '',
     </script>
 </body>
 </html>
-
