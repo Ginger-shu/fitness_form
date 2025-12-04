@@ -1917,27 +1917,30 @@
         ];
 
         async function initializeLiff() {
-            try {
-                await liff.init({ liffId: '2007947083-kGa5bdRl' });
-                
-                if (!liff.isLoggedIn()) {
-                    liff.login();
-                    return;
-                }
-                
-                const profile = await liff.getProfile();
-                const lineId = profile.userId;
-                document.getElementById('lineId').value = lineId;
-                formData.lineId = lineId;
-                
-                // 查詢用戶是否已填寫過
-                await checkUserSubmitted(lineId);
-                
-            } catch (error) {
-                console.error('LIFF initialization failed:', error);
-                hideLoading();
-            }
+    try {
+        await liff.init({ liffId: '2007947083-kGa5bdRl' });
+        
+        if (!liff.isLoggedIn()) {
+            liff.login();
+            return;
         }
+        
+        const profile = await liff.getProfile();
+        const lineId = profile.userId;
+        const displayName = profile.displayName;  // ← 加這行
+        
+        document.getElementById('lineId').value = lineId;
+        formData.lineId = lineId;
+        formData.displayName = displayName;  // ← 加這行
+        
+        // 查詢用戶是否已填寫過
+        await checkUserSubmitted(lineId);
+        
+    } catch (error) {
+        console.error('LIFF initialization failed:', error);
+        hideLoading();
+    }
+}
 
         async function checkUserSubmitted(lineId) {
             try {
@@ -3034,6 +3037,7 @@ async function submitFormLater() {
             var submitData = {
                 action: 'submit',
                 lineId: formData.lineId || '',
+displayName: formData.displayName || '',
                 name: formData.name || '',
                 gender: formData.gender || '',
                 birthday: formData.birthday || '',
