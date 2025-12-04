@@ -651,7 +651,8 @@
             from { transform: rotate(0deg); }
             to { transform: rotate(360deg); }
         }
-.instruction-card {
+
+        .instruction-card {
             background: linear-gradient(135deg, #fcf4e3 0%, #fff9e6 100%);
             border-radius: 15px;
             padding: 18px;
@@ -1044,6 +1045,7 @@
             background: #e2ede6;
         }
 
+        /* 個人資料使用同意頁面樣式 */
         .privacy-page {
             padding: 20px 0;
         }
@@ -1186,6 +1188,7 @@
             margin: 0;
         }
 
+        /* 完成頁面新樣式 */
         .completion-modern {
             padding: 40px 20px;
             text-align: center;
@@ -1451,6 +1454,7 @@
                 font-size: 28px;
             }
 
+            /* 手機版生日欄位加大 */
             #birthdayYear,
             #birthdayMonth,
             #birthdayDay {
@@ -1459,6 +1463,7 @@
                 min-height: 50px !important;
             }
 
+            /* 手機版場館規範內容加寬 */
             #venueRules {
                 padding: 15px !important;
                 font-size: 14px !important;
@@ -1484,7 +1489,7 @@
         <div class="content">
 <!-- Q1: 照片上傳 -->
 <div class="question-page active" data-page="1">
-    <h2 style="text-align: center; line-height: 1.5;">線上免費檢測您的體態<br>立即獲得AI分析評估報告</h2>
+    <h2 style="text-align: center;">線上免費檢測您的體態<br>立即獲得AI分析評估報告</h2>
     <p class="subtitle">請拍攝<strong style="color: #c67566;">背面</strong>全身照</p>
     <div style="background: #fcf4e3; border-radius: 8px; padding: 12px; margin-bottom: 15px;">
         <p style="color: #ba9e60; font-size: 13px; line-height: 1.5;">
@@ -1514,7 +1519,7 @@
     </div>
     <input type="file" id="photoInputFile" accept="image/*" style="display: none;">
     <input type="file" id="photoInputCamera" accept="image/*" capture="environment" style="display: none;">
-    <button class="button" onclick="proceedToPrivacy()">進行AI分析</button>
+    <button class="button" onclick="nextPage()">進行AI分析</button>
     <div style="text-align: center; margin-top: 15px;">
         <button class="button" onclick="skipAIAnalysis()" style="background: #808080; font-size: 14px; padding: 12px 30px;">跳過AI檢測,直接預約體驗</button>
     </div>
@@ -1975,8 +1980,14 @@
                     <button class="button" onclick="nextPage()">下一步</button>
                 </div>
             </div>
-<!-- Q10: 資料確認 -->
-            <div class="question-page" data-page="10">
+
+            <!-- Q10: 體驗時段 (已移除) -->
+            <div class="question-page" data-page="10" style="display: none;">
+                <!-- 此頁面已移除 -->
+            </div>
+
+            <!-- Q11: 資料確認 -->
+            <div class="question-page" data-page="11">
                 <h2>資料確認</h2>
                 <p class="subtitle">請確認所有資料正確,點擊「修改」按鈕可編輯</p>
                 
@@ -2174,6 +2185,11 @@
                     <div id="edit_time_preferences"></div>
                 </div>
 
+                <div class="editable-section">
+                    <h3>理想體驗時段</h3>
+                    <div id="edit_experience_slots"></div>
+                </div>
+
                 <div class="editable-section" id="aiAnalysisSection">
                     <h3 id="aiAnalysisTitle">AI 體態分析</h3>
                     <div id="aiAnalysisContent">
@@ -2192,10 +2208,10 @@
                 </div>
             </div>
 
-            <!-- Q11: 場館規範 -->
-            <div class="question-page" data-page="11">
+            <!-- Q12: 場館規範 -->
+            <div class="question-page" data-page="12">
                 <h2>場館規範同意書</h2>
-                <p class="subtitle">請詳閱場館規範並同意後才能完成預約</p>
+<p class="subtitle">請詳閱場館規範並同意後才能完成預約</p>
                 <div style="background: #ffffff; border: 2px solid #ffe8e8; border-radius: 12px; padding: 20px; margin-bottom: 20px; max-height: 500px; overflow-y: auto;" id="venueRules">
                     載入中...
                 </div>
@@ -2204,16 +2220,15 @@
                     <span>我已詳閱並同意遵守以上場館規範</span>
                 </label>
                 <div id="rulesError" class="error-message" style="display: none;">請勾選同意場館規範</div>
-                
-                <button class="button secondary" onclick="prevPage()" style="margin-bottom: 10px;">上一步</button>
-                <div style="display: flex; gap: 10px;">
-                    <button class="button" onclick="submitLaterBooking()" style="flex: 1; background: linear-gradient(135deg, #ba9e60 0%, #d4af7a 100%);">稍後預約體驗</button>
-                    <button class="button" onclick="submitForm()" style="flex: 1;">馬上預約體驗</button>
+                <div class="nav-buttons" style="flex-direction: column; gap: 10px;">
+                    <button class="button secondary" onclick="prevPage()">上一步</button>
+                    <button class="button" onclick="submitFormLater()" style="background: #808080;">稍後預約體驗</button>
+                    <button class="button" onclick="submitFormNow()">馬上預約體驗</button>
                 </div>
             </div>
 
             <!-- 完成頁面 -->
-            <div class="question-page" data-page="12">
+            <div class="question-page" data-page="13">
                 <div class="completion-modern">
                     <div class="completion-icon-wrapper">
                         <div class="completion-icon-bg">
@@ -2221,7 +2236,7 @@
                         </div>
                     </div>
 
-                    <h1 class="completion-title">提交成功!</h1>
+                    <h1 class="completion-title">提交成功！</h1>
                     <p class="completion-subtitle">感謝您完成問卷填寫<br>我們已收到您的資料</p>
 
                     <div class="completion-info-cards">
@@ -2231,9 +2246,11 @@
                             <div class="completion-info-text">專業顧問將透過 LINE<br>與您確認體驗時間</div>
                         </div>
                     </div>
-                    
+
                     <div id="bookNowButtonContainer" style="display: none; margin-top: 20px;">
-                        <button class="button" onclick="goToBooking()">馬上預約體驗</button>
+                        <button class="button" onclick="goToBooking()" style="background: linear-gradient(135deg, #7ac19a 0%, #5f846f 100%);">
+                            馬上預約體驗
+                        </button>
                     </div>
 
                     <div class="completion-reminder">
@@ -2242,6 +2259,7 @@
                             <span>溫馨提醒</span>
                         </div>
                         <p class="completion-reminder-text">
+                            • 若長時間未收到回覆,請檢查垃圾郵件匣<br>
                             • 如有任何問題,歡迎直接聯繫我們的客服團隊<br>
                             • 我們將在 1-2 個工作天內與您聯繫
                         </p>
@@ -2255,7 +2273,7 @@
 
     <script>
         let currentPage = 1;
-        const totalPages = 12;
+        const totalPages = 13;
         let formData = {};
         let uploadedImage = null;
         let timeSlots = [];
@@ -2270,7 +2288,6 @@
             schedule: false,
             experience: false
         };
-        let isLaterBooking = false;
 
         const keypointDefinitions = [
             { id: 'head', label: '頭部', x: 0.5, y: 0.12, color: '#ff6b9d' },
@@ -2283,42 +2300,9 @@
         function getLineIdFromUrl() {
             const urlParams = new URLSearchParams(window.location.search);
             const lineId = urlParams.get('lineId') || urlParams.get('lineid') || urlParams.get('line_id') || '';
-            
             document.getElementById('lineId').value = lineId;
             formData.lineId = lineId;
-            
             return lineId;
-        }
-
-        function initializeLiff() {
-            if (typeof liff !== 'undefined') {
-                liff.init({
-                    liffId: '2007947083-kGa5bdRl'
-                }).then(() => {
-                    if (liff.isLoggedIn()) {
-                        liff.getProfile().then(profile => {
-                            console.log('LINE User ID:', profile.userId);
-                            document.getElementById('lineId').value = profile.userId;
-                            formData.lineId = profile.userId;
-                        }).catch(err => {
-                            console.error('LIFF getProfile error:', err);
-                            getLineIdFromUrl();
-                        });
-                    } else {
-                        liff.login();
-                    }
-                }).catch((err) => {
-                    console.error('LIFF init error:', err);
-                    getLineIdFromUrl();
-                });
-            } else {
-                console.log('LIFF SDK not loaded, checking URL parameters');
-                getLineIdFromUrl();
-            }
-        }
-
-        function goToBooking() {
-            window.location.href = 'https://liff.line.me/2007947083-kGa5bdRl';
         }
 
         function saveFormDataToStorage() {
@@ -2327,7 +2311,6 @@
                     ...formData,
                     currentPage: currentPage,
                     timeSlots: timeSlots,
-                    isLaterBooking: isLaterBooking,
                     timestamp: new Date().toISOString()
                 };
                 localStorage.setItem('fitnessFormData', JSON.stringify(dataToSave));
@@ -2350,7 +2333,6 @@
                             formData = parsed;
                             timeSlots = parsed.timeSlots || [];
                             currentPage = parsed.currentPage || 1;
-                            isLaterBooking = parsed.isLaterBooking || false;
                             restoreFormState();
                             return true;
                         } else {
@@ -2365,7 +2347,8 @@
             }
             return false;
         }
-function restoreFormState() {
+
+        function restoreFormState() {
             if (formData.goals) {
                 formData.goals.forEach(goal => {
                     const checkbox = document.querySelector(`input[name="goal"][value="${goal}"]`);
@@ -2439,10 +2422,9 @@ function restoreFormState() {
                 uploadedImage = formData.photo;
                 const preview = document.getElementById('previewImage');
                 const uploadText = document.getElementById('uploadText');
-                const previewContainer = document.getElementById('previewContainer');
                 preview.src = uploadedImage;
+                preview.style.display = 'block';
                 uploadText.style.display = 'none';
-                previewContainer.style.display = 'block';
                 document.getElementById('uploadArea').classList.add('has-image');
             }
             
@@ -2499,6 +2481,10 @@ function restoreFormState() {
                 });
             }
             
+            if (timeSlots.length > 0) {
+                renderTimeSlots();
+            }
+            
             document.querySelectorAll('.question-page').forEach(page => page.classList.remove('active'));
             const targetPage = document.querySelector(`[data-page="${currentPage}"]`);
             if (targetPage) {
@@ -2507,17 +2493,37 @@ function restoreFormState() {
             updateProgress();
         }
 
-        document.addEventListener('DOMContentLoaded', function() {
-            initializeLiff();
+        document.addEventListener('DOMContentLoaded', async function() {
+            // LIFF 初始化 - 要求從 LINE 登入
+            try {
+                await liff.init({ liffId: '2007947083-kGa5bdRl' });
+                
+                if (!liff.isLoggedIn()) {
+                    liff.login();
+                    return;
+                }
+                
+                // 獲取用戶資料
+                const profile = await liff.getProfile();
+                formData.lineId = profile.userId;
+                document.getElementById('lineId').value = profile.userId;
+                
+            } catch (error) {
+                console.error('LIFF 初始化失敗:', error);
+                // 如果不在 LINE 環境中,仍然繼續執行
+            }
+            
+            // 檢查是否為稍後預約體驗的回訪用戶
+            const previousBookingType = localStorage.getItem('bookingType');
+            if (previousBookingType === 'later') {
+                document.getElementById('bookNowButtonContainer').style.display = 'block';
+            }
+            
+            getLineIdFromUrl();
             const restored = loadFormDataFromStorage();
             if (!restored) {
                 updateProgress();
             }
-            
-            if (restored && isLaterBooking && currentPage === 12) {
-                document.getElementById('bookNowButtonContainer').style.display = 'block';
-            }
-            
             initializeDateInputs();
             initializeDiseaseCheckboxes();
             initializeTimeSlotCheckboxes();
@@ -2558,6 +2564,13 @@ function restoreFormState() {
             yearSelect.addEventListener('change', updateHiddenDate);
             monthSelect.addEventListener('change', updateHiddenDate);
             document.getElementById('birthdayDay').addEventListener('change', updateHiddenDate);
+            
+            const tomorrow = new Date(today);
+            tomorrow.setDate(tomorrow.getDate() + 1);
+            const tomorrowStr = tomorrow.toISOString().split('T')[0];
+            
+            const slotDateInput = document.getElementById('slotDate');
+            slotDateInput.min = tomorrowStr;
         }
         
         function updateDayOptions() {
@@ -2730,65 +2743,58 @@ function restoreFormState() {
         }
 
         function setupImageUpload() {
-            const photoInputFile = document.getElementById('photoInputFile');
-            const photoInputCamera = document.getElementById('photoInputCamera');
-            
-            [photoInputFile, photoInputCamera].forEach(input => {
-                input.addEventListener('change', function(e) {
-                    const file = e.target.files[0];
-                    if (file) {
-                        const reader = new FileReader();
-                        reader.onload = function(event) {
-                            uploadedImage = event.target.result;
-                            const preview = document.getElementById('previewImage');
-                            const uploadText = document.getElementById('uploadText');
-                            const previewContainer = document.getElementById('previewContainer');
-                            
-                            preview.src = uploadedImage;
-                            uploadText.style.display = 'none';
-                            previewContainer.style.display = 'block';
-                            document.getElementById('uploadArea').classList.add('has-image');
-                        };
-                        reader.readAsDataURL(file);
-                    }
-                });
-            });
-        }
-
-        function reuploadPhoto() {
-            const photoInputFile = document.getElementById('photoInputFile');
-            const photoInputCamera = document.getElementById('photoInputCamera');
-            
-            if (confirm('要選擇檔案還是拍照?\n\n點選「確定」選擇檔案\n點選「取消」開啟相機拍照')) {
-                photoInputFile.click();
-            } else {
-                photoInputCamera.click();
+    const photoInputFile = document.getElementById('photoInputFile');
+    const photoInputCamera = document.getElementById('photoInputCamera');
+    
+    [photoInputFile, photoInputCamera].forEach(input => {
+        input.addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(event) {
+                    uploadedImage = event.target.result;
+                    const preview = document.getElementById('previewImage');
+                    const uploadText = document.getElementById('uploadText');
+                    const previewContainer = document.getElementById('previewContainer');
+                    
+                    preview.src = uploadedImage;
+                    uploadText.style.display = 'none';
+                    previewContainer.style.display = 'block';
+                    document.getElementById('uploadArea').classList.add('has-image');
+                };
+                reader.readAsDataURL(file);
             }
-        }
+        });
+    });
+}
 
-        function deletePhoto() {
-            if (confirm('確定要刪除照片嗎?')) {
-                uploadedImage = null;
-                const preview = document.getElementById('previewImage');
-                const uploadText = document.getElementById('uploadText');
-                const previewContainer = document.getElementById('previewContainer');
-                
-                preview.src = '';
-                uploadText.style.display = 'block';
-                previewContainer.style.display = 'none';
-                document.getElementById('uploadArea').classList.remove('has-image');
-                
-                document.getElementById('photoInputFile').value = '';
-                document.getElementById('photoInputCamera').value = '';
-            }
-        }
+function reuploadPhoto() {
+    const photoInputFile = document.getElementById('photoInputFile');
+    const photoInputCamera = document.getElementById('photoInputCamera');
+    
+    if (confirm('要選擇檔案還是拍照?\n\n點選「確定」選擇檔案\n點選「取消」開啟相機拍照')) {
+        photoInputFile.click();
+    } else {
+        photoInputCamera.click();
+    }
+}
 
-        function setupPhoneInput() {
-            const phoneInput = document.getElementById('phone');
-            phoneInput.addEventListener('input', function(e) {
-                this.value = this.value.replace(/[^0-9]/g, '');
-            });
-        }
+function deletePhoto() {
+    if (confirm('確定要刪除照片嗎?')) {
+        uploadedImage = null;
+        const preview = document.getElementById('previewImage');
+        const uploadText = document.getElementById('uploadText');
+        const previewContainer = document.getElementById('previewContainer');
+        
+        preview.src = '';
+        uploadText.style.display = 'block';
+        previewContainer.style.display = 'none';
+        document.getElementById('uploadArea').classList.remove('has-image');
+        
+        document.getElementById('photoInputFile').value = '';
+        document.getElementById('photoInputCamera').value = '';
+    }
+}
 
         function setupTimeInputs() {
             const timeInputIds = ['weekdayDayTime', 'weekdayNightTime', 'weekendDayTime', 'weekendNightTime', 'slotTime'];
@@ -2872,23 +2878,6 @@ function restoreFormState() {
             return `${hour.toString().padStart(2, '0')}:${minute.toString().padStart(2, '0')}`;
         }
 
-function proceedToPrivacy() {
-    if (!uploadedImage) {
-        alert('請先上傳體態照片');
-        return;
-    }
-    
-    saveCurrentPageData();
-    
-    document.querySelectorAll('.question-page').forEach(page => {
-        page.classList.remove('active');
-    });
-    currentPage = 2;
-    document.querySelector('[data-page="2"]').classList.add('active');
-    updateProgress();
-    window.scrollTo(0, 0);
-}
-
         function proceedAfterPrivacy() {
             const agreePrivacy = document.getElementById('agreePrivacy').checked;
             if (!agreePrivacy) {
@@ -2929,182 +2918,28 @@ function proceedToPrivacy() {
 
             setTimeout(() => initializeCanvas(), 100);
         }
-function initializeCanvas() {
+
+        function initializeCanvas() {
             canvas = document.getElementById('postureCanvas');
             ctx = canvas.getContext('2d');
-            
-            const img = new Image();
-            img.onload = function() {
-                const containerWidth = canvas.parentElement.offsetWidth;
-                const scale = containerWidth / img.width;
-                canvas.width = img.width;
-                canvas.height = img.height;
-                canvas.style.width = containerWidth + 'px';
-                canvas.style.height = (img.height * scale) + 'px';
-                
-                keypointDefinitions.forEach(kp => {
-                    keypoints[kp.id] = {
-                        x: kp.x * canvas.width,
-                        y: kp.y * canvas.height,
-                        label: kp.label,
-                        color: kp.color
-                    };
-                });
-                
-                drawCanvas();
-            };
-            img.src = uploadedImage;
-            
-            if (isMobile) {
-                canvas.addEventListener('touchstart', handleTouchStart, { passive: false });
-                canvas.addEventListener('touchmove', handleTouchMove, { passive: false });
-                canvas.addEventListener('touchend', handleTouchEnd, { passive: false });
-            } else {
-                canvas.addEventListener('mousedown', handleMouseDown);
-                canvas.addEventListener('mousemove', handleMouseMove);
-                canvas.addEventListener('mouseup', handleMouseUp);
-                canvas.addEventListener('mouseleave', handleMouseUp);
-            }
-        }
 
-        function drawCanvas() {
             const img = new Image();
             img.onload = function() {
-                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                const maxWidth = 600;
+                const scale = maxWidth / img.width;
+                canvas.width = img.width * scale;
+                canvas.height = img.height * scale;
+
                 ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
-                
-                ctx.strokeStyle = 'rgba(122, 193, 154, 0.4)';
-                ctx.lineWidth = 3;
-                ctx.setLineDash([10, 5]);
-                
-                const connections = [
-                    ['leftShoulder', 'rightShoulder'],
-                    ['leftShoulder', 'head'],
-                    ['rightShoulder', 'head'],
-                    ['leftShoulder', 'leftFoot'],
-                    ['rightShoulder', 'rightFoot'],
-                    ['leftFoot', 'rightFoot']
-                ];
-                
-                connections.forEach(([start, end]) => {
-                    if (keypoints[start] && keypoints[end]) {
-                        ctx.beginPath();
-                        ctx.moveTo(keypoints[start].x, keypoints[start].y);
-                        ctx.lineTo(keypoints[end].x, keypoints[end].y);
-                        ctx.stroke();
-                    }
-                });
-                
-                ctx.setLineDash([]);
-                
-                Object.keys(keypoints).forEach(key => {
-                    const kp = keypoints[key];
-                    
-                    ctx.shadowColor = kp.color;
-                    ctx.shadowBlur = 15;
-                    ctx.fillStyle = kp.color;
-                    ctx.beginPath();
-                    ctx.arc(kp.x, kp.y, 12, 0, Math.PI * 2);
-                    ctx.fill();
-                    
-                    ctx.shadowBlur = 0;
-                    ctx.fillStyle = 'rgba(255, 255, 255, 0.9)';
-                    ctx.beginPath();
-                    ctx.arc(kp.x, kp.y, 6, 0, Math.PI * 2);
-                    ctx.fill();
-                    
-                    ctx.strokeStyle = 'rgba(255, 255, 255, 0.6)';
-                    ctx.lineWidth = 2;
-                    ctx.beginPath();
-                    ctx.arc(kp.x, kp.y, 16, 0, Math.PI * 2);
-                    ctx.stroke();
-                });
+
+                autoDetectKeypoints();
+                drawKeypoints();
+                setupCanvasInteraction();
             };
             img.src = uploadedImage;
         }
 
-        function handleTouchStart(e) {
-            e.preventDefault();
-            const touch = e.touches[0];
-            const rect = canvas.getBoundingClientRect();
-            const scaleX = canvas.width / rect.width;
-            const scaleY = canvas.height / rect.height;
-            const x = (touch.clientX - rect.left) * scaleX;
-            const y = (touch.clientY - rect.top) * scaleY;
-            
-            Object.keys(keypoints).forEach(key => {
-                const kp = keypoints[key];
-                const distance = Math.sqrt((x - kp.x) ** 2 + (y - kp.y) ** 2);
-                if (distance < 25) {
-                    isDragging = true;
-                    draggedPoint = key;
-                }
-            });
-        }
-
-        function handleTouchMove(e) {
-            if (!isDragging || !draggedPoint) return;
-            e.preventDefault();
-            
-            const touch = e.touches[0];
-            const rect = canvas.getBoundingClientRect();
-            const scaleX = canvas.width / rect.width;
-            const scaleY = canvas.height / rect.height;
-            const x = (touch.clientX - rect.left) * scaleX;
-            const y = (touch.clientY - rect.top) * scaleY;
-            
-            keypoints[draggedPoint].x = Math.max(0, Math.min(canvas.width, x));
-            keypoints[draggedPoint].y = Math.max(0, Math.min(canvas.height, y));
-            
-            drawCanvas();
-        }
-
-        function handleTouchEnd(e) {
-            e.preventDefault();
-            isDragging = false;
-            draggedPoint = null;
-        }
-
-        function handleMouseDown(e) {
-            const rect = canvas.getBoundingClientRect();
-            const scaleX = canvas.width / rect.width;
-            const scaleY = canvas.height / rect.height;
-            const x = (e.clientX - rect.left) * scaleX;
-            const y = (e.clientY - rect.top) * scaleY;
-            
-            Object.keys(keypoints).forEach(key => {
-                const kp = keypoints[key];
-                const distance = Math.sqrt((x - kp.x) ** 2 + (y - kp.y) ** 2);
-                if (distance < 25) {
-                    isDragging = true;
-                    draggedPoint = key;
-                }
-            });
-        }
-
-        function handleMouseMove(e) {
-            if (!isDragging || !draggedPoint) return;
-            
-            const rect = canvas.getBoundingClientRect();
-            const scaleX = canvas.width / rect.width;
-            const scaleY = canvas.height / rect.height;
-            const x = (e.clientX - rect.left) * scaleX;
-            const y = (e.clientY - rect.top) * scaleY;
-            
-            keypoints[draggedPoint].x = Math.max(0, Math.min(canvas.width, x));
-            keypoints[draggedPoint].y = Math.max(0, Math.min(canvas.height, y));
-            
-            drawCanvas();
-        }
-
-        function handleMouseUp() {
-            isDragging = false;
-            draggedPoint = null;
-        }
-
-        function autoAdjustKeypoints() {
-            if (!uploadedImage) return;
-            
+        function autoDetectKeypoints() {
             keypointDefinitions.forEach(kp => {
                 keypoints[kp.id] = {
                     x: kp.x * canvas.width,
@@ -3113,8 +2948,341 @@ function initializeCanvas() {
                     color: kp.color
                 };
             });
+        }
+
+        function autoAdjustKeypoints() {
+            autoDetectKeypoints();
+            drawKeypoints();
             
-            drawCanvas();
+            if (navigator.vibrate) {
+                navigator.vibrate([50, 30, 50]);
+            }
+        }
+
+        function drawKeypoints() {
+            const img = new Image();
+            img.onload = function() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+
+                ctx.fillStyle = 'rgba(226, 237, 230, 0.15)';
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+                const pointIds = Object.keys(keypoints);
+                const totalConnections = (pointIds.length * (pointIds.length - 1)) / 2;
+                document.getElementById('edgeCount').textContent = totalConnections;
+                
+                for (let i = 0; i < pointIds.length; i++) {
+                    for (let j = i + 1; j < pointIds.length; j++) {
+                        const p1 = keypoints[pointIds[i]];
+                        const p2 = keypoints[pointIds[j]];
+                        
+                        const gradient = ctx.createLinearGradient(p1.x, p1.y, p2.x, p2.y);
+                        gradient.addColorStop(0, p1.color + '55');
+                        gradient.addColorStop(0.3, '#7ac19a70');
+                        gradient.addColorStop(0.7, '#9fcccc70');
+                        gradient.addColorStop(1, p2.color + '55');
+                        
+                        ctx.strokeStyle = gradient;
+                        ctx.lineWidth = 3;
+                        ctx.lineCap = 'round';
+                        ctx.setLineDash([]);
+                        
+                        ctx.shadowColor = '#7ac19a';
+                        ctx.shadowBlur = 10;
+                        
+                        ctx.beginPath();
+                        ctx.moveTo(p1.x, p1.y);
+                        ctx.lineTo(p2.x, p2.y);
+                        ctx.stroke();
+                        
+                        const midX = (p1.x + p2.x) / 2;
+                        const midY = (p1.y + p2.y) / 2;
+                        
+                        ctx.shadowBlur = 20;
+                        ctx.fillStyle = '#7ac19a40';
+                        ctx.beginPath();
+                        ctx.arc(midX, midY, 6, 0, Math.PI * 2);
+                        ctx.fill();
+                        
+                        ctx.shadowBlur = 15;
+                        ctx.fillStyle = '#7ac19a90';
+                        ctx.beginPath();
+                        ctx.arc(midX, midY, 3, 0, Math.PI * 2);
+                        ctx.fill();
+                    }
+                }
+                
+                ctx.shadowBlur = 0;
+                ctx.setLineDash([]);
+
+                if (keypoints['head'] && keypoints['leftShoulder'] && keypoints['rightShoulder']) {
+                    const gradient = ctx.createRadialGradient(
+                        keypoints['head'].x, keypoints['head'].y, 0,
+                        keypoints['head'].x, keypoints['head'].y, 150
+                    );
+                    gradient.addColorStop(0, 'rgba(79, 172, 254, 0.12)');
+                    gradient.addColorStop(1, 'rgba(79, 172, 254, 0.05)');
+                    
+                    ctx.fillStyle = gradient;
+                    ctx.beginPath();
+                    ctx.moveTo(keypoints['head'].x, keypoints['head'].y);
+                    ctx.lineTo(keypoints['leftShoulder'].x, keypoints['leftShoulder'].y);
+                    ctx.lineTo(keypoints['rightShoulder'].x, keypoints['rightShoulder'].y);
+                    ctx.closePath();
+                    ctx.fill();
+                }
+                
+                if (keypoints['leftShoulder'] && keypoints['leftFoot'] && keypoints['rightFoot']) {
+                    ctx.fillStyle = 'rgba(255, 166, 71, 0.08)';
+                    ctx.beginPath();
+                    ctx.moveTo(keypoints['leftShoulder'].x, keypoints['leftShoulder'].y);
+                    ctx.lineTo(keypoints['leftFoot'].x, keypoints['leftFoot'].y);
+                    ctx.lineTo(keypoints['rightFoot'].x, keypoints['rightFoot'].y);
+                    ctx.closePath();
+                    ctx.fill();
+                }
+                
+                if (keypoints['rightShoulder'] && keypoints['leftFoot'] && keypoints['rightFoot']) {
+                    ctx.fillStyle = 'rgba(255, 107, 157, 0.08)';
+                    ctx.beginPath();
+                    ctx.moveTo(keypoints['rightShoulder'].x, keypoints['rightShoulder'].y);
+                    ctx.lineTo(keypoints['leftFoot'].x, keypoints['leftFoot'].y);
+                    ctx.lineTo(keypoints['rightFoot'].x, keypoints['rightFoot'].y);
+                    ctx.closePath();
+                    ctx.fill();
+                }
+
+                Object.entries(keypoints).forEach(([id, point]) => {
+                    const isActive = isDragging && draggedPoint === id;
+                    const baseRadius = isMobile ? 28 : 20;
+                    const radius = isActive ? baseRadius + 8 : baseRadius;
+                    
+                    if (isActive) {
+                        for (let i = 5; i > 0; i--) {
+                            ctx.beginPath();
+                            ctx.arc(point.x, point.y, radius + (i * 14), 0, Math.PI * 2);
+                            const alpha = (10 - i * 1.5) / 100;
+                            ctx.fillStyle = `rgba(122, 193, 154, ${alpha})`;
+                            ctx.fill();
+                        }
+                    }
+                    
+                    ctx.shadowColor = isActive ? '#7ac19a' : point.color;
+                    ctx.shadowBlur = isActive ? 30 : 18;
+                    ctx.beginPath();
+                    ctx.arc(point.x, point.y, radius + 10, 0, Math.PI * 2);
+                    ctx.fillStyle = isActive ? 'rgba(122, 193, 154, 0.35)' : point.color + '35';
+                    ctx.fill();
+                    
+                    ctx.shadowBlur = 15;
+                    ctx.beginPath();
+                    ctx.arc(point.x, point.y, radius + 5, 0, Math.PI * 2);
+                    ctx.fillStyle = isActive ? 'rgba(122, 193, 154, 0.5)' : point.color + '50';
+                    ctx.fill();
+                    
+                    ctx.shadowBlur = 10;
+                    ctx.beginPath();
+                    ctx.arc(point.x, point.y, radius + 2, 0, Math.PI * 2);
+                    ctx.fillStyle = 'rgba(255, 255, 255, 0.95)';
+                    ctx.fill();
+                    
+                    const gradient = ctx.createRadialGradient(
+                        point.x - radius/3, point.y - radius/3, 0,
+                        point.x, point.y, radius
+                    );
+                    gradient.addColorStop(0, lightenColor(point.color, 30));
+                    gradient.addColorStop(0.6, point.color);
+                    gradient.addColorStop(1, darkenColor(point.color, 10));
+                    
+                    ctx.shadowBlur = 0;
+                    ctx.beginPath();
+                    ctx.arc(point.x, point.y, radius, 0, Math.PI * 2);
+                    ctx.fillStyle = gradient;
+                    ctx.fill();
+                    
+                    ctx.beginPath();
+                    ctx.arc(point.x - radius/2.5, point.y - radius/2.5, radius/2, 0, Math.PI * 2);
+                    ctx.fillStyle = 'rgba(255, 255, 255, 0.7)';
+                    ctx.fill();
+                    
+                    ctx.beginPath();
+                    ctx.arc(point.x + radius/4, point.y + radius/4, radius/4, 0, Math.PI * 2);
+                    ctx.fillStyle = 'rgba(255, 255, 255, 0.4)';
+                    ctx.fill();
+
+                    ctx.font = `bold ${isMobile ? 12 : 14}px "Segoe UI", Arial, sans-serif`;
+                    const textWidth = ctx.measureText(point.label).width;
+                    const padding = isMobile ? 8 : 12;
+                    const labelWidth = textWidth + padding * 2;
+                    const labelHeight = isMobile ? 26 : 30;
+                    
+                    const labelX = id.includes('left') ? point.x - labelWidth - (isMobile ? 28 : 22) : point.x + (isMobile ? 28 : 22);
+                    const labelY = point.y - labelHeight / 2;
+                    
+                    ctx.shadowColor = 'rgba(95, 132, 111, 0.4)';
+                    ctx.shadowBlur = 12;
+                    ctx.shadowOffsetY = 3;
+                    
+                    const labelGradient = ctx.createLinearGradient(
+                        labelX, labelY,
+                        labelX, labelY + labelHeight
+                    );
+                    labelGradient.addColorStop(0, 'rgba(95, 132, 111, 0.98)');
+                    labelGradient.addColorStop(1, 'rgba(95, 132, 111, 0.92)');
+                    
+                    ctx.fillStyle = labelGradient;
+                    roundRect(ctx, labelX, labelY, labelWidth, labelHeight, 15);
+                    ctx.fill();
+                    
+                    ctx.shadowBlur = 0;
+                    ctx.shadowOffsetY = 0;
+                    
+                    ctx.strokeStyle = 'rgba(122, 193, 154, 0.6)';
+                    ctx.lineWidth = 2;
+                    roundRect(ctx, labelX + 1, labelY + 1, labelWidth - 2, labelHeight - 2, 14);
+                    ctx.stroke();
+                    
+                    ctx.fillStyle = '#ffffff';
+                    ctx.textAlign = 'center';
+                    ctx.textBaseline = 'middle';
+                    ctx.fillText(point.label, labelX + labelWidth / 2, labelY + labelHeight / 2);
+                    
+                    ctx.textAlign = 'start';
+                    ctx.textBaseline = 'alphabetic';
+                });
+            };
+            img.src = uploadedImage;
+        }
+
+        function roundRect(ctx, x, y, width, height, radius) {
+            ctx.beginPath();
+            ctx.moveTo(x + radius, y);
+            ctx.lineTo(x + width - radius, y);
+            ctx.quadraticCurveTo(x + width, y, x + width, y + radius);
+            ctx.lineTo(x + width, y + height - radius);
+            ctx.quadraticCurveTo(x + width, y + height, x + width - radius, y + height);
+            ctx.lineTo(x + radius, y + height);
+            ctx.quadraticCurveTo(x, y + height, x, y + height - radius);
+            ctx.lineTo(x, y + radius);
+            ctx.quadraticCurveTo(x, y, x + radius, y);
+            ctx.closePath();
+        }
+
+        function lightenColor(color, percent) {
+            const num = parseInt(color.replace("#",""), 16);
+            const amt = Math.round(2.55 * percent);
+            const R = Math.min(255, (num >> 16) + amt);
+            const G = Math.min(255, (num >> 8 & 0x00FF) + amt);
+            const B = Math.min(255, (num & 0x0000FF) + amt);
+            return "#" + (0x1000000 + R * 0x10000 + G * 0x100 + B).toString(16).slice(1);
+        }
+
+        function darkenColor(color, percent) {
+            const num = parseInt(color.replace("#",""), 16);
+            const amt = Math.round(2.55 * percent);
+            const R = Math.max(0, (num >> 16) - amt);
+            const G = Math.max(0, (num >> 8 & 0x00FF) - amt);
+            const B = Math.max(0, (num & 0x0000FF) - amt);
+            return "#" + (0x1000000 + R * 0x10000 + G * 0x100 + B).toString(16).slice(1);
+        }
+
+        function setupCanvasInteraction() {
+            canvas.addEventListener('mousedown', handleMouseDown);
+            canvas.addEventListener('mousemove', handleMouseMove);
+            canvas.addEventListener('mouseup', handleMouseUp);
+            canvas.addEventListener('mouseleave', handleMouseUp);
+            
+            canvas.addEventListener('touchstart', handleTouchStart, { passive: false });
+            canvas.addEventListener('touchmove', handleTouchMove, { passive: false });
+            canvas.addEventListener('touchend', handleTouchEnd, { passive: false });
+            canvas.addEventListener('touchcancel', handleTouchEnd, { passive: false });
+        }
+
+        function handleMouseDown(e) {
+            e.preventDefault();
+            const rect = canvas.getBoundingClientRect();
+            const x = (e.clientX - rect.left) * (canvas.width / rect.width);
+            const y = (e.clientY - rect.top) * (canvas.height / rect.height);
+            checkPointClick(x, y);
+        }
+
+        function handleTouchStart(e) {
+            e.preventDefault();
+            const rect = canvas.getBoundingClientRect();
+            const touch = e.touches[0];
+            const x = (touch.clientX - rect.left) * (canvas.width / rect.width);
+            const y = (touch.clientY - rect.top) * (canvas.height / rect.height);
+            checkPointClick(x, y);
+        }
+
+        function checkPointClick(x, y) {
+            const touchRadius = isMobile ? 80 : 45;
+            
+            let closestPoint = null;
+            let closestDistance = Infinity;
+            
+            Object.entries(keypoints).forEach(([id, point]) => {
+                const distance = Math.sqrt(Math.pow(x - point.x, 2) + Math.pow(y - point.y, 2));
+                if (distance < touchRadius && distance < closestDistance) {
+                    closestDistance = distance;
+                    closestPoint = id;
+                }
+            });
+            
+            if (closestPoint) {
+                isDragging = true;
+                draggedPoint = closestPoint;
+                
+                if (navigator.vibrate) {
+                    navigator.vibrate(50);
+                }
+                
+                drawKeypoints();
+            }
+        }
+
+        function handleMouseMove(e) {
+            if (!isDragging || !draggedPoint) return;
+            e.preventDefault();
+            const rect = canvas.getBoundingClientRect();
+            const x = (e.clientX - rect.left) * (canvas.width / rect.width);
+            const y = (e.clientY - rect.top) * (canvas.height / rect.height);
+            updatePointPosition(x, y);
+        }
+
+        function handleTouchMove(e) {
+            if (!isDragging || !draggedPoint) return;
+            e.preventDefault();
+            const rect = canvas.getBoundingClientRect();
+            const touch = e.touches[0];
+            const x = (touch.clientX - rect.left) * (canvas.width / rect.width);
+            const y = (touch.clientY - rect.top) * (canvas.height / rect.height);
+            updatePointPosition(x, y);
+        }
+
+        function updatePointPosition(x, y) {
+            if (!draggedPoint) return;
+            keypoints[draggedPoint].x = Math.max(0, Math.min(canvas.width, x));
+            keypoints[draggedPoint].y = Math.max(0, Math.min(canvas.height, y));
+            drawKeypoints();
+        }
+
+        function handleMouseUp() {
+            if (isDragging) {
+                isDragging = false;
+                draggedPoint = null;
+                drawKeypoints();
+            }
+        }
+
+        function handleTouchEnd(e) {
+            if (isDragging) {
+                e.preventDefault();
+                isDragging = false;
+                draggedPoint = null;
+                drawKeypoints();
+            }
         }
 
         function calculatePosture() {
@@ -3123,58 +3291,136 @@ function initializeCanvas() {
             overlay.innerHTML = `
                 <div class="analyzing-spinner"></div>
                 <div class="analyzing-text">AI 分析中...</div>
-                <div class="analyzing-subtext">正在評估您的體態資料</div>
+                <div class="analyzing-subtext">正在評估您的體態數據</div>
             `;
             document.body.appendChild(overlay);
-            
+
             setTimeout(() => {
-                const leftShoulderY = keypoints.leftShoulder.y;
-                const rightShoulderY = keypoints.rightShoulder.y;
-                const shoulderImbalance = Math.abs(leftShoulderY - rightShoulderY);
+                const leftShoulder = keypoints['leftShoulder'];
+                const rightShoulder = keypoints['rightShoulder'];
+                const leftFoot = keypoints['leftFoot'];
+                const rightFoot = keypoints['rightFoot'];
+                const head = keypoints['head'];
                 
-                const shoulderBalance = Math.max(70, 100 - shoulderImbalance * 2);
-                const pelvisBalance = Math.floor(Math.random() * 15) + 80;
-                const spineAlignment = Math.floor(Math.random() * 15) + 75;
-                const overallStability = Math.floor(Math.random() * 12) + 85;
-                
-                const postureScore = Math.round((shoulderBalance + pelvisBalance + spineAlignment + overallStability) / 4);
-                
-                let recommendExercise = '';
-                let recommendDiet = '';
-                let detailedAnalysis = '';
-                
-                if (postureScore >= 90) {
-                    recommendExercise = '重量訓練、器械皮拉提斯,維持當前體態';
-                    recommendDiet = '蛋白質:碳水化合物:脂肪 = 3:5:2';
-                    detailedAnalysis = '整體體態優秀,肌肉平衡良好。建議持續進行綜合性訓練,維持當前體態水平。';
-                } else if (postureScore >= 75) {
-                    recommendExercise = '伸展課程、器械皮拉提斯,改善姿勢平衡';
-                    recommendDiet = '蛋白質:碳水化合物:脂肪 = 3:4:3';
-                    detailedAnalysis = '體態良好但仍有改善空間。建議增加核心訓練和柔韌性練習,特別注意肩部和骨盆的對稱性。';
+                const shoulderHeightDiff = Math.abs(leftShoulder.y - rightShoulder.y);
+                const shoulderHeightDiffPercent = (shoulderHeightDiff / canvas.height) * 100;
+                let shoulderScore;
+                if (shoulderHeightDiffPercent < 0.5) {
+                    shoulderScore = 98 + Math.random() * 2;
+                } else if (shoulderHeightDiffPercent < 0.8) {
+                    shoulderScore = 93 + Math.random() * 5;
+                } else if (shoulderHeightDiffPercent < 1.2) {
+                    shoulderScore = 87 + Math.random() * 6;
+                } else if (shoulderHeightDiffPercent < 1.8) {
+                    shoulderScore = 78 + Math.random() * 9;
+                } else if (shoulderHeightDiffPercent < 2.5) {
+                    shoulderScore = 68 + Math.random() * 10;
+                } else if (shoulderHeightDiffPercent < 3.5) {
+                    shoulderScore = 55 + Math.random() * 13;
                 } else {
-                    recommendExercise = '伸展課程、矯正訓練,優先改善體態問題';
-                    recommendDiet = '蛋白質:碳水化合物:脂肪 = 4:4:2';
-                    detailedAnalysis = '檢測到明顯的體態不平衡。建議從基礎矯正開始,重點改善肩部和脊椎排列,搭配適當的伸展訓練。';
+                    shoulderScore = 40 + Math.random() * 15;
                 }
                 
-                formData.postureScore = postureScore;
-                formData.shoulderBalance = Math.round(shoulderBalance);
-                formData.pelvisBalance = pelvisBalance;
-                formData.spineAlignment = spineAlignment;
-                formData.overallStability = overallStability;
-                formData.recommendExercise = recommendExercise;
-                formData.recommendDiet = recommendDiet;
-                formData.detailedAnalysis = detailedAnalysis;
-                formData.photo = uploadedImage;
+                const shoulderCenterX = (leftShoulder.x + rightShoulder.x) / 2;
+                const headDeviationX = Math.abs(head.x - shoulderCenterX);
+                const headDeviationPercent = (headDeviationX / canvas.width) * 100;
+                let headScore;
+                if (headDeviationPercent < 1.0) {
+                    headScore = 97 + Math.random() * 3;
+                } else if (headDeviationPercent < 1.8) {
+                    headScore = 90 + Math.random() * 7;
+                } else if (headDeviationPercent < 2.8) {
+                    headScore = 82 + Math.random() * 8;
+                } else if (headDeviationPercent < 4.0) {
+                    headScore = 72 + Math.random() * 10;
+                } else if (headDeviationPercent < 5.5) {
+                    headScore = 60 + Math.random() * 12;
+                } else if (headDeviationPercent < 7.0) {
+                    headScore = 48 + Math.random() * 12;
+                } else {
+                    headScore = 30 + Math.random() * 18;
+                }
                 
-                document.getElementById('postureScore').textContent = postureScore;
-                document.getElementById('shoulderBalance').textContent = Math.round(shoulderBalance);
-                document.getElementById('pelvisBalance').textContent = pelvisBalance;
-                document.getElementById('spineAlignment').textContent = spineAlignment;
-                document.getElementById('overallStability').textContent = overallStability;
-                document.getElementById('recommendExercise').textContent = recommendExercise;
-                document.getElementById('recommendDiet').textContent = recommendDiet;
-                document.getElementById('detailedAnalysis').textContent = detailedAnalysis;
+                const footHeightDiff = Math.abs(leftFoot.y - rightFoot.y);
+                const footHeightDiffPercent = (footHeightDiff / canvas.height) * 100;
+                let footScore;
+                if (footHeightDiffPercent < 0.4) {
+                    footScore = 97 + Math.random() * 3;
+                } else if (footHeightDiffPercent < 0.7) {
+                    footScore = 92 + Math.random() * 5;
+                } else if (footHeightDiffPercent < 1.1) {
+                    footScore = 85 + Math.random() * 7;
+                } else if (footHeightDiffPercent < 1.6) {
+                    footScore = 76 + Math.random() * 9;
+                } else if (footHeightDiffPercent < 2.3) {
+                    footScore = 65 + Math.random() * 11;
+                } else if (footHeightDiffPercent < 3.2) {
+                    footScore = 52 + Math.random() * 13;
+                } else {
+                    footScore = 35 + Math.random() * 17;
+                }
+                
+                const feetCenterX = (leftFoot.x + rightFoot.x) / 2;
+                const bodyDeviationX = Math.abs(head.x - feetCenterX);
+                const bodyDeviationPercent = (bodyDeviationX / canvas.width) * 100;
+                let stabilityScore;
+                if (bodyDeviationPercent < 1.2) {
+                    stabilityScore = 96 + Math.random() * 4;
+                } else if (bodyDeviationPercent < 2.2) {
+                    stabilityScore = 88 + Math.random() * 8;
+                } else if (bodyDeviationPercent < 3.5) {
+                    stabilityScore = 78 + Math.random() * 10;
+                } else if (bodyDeviationPercent < 5.0) {
+                    stabilityScore = 67 + Math.random() * 11;
+                } else if (bodyDeviationPercent < 6.8) {
+                    stabilityScore = 55 + Math.random() * 12;
+                } else if (bodyDeviationPercent < 8.5) {
+                    stabilityScore = 42 + Math.random() * 13;
+                } else {
+                    stabilityScore = 28 + Math.random() * 14;
+                }
+
+                const shoulderSlope = Math.abs((rightShoulder.y - leftShoulder.y) / (rightShoulder.x - leftShoulder.x));
+                const footSlope = Math.abs((rightFoot.y - leftFoot.y) / (rightFoot.x - leftFoot.x));
+                const slopeDifference = Math.abs(shoulderSlope - footSlope) * 100;
+                let parallelScore;
+                if (slopeDifference < 0.5) {
+                    parallelScore = 97 + Math.random() * 3;
+                } else if (slopeDifference < 1.0) {
+                    parallelScore = 90 + Math.random() * 7;
+                } else if (slopeDifference < 2.0) {
+                    parallelScore = 80 + Math.random() * 10;
+                } else if (slopeDifference < 3.5) {
+                    parallelScore = 68 + Math.random() * 12;
+                } else {
+                    parallelScore = 50 + Math.random() * 18;
+                }
+
+                const overallScore = Math.round(
+                    shoulderScore * 0.25 +
+                    headScore * 0.25 +
+                    footScore * 0.18 +
+                    stabilityScore * 0.20 +
+                    parallelScore * 0.12
+                );
+
+                formData.shoulderBalance = Math.round(shoulderScore);
+                formData.pelvisBalance = Math.round(footScore);
+                formData.spineAlignment = Math.round(headScore);
+                formData.overallStability = Math.round(stabilityScore);
+                formData.postureScore = overallScore;
+
+                formData.measurements = {
+                    shoulderHeightDiff: shoulderHeightDiffPercent.toFixed(3),
+                    headDeviation: headDeviationPercent.toFixed(3),
+                    footHeightDiff: footHeightDiffPercent.toFixed(3),
+                    bodyDeviation: bodyDeviationPercent.toFixed(3),
+                    parallelScore: parallelScore.toFixed(1),
+                    slopeDifference: slopeDifference.toFixed(3)
+                };
+
+                generateRecommendations(overallScore, shoulderScore, footScore, headScore, stabilityScore, parallelScore);
+                displayAnalysisResults();
                 
                 document.body.removeChild(overlay);
                 
@@ -3185,658 +3431,1070 @@ function initializeCanvas() {
                 document.querySelector('[data-page="3"]').classList.add('active');
                 updateProgress();
                 window.scrollTo(0, 0);
-                
-                saveFormDataToStorage();
-            }, 2500);
+            }, 3000);
         }
 
         function skipAIAnalysis() {
-            if (confirm('確定要跳過AI體態檢測嗎?\n跳過後將無法獲得體態分析報告。')) {
-                formData.skippedAI = true;
-                formData.postureScore = null;
-                formData.shoulderBalance = null;
-                formData.pelvisBalance = null;
-                formData.spineAlignment = null;
-                formData.overallStability = null;
-                formData.recommendExercise = null;
-                formData.recommendDiet = null;
-                formData.detailedAnalysis = null;
-                formData.photo = null;
-                
-                uploadedImage = null;
-                
-                saveFormDataToStorage();
-                
-                currentPage = 2;
-                nextPage();
-            }
+            saveCurrentPageData();
+            formData.skippedAI = true;
+            formData.returnedFromSkip = false;
+            
+            document.querySelectorAll('.question-page').forEach(page => {
+                page.classList.remove('active');
+            });
+            currentPage = 2;
+            document.querySelector('[data-page="2"]').classList.add('active');
+            updateProgress();
+            window.scrollTo(0, 0);
         }
 
-        function updateProgress() {
-            let progress;
+        function generateRecommendations(overall, shoulder, foot, head, stability, parallel) {
+            let exercise = '';
+            let diet = '';
+            let analysis = '';
+
+            const issues = [];
             
-            if (currentPage === 2.5) {
-                progress = 20;
-            } else if (currentPage === 12) {
-                progress = 100;
+            if (shoulder < 75) issues.push(`高低肩問題(肩膀評分: ${shoulder.toFixed(1)}分)`);
+            if (head < 75) issues.push(`頭部前傾或側傾(對齊評分: ${head.toFixed(1)}分)`);
+            if (foot < 75) issues.push(`腳部不對稱(對稱評分: ${foot.toFixed(1)}分)`);
+            if (stability < 75) issues.push(`身體重心偏移(穩定評分: ${stability.toFixed(1)}分)`);
+            if (parallel < 75) issues.push(`肩腳線條不平行(平行度: ${parallel.toFixed(1)}分)`);
+
+            if (overall >= 90) {
+                exercise = '重量訓練為主(60%) + 器械皮拉提斯(25%) + 伸展課程(15%) - 您的體態表現極為優異!建議持續重量訓練維持肌力,搭配適度的伸展課程保持靈活度。可以開始進行進階訓練動作。';
+                diet = '均衡飲食配方:碳水化合物 40% | 蛋白質 30% | 健康脂肪 30%';
+                
+                if (issues.length > 0) {
+                    analysis = `卓越!整體體態表現極佳(${overall.toFixed(1)}分)!僅有非常輕微的${issues.join('、')}。這些細微差異在正常範圍內,建議維持現有運動習慣,並特別注意日常姿勢的維持,定期進行伸展放鬆。`;
+                } else {
+                    analysis = `完美!體態表現接近理想狀態(${overall.toFixed(1)}分),肩膀、頭部對齊、腳部對稱、平行度及整體穩定性都維持極佳。您擁有非常良好的身體控制能力,建議持續保持良好的運動習慣和姿勢意識。`;
+                }
+            } else if (overall >= 80) {
+                exercise = '重量訓練為主(55%) + 器械皮拉提斯(30%) + 伸展課程(15%) - 您的體態表現優秀!建議持續重量訓練維持肌力,並增加器械皮拉提斯來微調體態平衡。';
+                diet = '均衡飲食配方:碳水化合物 40% | 蛋白質 30% | 健康脂肪 30%';
+                
+                if (issues.length > 0) {
+                    analysis = `優秀!整體體態表現良好(${overall.toFixed(1)}分)!檢測到輕微的${issues.join('、')}。這些細微的不平衡可透過定期伸展和姿勢調整來改善。建議每週進行2-3次核心訓練,並注意日常生活中的姿勢習慣。`;
+                } else {
+                    analysis = `優秀!體態表現非常理想(${overall.toFixed(1)}分),各項指標都維持良好水準。建議持續保持良好的運動習慣和姿勢意識,定期進行專業體態評估。`;
+                }
+            } else if (overall >= 70) {
+                exercise = '器械皮拉提斯為主(50%) + 伸展課程(30%) + 重量訓練(20%) - 建議以器械皮拉提斯改善核心穩定與體態調整,搭配伸展課程放鬆緊繃肌群,待體態穩定後再增加重量訓練強度。';
+                diet = '增肌減脂配方:碳水化合物 35% | 蛋白質 35% | 健康脂肪 30%';
+                
+                if (issues.length > 0) {
+                    analysis = `體態評分為${overall.toFixed(1)}分,檢測發現:${issues.join('、')}。這些問題可能導致長期肌肉不平衡與痠痛。建議每週進行3-4次器械皮拉提斯訓練,搭配專業教練指導進行姿勢矯正,並注意日常生活中的姿勢習慣。特別注意單側用力的動作模式。`;
+                } else {
+                    analysis = `體態評分為${overall.toFixed(1)}分,整體尚可但仍有改善空間。建議加強核心穩定性訓練,並注意日常姿勢的維持,定期進行專業體態評估。`;
+                }
+            } else if (overall >= 55) {
+                exercise = '伸展課程為主(45%) + 器械皮拉提斯(40%) + 姿勢矯正(15%) - 優先進行伸展課程放鬆過度緊繃的肌肉,配合器械皮拉提斯強化核心,並進行專業的姿勢矯正訓練。暫時避免高強度重量訓練。';
+                diet = '抗炎健康配方:碳水化合物 30% | 蛋白質 40% | 健康脂肪 30%(建議增加Omega-3攝取)';
+                
+                analysis = `體態評分為${overall.toFixed(1)}分,發現明顯問題:${issues.join('、')}。這些體態問題可能已經造成日常不適或疼痛。強烈建議:
+1. 尋求專業物理治療師或運動防護員進行詳細評估
+2. 制定個人化的矯正訓練計畫
+3. 每週至少3-4次伸展與姿勢調整課程
+4. 改善日常生活與工作姿勢(如桌椅高度、睡眠姿勢、單側背包等)
+5. 注意是否有慣用側過度使用的情況`;
             } else {
-                const effectivePage = currentPage > 2.5 ? currentPage - 0.5 : currentPage;
-                const effectiveTotal = totalPages - 0.5;
-                progress = (effectivePage / effectiveTotal) * 100;
+                exercise = '姿勢矯正課程為主(50%) + 伸展課程(40%) + 輕度活動(10%) - 需要從基礎的姿勢矯正開始,配合大量伸展放鬆,暫時避免所有重量訓練。建議先進行專業醫療評估。';
+                diet = '抗炎修復配方:碳水化合物 25% | 蛋白質 45% | 健康脂肪 30%(富含抗氧化物與Omega-3)';
+                
+                analysis = `⚠️ 體態評分為${overall.toFixed(1)}分,檢測到顯著問題:${issues.join('、')}。這些問題可能導致慢性疼痛、活動受限或其他健康風險。
+
+**重要建議:**
+1. **立即尋求專業醫療評估**:建議先諮詢骨科醫師或復健科醫師
+2. 可能需要搭配物理治療或徒手治療
+3. 制定長期(3-6個月)的漸進式矯正計畫
+4. 全面檢視並改善日常生活習慣(工作姿勢、睡眠方式、運動模式)
+5. 在專業指導下進行所有運動訓練
+6. 特別注意是否有舊傷或長期不良姿勢習慣
+
+請記住:體態問題的改善需要時間和耐心,切勿操之過急。精準的評估是改善的第一步。`;
             }
-            
-            document.getElementById('progressFill').style.width = progress + '%';
+
+            formData.recommendExercise = exercise;
+            formData.recommendDiet = diet;
+            formData.detailedAnalysis = analysis;
         }
 
-        function validateCurrentPage() {
-            let isValid = true;
-            let errorMessage = '';
+        function displayAnalysisResults() {
+            document.getElementById('postureScore').textContent = formData.postureScore;
+            document.getElementById('shoulderBalance').textContent = formData.shoulderBalance;
+            document.getElementById('pelvisBalance').textContent = formData.pelvisBalance;
+            document.getElementById('spineAlignment').textContent = formData.spineAlignment;
+            document.getElementById('overallStability').textContent = formData.overallStability;
+            document.getElementById('recommendExercise').textContent = formData.recommendExercise;
+            document.getElementById('recommendDiet').textContent = formData.recommendDiet;
+            document.getElementById('detailedAnalysis').textContent = formData.detailedAnalysis;
+        }
 
-            if (currentPage === 1 && !formData.skippedAI) {
-                if (!uploadedImage) {
-                    errorMessage = '請上傳體態照片';
-                    isValid = false;
-                }
+        function addTimeSlot() {
+            const dateInput = document.getElementById('slotDate');
+            const timeInput = document.getElementById('slotTime');
+            const date = dateInput.value;
+            let time = timeInput.value.trim();
+            
+            if (!date || !time) {
+                alert('請選擇日期和時段');
+                return;
             }
-
-            if (currentPage === 2) {
-                const agreePrivacy = document.getElementById('agreePrivacy').checked;
-                if (!agreePrivacy) {
-                    errorMessage = '請同意個人資料使用條款';
-                    isValid = false;
-                }
+            
+            const selectedDate = new Date(date);
+            const today = new Date();
+            today.setHours(0, 0, 0, 0);
+            
+            if (selectedDate <= today) {
+                alert('體驗時段需選擇明天(含)之後的日期,以便安排教練與場地');
+                dateInput.value = '';
+                return;
             }
-
-            if (currentPage === 4) {
-                const selectedGoals = document.querySelectorAll('input[name="goal"]:checked');
-                if (selectedGoals.length === 0) {
-                    document.getElementById('goalError').style.display = 'block';
-                    isValid = false;
-                } else {
-                    document.getElementById('goalError').style.display = 'none';
-                }
+            
+            const formatted = formatSingleTime(time.replace(/[^0-9]/g, ''));
+            if (!formatted) {
+                alert('時間格式不正確,請輸入如 14:00 或 1430 的格式');
+                return;
             }
-
-            if (currentPage === 5) {
-                const selectedCourses = document.querySelectorAll('input[name="course"]:checked');
-                if (selectedCourses.length === 0) {
-                    document.getElementById('courseError').style.display = 'block';
-                    isValid = false;
-                } else {
-                    document.getElementById('courseError').style.display = 'none';
-                }
+            
+            const isDuplicate = timeSlots.some(slot => 
+                slot.date === date && slot.time === formatted
+            );
+            
+            if (isDuplicate) {
+                alert('⚠️ 此時段已經存在!\n\n您已經選擇過這個日期和時間,請選擇不同的時段。');
+                return;
             }
-
-            if (currentPage === 6) {
-                const selectedDiseases = document.querySelectorAll('input[name="disease"]:checked');
-                if (selectedDiseases.length === 0) {
-                    document.getElementById('diseaseError').style.display = 'block';
-                    isValid = false;
-                } else {
-                    document.getElementById('diseaseError').style.display = 'none';
-                    
-                    const jointChecked = document.getElementById('jointIssue').checked;
-                    const spineChecked = document.getElementById('spineIssue').checked;
-                    const otherChecked = document.getElementById('otherDisease').checked;
-                    
-                    if (jointChecked && !document.getElementById('jointDetail').value.trim()) {
-                        document.getElementById('diseaseError').textContent = '請填寫關節問題的詳細說明';
-                        document.getElementById('diseaseError').style.display = 'block';
-                        isValid = false;
-                    } else if (spineChecked && !document.getElementById('spineDetail').value.trim()) {
-                        document.getElementById('diseaseError').textContent = '請填寫脊椎問題的詳細說明';
-                        document.getElementById('diseaseError').style.display = 'block';
-                        isValid = false;
-                    } else if (otherChecked && !document.getElementById('otherDetail').value.trim()) {
-                        document.getElementById('diseaseError').textContent = '請填寫其他疾病的詳細說明';
-                        document.getElementById('diseaseError').style.display = 'block';
-                        isValid = false;
-                    }
+            
+            const slot = { date, time: formatted };
+            timeSlots.push(slot);
+            
+            timeSlots.sort((a, b) => {
+                if (a.date !== b.date) {
+                    return a.date.localeCompare(b.date);
                 }
-            }
+                return a.time.localeCompare(b.time);
+            });
+            
+            renderTimeSlots();
+            
+            dateInput.value = '';
+            timeInput.value = '';
+        }
 
-            if (currentPage === 8) {
-                const name = document.getElementById('name').value.trim();
-                const year = document.getElementById('birthdayYear').value;
-                const month = document.getElementById('birthdayMonth').value;
-                const day = document.getElementById('birthdayDay').value;
-                const gender = document.querySelector('input[name="genderSelect"]:checked');
-                const email = document.getElementById('email').value.trim();
-                const phone = document.getElementById('phone').value.trim();
+        function renderTimeSlots() {
+            const list = document.getElementById('timeSlotList');
+            list.innerHTML = '';
+            timeSlots.forEach((slot, idx) => {
+                const tag = document.createElement('div');
+                tag.className = 'time-slot-tag';
+                tag.innerHTML = `
+                    <span>${slot.date} ${slot.time}</span>
+                    <button onclick="removeTimeSlot(${idx})">×</button>
+                `;
+                list.appendChild(tag);
+            });
+        }
 
-                if (!name) {
-                    errorMessage = '請填寫姓名';
-                    isValid = false;
-                } else if (!year || !month || !day) {
-                    errorMessage = '請選擇完整的生日';
-                    isValid = false;
-                } else if (!gender) {
-                    errorMessage = '請選擇性別';
-                    isValid = false;
-                } else if (!email || !email.includes('@')) {
-                    errorMessage = '請填寫有效的電子信箱';
-                    isValid = false;
-                } else if (!phone || phone.length !== 10 || !phone.startsWith('09')) {
-                    errorMessage = '請填寫有效的手機號碼(09開頭的10碼)';
-                    isValid = false;
-                }
+        function removeTimeSlot(index) {
+            timeSlots.splice(index, 1);
+            renderTimeSlots();
+        }
 
-                const errorDiv = document.getElementById('basicInfoError');
-                if (!isValid) {
-                    errorDiv.textContent = errorMessage;
-                    errorDiv.style.display = 'block';
-                } else {
-                    errorDiv.style.display = 'none';
-                }
-            }
+        function loadVenueRules() {
+            const rulesHTML = `
+                <div style="color: #5f846f; line-height: 1.6; font-size: 15px;">
+                    <div style="margin-bottom: 24px;">
+                        <h3 style="color: #5f846f; font-size: 18px; font-weight: 700; margin-bottom: 16px; padding-bottom: 12px; border-bottom: 2px solid #7ac19a;">場館規範</h3>
+                        <p style="margin-bottom: 18px; color: #66888e; font-size: 14px;">為提供穩定及高品質的課程體驗,敬請上課學員配合以下規範</p>
 
-            if (currentPage === 9) {
-                const selectedSlots = document.querySelectorAll('input[name="timeSlot"]:checked');
-                const errorDiv = document.getElementById('timeSlotError');
+                        <div style="display: grid; grid-template-columns: 1fr; gap: 12px; margin-bottom: 18px;">
+                            <div style="background: #fcf4e3; padding: 14px; border-radius: 10px; border-left: 4px solid #ffe08b; font-size: 15px;">
+                                <strong style="color: #ba9e60;">1.</strong> 採全預約制,預約依照系統為準,不做口頭保留
+                            </div>
+                            <div style="background: #fcf4e3; padding: 14px; border-radius: 10px; border-left: 4px solid #ffe08b; font-size: 15px;">
+                                <strong style="color: #ba9e60;">2.</strong> 為維護三方權益,到場上課務必進行紙本及電子簽到
+                            </div>
+                            <div style="background: #fcf4e3; padding: 14px; border-radius: 10px; border-left: 4px solid #ffe08b; font-size: 15px;">
+                                <strong style="color: #ba9e60;">3.</strong> 除飲用水外,私人物品請寄放於置物櫃,請勿擺放其他地方
+                            </div>
+                            <div style="background: #fcf4e3; padding: 14px; border-radius: 10px; border-left: 4px solid #ffe08b; font-size: 15px;">
+                                <strong style="color: #ba9e60;">4.</strong> 運動/伸展/等待區域禁止用餐
+                            </div>
+                            <div style="background: #fcf4e3; padding: 14px; border-radius: 10px; border-left: 4px solid #ffe08b; font-size: 15px;">
+                                <strong style="color: #ba9e60;">5.</strong> 服裝規範:全館須脫鞋、須著運動服裝
+                                <div style="margin-top: 8px; padding-left: 12px; font-size: 14px; color: #66888e;">
+                                    • 皮拉提斯課程須著止滑襪,建議著瑜珈服飾、綁髮上課<br>
+                                    • 重訓健身課程可自備室內運動鞋
+                                </div>
+                            </div>
+                            <div style="background: #fcf4e3; padding: 14px; border-radius: 10px; border-left: 4px solid #ffe08b; font-size: 15px;">
+                                <strong style="color: #ba9e60;">6.</strong> 正課學員若攜陪同者,陪同者不得滯留超過15分鐘,特殊情況另議
+                            </div>
+                        </div>
+                    </div>
+
+                    <div style="background: linear-gradient(135deg, #66888e 0%, #5f846f 100%); color: #ffffff; padding: 18px; border-radius: 12px; margin: 18px 0; text-align: center; font-weight: 600; font-size: 14px;">
+                        為維護他人上課品質及權益,場館有權拒絕未遵守規範者進入<br>
+                        ※衡點健康保留最終解釋權
+                    </div>
+
+                    <div style="background: #faece8; padding: 18px; border-radius: 12px; margin-bottom: 24px; border: 2px solid #f2ac98;">
+                        <h3 style="color: #c67566; font-size: 17px; font-weight: 700; margin-bottom: 14px;">取消及請假政策</h3>
+                        
+                        <div style="display: grid; gap: 10px;">
+                            <div style="background: #ffffff; padding: 12px; border-radius: 8px; border-left: 3px solid #f2ac98; font-size: 14px;">
+                                <strong>一般「取消預約」政策:</strong><br>
+                                預約日的<span style="color: #ba9e60; font-weight: bold;">前一天晚上8點前</span>提出取消
+                            </div>
+                            <div style="background: #ffffff; padding: 12px; border-radius: 8px; border-left: 3px solid #f2ac98; font-size: 14px;">
+                                <strong>臨時「請假」政策:</strong><br>
+                                課程<span style="color: #ba9e60; font-weight: bold;">前3小時</span>提出請假 (補課須購買補課卡)<br>
+                                <strong style="color: #c67566;">補課卡:300元</strong>
+                            </div>
+                            <div style="background: #ffffff; padding: 12px; border-radius: 8px; border-left: 3px solid #f2ac98; font-size: 14px;">
+                                <strong style="color: #c67566;">重要提醒:</strong><br>
+                                無遵守規則皆視同「曠課」曠課無法進行補課<br>
+                                ※為維護三方權益請遵守以上規則
+                            </div>
+                            <div style="background: #ffffff; padding: 12px; border-radius: 8px; border-left: 3px solid #f2ac98; font-size: 14px;">
+                                <strong>病假規定:</strong><br>
+                                病假不在此限,須主動於課程開始前「盡早」提出,避免造成雙方困擾,並於請假課程兩日內提交醫療證明文件
+                            </div>
+                        </div>
+                    </div>
+
+                    <div style="background: #daedec; padding: 14px; border-radius: 10px; text-align: center; color: #66888e; font-size: 13px;">
+                        如有疑問請洽官方LINE<br>
+                        <span style="font-size: 12px;">衡點健康 © 2025</span>
+                    </div>
+                </div>
+            `;
+            
+            document.getElementById('venueRules').innerHTML = rulesHTML;
+            
+            const rulesContainer = document.getElementById('venueRules');
+            const agreeCheckbox = document.getElementById('agreeRules');
+            const agreeLabel = document.getElementById('agreeRulesLabel');
+            
+            rulesContainer.addEventListener('scroll', function() {
+                const isAtBottom = rulesContainer.scrollHeight - rulesContainer.scrollTop - rulesContainer.clientHeight < 5;
                 
-                if (selectedSlots.length === 0) {
-                    errorDiv.textContent = '請至少選擇一個時段';
-                    errorDiv.style.display = 'block';
-                    isValid = false;
+                if (isAtBottom) {
+                    agreeCheckbox.disabled = false;
+                    agreeLabel.style.cursor = 'pointer';
+                    agreeLabel.style.opacity = '1';
+                    agreeLabel.style.background = 'linear-gradient(135deg, #fcf4e3 0%, #daedec 100%)';
+                }
+            });
+        }
+
+        function toggleEdit(section) {
+            editingSections[section] = !editingSections[section];
+            const button = event.target;
+            
+            if (section === 'basic') {
+                const nameInput = document.getElementById('edit_name');
+                const genderInputs = document.querySelectorAll('input[name="editGenderSelect"]');
+                const birthdayInput = document.getElementById('edit_birthday');
+                const emailInput = document.getElementById('edit_email');
+                const phoneInput = document.getElementById('edit_phone');
+                
+                if (editingSections[section]) {
+                    nameInput.disabled = false;
+                    genderInputs.forEach(input => input.disabled = false);
+                    birthdayInput.disabled = false;
+                    emailInput.disabled = false;
+                    phoneInput.disabled = false;
+                    button.textContent = '保存';
                 } else {
-                    let hasError = false;
-                    let errorMsg = '';
+                    if (!validateBasicInfoEdit()) {
+                        editingSections[section] = true;
+                        return;
+                    }
+                    nameInput.disabled = true;
+                    genderInputs.forEach(input => input.disabled = true);
+                    birthdayInput.disabled = true;
+                    emailInput.disabled = true;
+                    phoneInput.disabled = true;
+                    button.textContent = '修改';
+                }
+            } else if (section === 'fitness') {
+                const goalsDisplay = document.getElementById('edit_goals_display');
+                const goalsContainer = document.getElementById('edit_goals_container');
+                const courseDisplay = document.getElementById('edit_course_display');
+                const courseContainer = document.getElementById('edit_course_container');
+                const diseasesDisplay = document.getElementById('edit_diseases_display');
+                const diseasesContainer = document.getElementById('edit_diseases_container');
+                const remarksTextarea = document.getElementById('edit_remarks');
+                
+                if (editingSections[section]) {
+                    goalsDisplay.style.display = 'none';
+                    goalsContainer.style.display = 'block';
                     
-                    selectedSlots.forEach(slot => {
-                        const slotValue = slot.value;
-                        if (slotValue !== '彈性不固定') {
-                            let timeInputId = '';
-                            if (slotValue === '平日白天') timeInputId = 'weekdayDayTime';
-                            else if (slotValue === '平日晚上(尖峰)') timeInputId = 'weekdayNightTime';
-                            else if (slotValue === '假日白天(尖峰)') timeInputId = 'weekendDayTime';
-                            else if (slotValue === '假日晚上') timeInputId = 'weekendNightTime';
-                            
-                            const timeInput = document.getElementById(timeInputId);
-                            if (timeInput && !timeInput.value.trim()) {
-                                hasError = true;
-                                errorMsg = `請填寫「${slotValue}」的時間`;
-                            }
+                    courseDisplay.style.display = 'none';
+                    courseContainer.style.display = 'block';
+                    
+                    diseasesDisplay.style.display = 'none';
+                    diseasesContainer.style.display = 'block';
+                    
+                    remarksTextarea.disabled = false;
+                    button.textContent = '保存';
+                } else {
+                    const goalsSelect = document.getElementById('edit_goals');
+                    const courseSelect = document.getElementById('edit_course');
+                    const selectedGoals = Array.from(goalsSelect.selectedOptions).map(opt => opt.value);
+                    const selectedCourses = Array.from(courseSelect.selectedOptions).map(opt => opt.value);
+                    
+                    if (selectedGoals.length === 0) {
+                        alert('請至少選擇一項健身目標');
+                        editingSections[section] = true;
+                        return;
+                    }
+                    
+                    if (selectedCourses.length === 0) {
+                        alert('請至少選擇一項課程偏好');
+                        editingSections[section] = true;
+                        return;
+                    }
+                    
+                    const diseaseCheckboxes = document.querySelectorAll('#edit_diseases_container input[type="checkbox"]');
+                    const selectedDiseases = [];
+                    diseaseCheckboxes.forEach(cb => {
+                        if (cb.checked) {
+                            selectedDiseases.push(cb.value);
                         }
                     });
                     
-                    if (hasError) {
-                        errorDiv.textContent = errorMsg;
-                        errorDiv.style.display = 'block';
-                        isValid = false;
+                    const jointDetail = document.getElementById('edit_joint_detail').value.trim();
+                    const spineDetail = document.getElementById('edit_spine_detail').value.trim();
+                    const otherDetail = document.getElementById('edit_other_detail').value.trim();
+                    
+                    const jointChecked = document.getElementById('edit_disease_joint').checked;
+                    const spineChecked = document.getElementById('edit_disease_spine').checked;
+                    const otherChecked = document.getElementById('edit_disease_other').checked;
+                    
+                    if (jointChecked && !jointDetail) {
+                        alert('請填寫關節問題詳情');
+                        editingSections[section] = true;
+                        return;
+                    }
+                    
+                    if (spineChecked && !spineDetail) {
+                        alert('請填寫脊椎問題詳情');
+                        editingSections[section] = true;
+                        return;
+                    }
+                    
+                    if (otherChecked && !otherDetail) {
+                        alert('請填寫其他疾病詳情');
+                        editingSections[section] = true;
+                        return;
+                    }
+                    
+                    formData.goals = selectedGoals;
+                    formData.courses = selectedCourses;
+                    
+                    formData.diseases = [];
+                    selectedDiseases.forEach(disease => {
+                        if (disease === '關節問題' && jointDetail) {
+                            formData.diseases.push(`關節問題: ${jointDetail}`);
+                        } else if (disease === '脊椎問題' && spineDetail) {
+                            formData.diseases.push(`脊椎問題: ${spineDetail}`);
+                        } else if (disease === '其他' && otherDetail) {
+                            formData.diseases.push(`其他: ${otherDetail}`);
+                        } else if (disease !== '關節問題' && disease !== '脊椎問題' && disease !== '其他') {
+                            formData.diseases.push(disease);
+                        }
+                    });
+                    
+                    formData.remarks = remarksTextarea.value;
+                    
+                    goalsDisplay.style.display = 'block';
+                    goalsContainer.style.display = 'none';
+                    
+                    courseDisplay.style.display = 'block';
+                    courseContainer.style.display = 'none';
+                    
+                    diseasesDisplay.style.display = 'block';
+                    diseasesContainer.style.display = 'none';
+                    
+                    remarksTextarea.disabled = true;
+                    button.textContent = '修改';
+                    
+                    updateDisplayText();
+                }
+            }
+        }
+        
+        function updateDisplayText() {
+            const goalsSelect = document.getElementById('edit_goals');
+            const selectedGoals = Array.from(goalsSelect.selectedOptions).map(opt => opt.value);
+            document.getElementById('edit_goals_display').textContent = selectedGoals.length > 0 ? selectedGoals.join('、') : '未填寫';
+            
+            const courseSelect = document.getElementById('edit_course');
+            const selectedCourses = Array.from(courseSelect.selectedOptions).map(opt => opt.value);
+            document.getElementById('edit_course_display').textContent = selectedCourses.length > 0 ? selectedCourses.join('、') : '未填寫';
+            
+            const diseaseCheckboxes = document.querySelectorAll('#edit_diseases_container input[type="checkbox"]');
+            const selectedDiseasesDisplay = [];
+            diseaseCheckboxes.forEach(cb => {
+                if (cb.checked) {
+                    if (cb.value === '關節問題') {
+                        const detail = document.getElementById('edit_joint_detail').value.trim();
+                        selectedDiseasesDisplay.push(detail ? `關節問題: ${detail}` : '關節問題');
+                    } else if (cb.value === '脊椎問題') {
+                        const detail = document.getElementById('edit_spine_detail').value.trim();
+                        selectedDiseasesDisplay.push(detail ? `脊椎問題: ${detail}` : '脊椎問題');
+                    } else if (cb.value === '其他') {
+                        const detail = document.getElementById('edit_other_detail').value.trim();
+                        selectedDiseasesDisplay.push(detail ? `其他: ${detail}` : '其他');
                     } else {
-                        errorDiv.style.display = 'none';
+                        selectedDiseasesDisplay.push(cb.value);
                     }
                 }
-            }
-
-            if (currentPage === 11) {
-                const agreeRules = document.getElementById('agreeRules').checked;
-                if (!agreeRules) {
-                    document.getElementById('rulesError').style.display = 'block';
-                    isValid = false;
-                } else {
-                    document.getElementById('rulesError').style.display = 'none';
-                }
-            }
-
-            if (!isValid && errorMessage) {
-                alert(errorMessage);
-            }
-
-            return isValid;
+            });
+            document.getElementById('edit_diseases_display').textContent = selectedDiseasesDisplay.length > 0 ? selectedDiseasesDisplay.join('、') : '未填寫';
         }
 
-        function saveCurrentPageData() {
-            if (currentPage === 4) {
-                const selectedGoals = Array.from(document.querySelectorAll('input[name="goal"]:checked'))
-                    .map(cb => cb.value);
-                formData.goals = selectedGoals;
+        function validateBasicInfoEdit() {
+            const name = document.getElementById('edit_name').value.trim();
+            const gender = document.querySelector('input[name="editGenderSelect"]:checked')?.value;
+            const birthday = document.getElementById('edit_birthday').value;
+            const email = document.getElementById('edit_email').value.trim();
+            const phone = document.getElementById('edit_phone').value.trim();
+            
+            const errorDiv = document.getElementById('editError');
+            errorDiv.style.display = 'none';
+            
+            if (!name) {
+                errorDiv.textContent = '請輸入姓名';
+                errorDiv.style.display = 'block';
+                return false;
             }
-
-            if (currentPage === 5) {
-                const selectedCourses = Array.from(document.querySelectorAll('input[name="course"]:checked'))
-                    .map(cb => cb.value);
-                formData.courses = selectedCourses;
+            
+            if (!gender) {
+                errorDiv.textContent = '請選擇性別';
+                errorDiv.style.display = 'block';
+                return false;
             }
-
-            if (currentPage === 6) {
-                const diseases = [];
-                document.querySelectorAll('input[name="disease"]:checked').forEach(cb => {
-                    const value = cb.value;
-                    if (value === '關節問題') {
-                        const detail = document.getElementById('jointDetail').value.trim();
-                        diseases.push(detail ? `關節問題: ${detail}` : '關節問題');
-                    } else if (value === '脊椎問題') {
-                        const detail = document.getElementById('spineDetail').value.trim();
-                        diseases.push(detail ? `脊椎問題: ${detail}` : '脊椎問題');
-                    } else if (value === '其他') {
-                        const detail = document.getElementById('otherDetail').value.trim();
-                        diseases.push(detail ? `其他: ${detail}` : '其他');
-                    } else {
-                        diseases.push(value);
-                    }
-                });
-                formData.diseases = diseases;
+            
+            if (!birthday) {
+                errorDiv.textContent = '請選擇生日';
+                errorDiv.style.display = 'block';
+                return false;
             }
-
-            if (currentPage === 7) {
-                formData.remarks = document.getElementById('remarks').value.trim();
+            
+            const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!email || !emailPattern.test(email)) {
+                errorDiv.textContent = '請輸入有效的電子信箱';
+                errorDiv.style.display = 'block';
+                return false;
             }
-
-            if (currentPage === 8) {
-                formData.name = document.getElementById('name').value.trim();
-                const year = document.getElementById('birthdayYear').value;
-                const month = document.getElementById('birthdayMonth').value;
-                const day = document.getElementById('birthdayDay').value;
-                if (year && month && day) {
-                    formData.birthday = `${year}-${month}-${day}`;
-                }
-                const selectedGender = document.querySelector('input[name="genderSelect"]:checked');
-                formData.gender = selectedGender ? selectedGender.value : '';
-                formData.email = document.getElementById('email').value.trim();
-                formData.phone = document.getElementById('phone').value.trim();
+            
+            if (phone.length !== 10 || !phone.startsWith('09')) {
+                errorDiv.textContent = '請輸入正確的手機號碼(09開頭的10碼)';
+                errorDiv.style.display = 'block';
+                return false;
             }
-
-            if (currentPage === 9) {
-                const timePreferences = [];
-                const selectedSlots = document.querySelectorAll('input[name="timeSlot"]:checked');
-                
-                selectedSlots.forEach(slot => {
-                    const slotValue = slot.value;
-                    if (slotValue === '彈性不固定') {
-                        timePreferences.push({ slot: slotValue, time: '' });
-                    } else {
-                        let timeInputId = '';
-                        if (slotValue === '平日白天') timeInputId = 'weekdayDayTime';
-                        else if (slotValue === '平日晚上(尖峰)') timeInputId = 'weekdayNightTime';
-                        else if (slotValue === '假日白天(尖峰)') timeInputId = 'weekendDayTime';
-                        else if (slotValue === '假日晚上') timeInputId = 'weekendNightTime';
-                        
-                        const timeValue = document.getElementById(timeInputId).value.trim();
-                        timePreferences.push({ slot: slotValue, time: timeValue });
-                    }
-                });
-                
-                formData.timePreferences = timePreferences;
-            }
-
-            saveFormDataToStorage();
+            
+            return true;
         }
 
         function nextPage() {
             if (!validateCurrentPage()) {
                 return;
             }
-
+            
             saveCurrentPageData();
-
-            if (currentPage === 1 && formData.skippedAI) {
-                currentPage = 2;
-            } else if (currentPage === 2 && !formData.skippedAI) {
-                return;
-            } else if (currentPage === 3) {
-                currentPage = 4;
-            } else if (currentPage >= 4 && currentPage < 10) {
-                currentPage++;
-            } else if (currentPage === 10) {
-                displayReviewData();
-                currentPage = 11;
-            } else if (currentPage === 11) {
-                return;
+            saveFormDataToStorage();
+            
+            // 跳過頁面10,從頁面9直接到頁面11
+            if (currentPage === 9) {
+                currentPage = 10;
             }
-
+            
+            if (currentPage === 10) {
+                displayReviewData();
+            }
+            
             document.querySelectorAll('.question-page').forEach(page => {
                 page.classList.remove('active');
             });
-            document.querySelector(`[data-page="${currentPage}"]`).classList.add('active');
+            
+            currentPage++;
+            
+            // 跳過頁面10
+            if (currentPage === 10) {
+                currentPage = 11;
+            }
+            
+            const nextPageElement = document.querySelector(`[data-page="${currentPage}"]`);
+            if (nextPageElement) {
+                nextPageElement.classList.add('active');
+            }
             updateProgress();
             window.scrollTo(0, 0);
         }
 
         function prevPage() {
-            if (currentPage === 4 && formData.skippedAI) {
-                currentPage = 2;
-            } else if (currentPage === 4 && !formData.skippedAI) {
-                currentPage = 3;
-            } else if (currentPage === 11) {
-                currentPage = 10;
-            } else if (currentPage > 1) {
-                currentPage--;
-            }
-
             document.querySelectorAll('.question-page').forEach(page => {
                 page.classList.remove('active');
             });
-            document.querySelector(`[data-page="${currentPage}"]`).classList.add('active');
+            
+            if (currentPage === 4 && formData.skippedAI) {
+                formData.skippedAI = false;
+                currentPage = 1;
+            } else if (currentPage === 2 && formData.skippedAI) {
+                formData.skippedAI = false;
+                currentPage = 1;
+            } else {
+                currentPage--;
+            }
+            
+            // 跳過頁面10,從頁面11返回到頁面9
+            if (currentPage === 10) {
+                currentPage = 9;
+            }
+            
+            const prevPageElement = document.querySelector(`[data-page="${currentPage}"]`);
+            if (prevPageElement) {
+                prevPageElement.classList.add('active');
+            }
             updateProgress();
             window.scrollTo(0, 0);
         }
 
+        function validateCurrentPage() {
+            const errorElements = document.querySelectorAll('.error-message');
+            errorElements.forEach(el => el.style.display = 'none');
+            
+            switch(currentPage) {
+                case 1:
+                    // 第一頁是照片上傳,不需要驗證
+                    break;
+
+                case 2:
+                    const agreePrivacy = document.getElementById('agreePrivacy').checked;
+                    if (!agreePrivacy) {
+                        alert('⚠️ 請勾選同意個人資料使用條款');
+                        return false;
+                    }
+                    break;
+
+                case 4:
+                    const goalChecked = document.querySelectorAll('input[name="goal"]:checked').length > 0;
+                    if (!goalChecked) {
+                        document.getElementById('goalError').style.display = 'block';
+                        alert('⚠️ 請至少選擇一項健身目標');
+                        return false;
+                    }
+                    break;
+                    
+                case 5:
+                    const courseChecked = document.querySelectorAll('input[name="course"]:checked').length > 0;
+                    if (!courseChecked) {
+                        document.getElementById('courseError').style.display = 'block';
+                        alert('⚠️ 請至少選擇一項課程類型');
+                        return false;
+                    }
+                    break;
+                    
+                case 6:
+                    const diseaseChecked = document.querySelectorAll('input[name="disease"]:checked').length > 0;
+                    if (!diseaseChecked) {
+                        document.getElementById('diseaseError').style.display = 'block';
+                        alert('⚠️ 請至少選擇一項疾病史選項(若無請選擇「無」)');
+                        return false;
+                    }
+                    
+                    const jointIssueChecked = document.getElementById('jointIssue').checked;
+                    const spineIssueChecked = document.getElementById('spineIssue').checked;
+                    const otherDiseaseChecked = document.getElementById('otherDisease').checked;
+                    
+                    if (jointIssueChecked) {
+                        const detail = document.getElementById('jointDetail').value.trim();
+                        if (!detail) {
+                            alert('⚠️ 您選擇了「關節問題」,請在下方欄位說明詳情');
+                            document.getElementById('jointDetail').focus();
+                            return false;
+                        }
+                    }
+                    
+                    if (spineIssueChecked) {
+                        const detail = document.getElementById('spineDetail').value.trim();
+                        if (!detail) {
+                            alert('⚠️ 您選擇了「脊椎問題」,請在下方欄位說明詳情');
+                            document.getElementById('spineDetail').focus();
+                            return false;
+                        }
+                    }
+                    
+                    if (otherDiseaseChecked) {
+                        const detail = document.getElementById('otherDetail').value.trim();
+                        if (!detail) {
+                            alert('⚠️ 您選擇了「其他」,請在下方欄位說明詳情');
+                            document.getElementById('otherDetail').focus();
+                            return false;
+                        }
+                    }
+                    break;
+                    
+                case 8:
+                    const name = document.getElementById('name').value.trim();
+                    const gender = document.querySelector('input[name="genderSelect"]:checked')?.value;
+                    const year = document.getElementById('birthdayYear').value;
+                    const month = document.getElementById('birthdayMonth').value;
+                    const day = document.getElementById('birthdayDay').value;
+                    const email = document.getElementById('email').value.trim();
+                    const phone = document.getElementById('phone').value.trim();
+                    
+                    const errorDiv = document.getElementById('basicInfoError');
+                    
+                    if (!name) {
+                        errorDiv.textContent = '請輸入姓名';
+                        errorDiv.style.display = 'block';
+                        alert('⚠️ 請輸入您的姓名');
+                        document.getElementById('name').focus();
+                        return false;
+                    }
+                    
+                    if (!gender) {
+                        errorDiv.textContent = '請選擇性別';
+                        errorDiv.style.display = 'block';
+                        alert('⚠️ 請選擇您的性別');
+                        return false;
+                    }
+                    
+                    if (!year || !month || !day) {
+                        errorDiv.textContent = '請選擇完整的生日(年、月、日)';
+                        errorDiv.style.display = 'block';
+                        alert('⚠️ 請選擇完整的生日(年、月、日)');
+                        if (!year) document.getElementById('birthdayYear').focus();
+                        else if (!month) document.getElementById('birthdayMonth').focus();
+                        else document.getElementById('birthdayDay').focus();
+                        return false;
+                    }
+                    
+                    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                    if (!email || !emailPattern.test(email)) {
+                        errorDiv.textContent = '請輸入有效的電子信箱';
+                        errorDiv.style.display = 'block';
+                        alert('⚠️ 請輸入有效的電子信箱格式\n例如: example@gmail.com');
+                        document.getElementById('email').focus();
+                        return false;
+                    }
+                    
+                    if (phone.length !== 10 || !phone.startsWith('09')) {
+                        errorDiv.textContent = '請輸入正確的手機號碼(09開頭的10碼)';
+                        errorDiv.style.display = 'block';
+                        alert('⚠️ 請輸入正確的手機號碼\n格式:09開頭的10碼數字');
+                        document.getElementById('phone').focus();
+                        returnfalse;
+                    }
+                    break;
+                    
+                case 9:
+                    const timeSlotErrorDiv = document.getElementById('timeSlotError');
+                    timeSlotErrorDiv.style.display = 'none';
+                    
+                    const weekdayDayChecked = document.getElementById('weekdayDay').checked;
+                    const weekdayNightChecked = document.getElementById('weekdayNight').checked;
+                    const weekendDayChecked = document.getElementById('weekendDay').checked;
+                    const weekendNightChecked = document.getElementById('weekendNight').checked;
+                    const flexibleChecked = document.querySelector('input[name="timeSlot"][value="彈性不固定"]').checked;
+                    
+                    if (weekdayDayChecked) {
+                        const time = document.getElementById('weekdayDayTime').value.trim();
+                        if (!time) {
+                            timeSlotErrorDiv.textContent = '請填寫「平日白天」的時段';
+                            timeSlotErrorDiv.style.display = 'block';
+                            alert('⚠️ 您選擇了「平日白天」,請填寫時段\n例如:09:00-17:00');
+                            document.getElementById('weekdayDayTime').focus();
+                            return false;
+                        }
+                    }
+                    
+                    if (weekdayNightChecked) {
+                        const time = document.getElementById('weekdayNightTime').value.trim();
+                        if (!time) {
+                            timeSlotErrorDiv.textContent = '請填寫「平日晚上」的時段';
+                            timeSlotErrorDiv.style.display = 'block';
+                            alert('⚠️ 您選擇了「平日晚上」,請填寫時段\n例如:18:00-21:00');
+                            document.getElementById('weekdayNightTime').focus();
+                            return false;
+                        }
+                    }
+                    
+                    if (weekendDayChecked) {
+                        const time = document.getElementById('weekendDayTime').value.trim();
+                        if (!time) {
+                            timeSlotErrorDiv.textContent = '請填寫「假日白天」的時段';
+                            timeSlotErrorDiv.style.display = 'block';
+                            alert('⚠️ 您選擇了「假日白天」,請填寫時段\n例如:09:00-17:00');
+                            document.getElementById('weekendDayTime').focus();
+                            return false;
+                        }
+                    }
+                    
+                    if (weekendNightChecked) {
+                        const time = document.getElementById('weekendNightTime').value.trim();
+                        if (!time) {
+                            timeSlotErrorDiv.textContent = '請填寫「假日晚上」的時段';
+                            timeSlotErrorDiv.style.display = 'block';
+                            alert('⚠️ 您選擇了「假日晚上」,請填寫時段\n例如:18:00-21:00');
+                            document.getElementById('weekendNightTime').focus();
+                            return false;
+                        }
+                    }
+                    break;
+                    
+                case 10:
+                    // 頁面10已移除,不需要驗證
+                    break;
+                    
+                case 12:
+                    if (!document.getElementById('agreeRules').checked) {
+                        document.getElementById('rulesError').style.display = 'block';
+                        alert('⚠️ 請勾選同意場館規範\n\n提醒:請先將規範內容捲動到最底部,才能勾選同意');
+                        return false;
+                    }
+                    break;
+            }
+            
+            return true;
+        }
+
+        function saveCurrentPageData() {
+            switch(currentPage) {
+                case 1:
+                    formData.photo = uploadedImage;
+                    break;
+                case 4:
+                    formData.goals = Array.from(document.querySelectorAll('input[name="goal"]:checked')).map(cb => cb.value);
+                    break;
+                case 5:
+                    formData.courses = Array.from(document.querySelectorAll('input[name="course"]:checked')).map(cb => cb.value);
+                    break;
+                case 6:
+                    formData.diseases = [];
+                    
+                    const allCheckedBoxes = document.querySelectorAll('input[name="disease"]:checked');
+                    
+                    allCheckedBoxes.forEach((checkbox) => {
+                        const checkboxId = checkbox.id;
+                        const checkboxValue = checkbox.value;
+                        
+                        if (checkboxId === 'jointIssue') {
+                            const detailInput = document.getElementById('jointDetail');
+                            if (detailInput) {
+                                const detail = detailInput.value.trim();
+                                if (detail) {
+                                    formData.diseases.push(`關節問題: ${detail}`);
+                                } else {
+                                    formData.diseases.push('關節問題');
+                                }
+                            } else {
+                                formData.diseases.push('關節問題');
+                            }
+                        } else if (checkboxId === 'spineIssue') {
+                            const detailInput = document.getElementById('spineDetail');
+                            if (detailInput) {
+                                const detail = detailInput.value.trim();
+                                if (detail) {
+                                    formData.diseases.push(`脊椎問題: ${detail}`);
+                                } else {
+                                    formData.diseases.push('脊椎問題');
+                                }
+                            } else {
+                                formData.diseases.push('脊椎問題');
+                            }
+                        } else if (checkboxId === 'otherDisease') {
+                            const detailInput = document.getElementById('otherDetail');
+                            if (detailInput) {
+                                const detail = detailInput.value.trim();
+                                if (detail) {
+                                    formData.diseases.push(`其他: ${detail}`);
+                                } else {
+                                    formData.diseases.push('其他');
+                                }
+                            } else {
+                                formData.diseases.push('其他');
+                            }
+                        } else {
+                            formData.diseases.push(checkboxValue);
+                        }
+                    });
+                    break;
+                case 7:
+                    formData.remarks = document.getElementById('remarks').value;
+                    break;
+                case 8:
+                    formData.name = document.getElementById('name').value.trim();
+                    formData.gender = document.querySelector('input[name="genderSelect"]:checked')?.value || '';
+                    formData.birthday = document.getElementById('birthday').value;
+                    formData.email = document.getElementById('email').value.trim();
+                    formData.phone = document.getElementById('phone').value.trim();
+                    break;
+                case 9:
+                    formData.timePreferences = [];
+                    ['weekdayDay', 'weekdayNight', 'weekendDay', 'weekendNight'].forEach(id => {
+                        const checkbox = document.getElementById(id);
+                        if (checkbox.checked) {
+                            const time = document.getElementById(id + 'Time').value;
+                            formData.timePreferences.push({
+                                slot: checkbox.value,
+                                time: time || ''
+                            });
+                        }
+                    });
+                    if (document.querySelector('input[name="timeSlot"][value="彈性不固定"]').checked) {
+                        formData.timePreferences.push({ slot: '彈性不固定', time: '' });
+                    }
+                    break;
+                case 10:
+                    formData.experienceSlots = timeSlots;
+                    break;
+            }
+        }
+
         function displayReviewData() {
             document.getElementById('edit_name').value = formData.name || '';
-            document.getElementById('edit_birthday').value = formData.birthday || '';
             
             if (formData.gender) {
                 const genderRadio = document.querySelector(`input[name="editGenderSelect"][value="${formData.gender}"]`);
-                if (genderRadio) genderRadio.checked = true;
+                if (genderRadio) {
+                    genderRadio.checked = true;
+                    genderRadio.parentElement.classList.add('selected');
+                }
             }
             
+            document.getElementById('edit_birthday').value = formData.birthday || '';
             document.getElementById('edit_email').value = formData.email || '';
             document.getElementById('edit_phone').value = formData.phone || '';
-            
-            const goalsDisplay = document.getElementById('edit_goals_display');
-            goalsDisplay.innerHTML = (formData.goals || []).map(g => `<span style="display: inline-block; background: #e2ede6; padding: 5px 12px; border-radius: 15px; margin: 3px;">• ${g}</span>`).join('') || '<p style="color: #808080;">未填寫</p>';
-            
-            const courseDisplay = document.getElementById('edit_course_display');
-            courseDisplay.innerHTML = (formData.courses || []).map(c => `<span style="display: inline-block; background: #e2ede6; padding: 5px 12px; border-radius: 15px; margin: 3px;">• ${c}</span>`).join('') || '<p style="color: #808080;">未填寫</p>';
-            
-            const diseasesDisplay = document.getElementById('edit_diseases_display');
-            diseasesDisplay.innerHTML = (formData.diseases || []).map(d => `<p style="margin-bottom: 8px;">• ${d}</p>`).join('') || '<p style="color: #808080;">未填寫</p>';
-            
             document.getElementById('edit_remarks').value = formData.remarks || '';
             
-            const timePrefHTML = (formData.timePreferences || []).map(tp => 
-                `<p style="margin-bottom: 8px;">• ${tp.slot}${tp.time ? ': ' + tp.time : ''}</p>`
+            const goalsSelect = document.getElementById('edit_goals');
+            Array.from(goalsSelect.options).forEach(option => {
+                option.selected = (formData.goals || []).includes(option.value);
+            });
+            
+            const courseSelect = document.getElementById('edit_course');
+            Array.from(courseSelect.options).forEach(option => {
+                option.selected = (formData.courses || []).includes(option.value);
+            });
+            
+            const jointDetailInput = document.getElementById('edit_joint_detail');
+            const spineDetailInput = document.getElementById('edit_spine_detail');
+            const otherDetailInput = document.getElementById('edit_other_detail');
+            
+            jointDetailInput.value = '';
+            spineDetailInput.value = '';
+            otherDetailInput.value = '';
+            
+            const diseaseCheckboxes = document.querySelectorAll('#edit_diseases_container input[type="checkbox"]');
+            diseaseCheckboxes.forEach(cb => {
+                cb.checked = false;
+                cb.parentElement.classList.remove('selected');
+            });
+            
+            (formData.diseases || []).forEach(disease => {
+                if (disease.includes(':')) {
+                    const parts = disease.split(':');
+                    const diseaseName = parts[0].trim();
+                    const diseaseDetail = parts[1].trim();
+                    
+                    if (diseaseName === '關節問題') {
+                        const jointCheckbox = document.getElementById('edit_disease_joint');
+                        if (jointCheckbox) {
+                            jointCheckbox.checked = true;
+                            jointCheckbox.parentElement.classList.add('selected');
+                            jointDetailInput.value = diseaseDetail;
+                        }
+                    } else if (diseaseName === '脊椎問題') {
+                        const spineCheckbox = document.getElementById('edit_disease_spine');
+                        if (spineCheckbox) {
+                            spineCheckbox.checked = true;
+                            spineCheckbox.parentElement.classList.add('selected');
+                            spineDetailInput.value = diseaseDetail;
+                        }
+                    } else if (diseaseName === '其他') {
+                        const otherCheckbox = document.getElementById('edit_disease_other');
+                        if (otherCheckbox) {
+                            otherCheckbox.checked = true;
+                            otherCheckbox.parentElement.classList.add('selected');
+                            otherDetailInput.value = diseaseDetail;
+                        }
+                    }
+                } else {
+                    diseaseCheckboxes.forEach(cb => {
+                        if (cb.value === disease) {
+                            cb.checked = true;
+                            cb.parentElement.classList.add('selected');
+                        }
+                    });
+                }
+            });
+            
+            document.getElementById('edit_goals_display').textContent = (formData.goals || []).join('、') || '未填寫';
+            document.getElementById('edit_course_display').textContent = (formData.courses || []).join('、') || '未填寫';
+            
+            const diseasesDisplay = (formData.diseases || []).map(disease => {
+                return disease;
+            }).join('、') || '未填寫';
+            document.getElementById('edit_diseases_display').textContent = diseasesDisplay;
+            
+            const timePrefsHTML = (formData.timePreferences || []).map(tp => 
+                `<p style="margin-bottom: 8px;"><strong>${tp.slot}:</strong> ${tp.time || '全時段'}</p>`
             ).join('');
-            document.getElementById('edit_time_preferences').innerHTML = timePrefHTML || '<p style="color: #808080;">未填寫</p>';
+            document.getElementById('edit_time_preferences').innerHTML = timePrefsHTML || '<p style="color: #808080;">未填寫</p>';
+            
+            const slotsHTML = (formData.experienceSlots || []).map(slot => 
+                `<p style="margin-bottom: 8px;">• ${slot.date} ${slot.time}</p>`
+            ).join('');
+            document.getElementById('edit_experience_slots').innerHTML = slotsHTML || '<p style="color: #808080;">未填寫</p>';
             
             const aiSection = document.getElementById('aiAnalysisSection');
             const aiTitle = document.getElementById('aiAnalysisTitle');
             const aiContent = document.getElementById('aiAnalysisContent');
             
             if (formData.skippedAI) {
-                aiTitle.textContent = 'AI 體態分析 (已跳過)';
-                aiContent.innerHTML = '<p style="color: #808080;">您選擇跳過AI體態檢測</p>';
+                aiTitle.textContent = 'AI 體態分析(已跳過)';
+                aiContent.innerHTML = `
+                    <div style="background: #fcf4e3; padding: 15px; border-radius: 8px; border-left: 4px solid #ffe08b;">
+                        <p style="color: #ba9e60; margin: 0;">您選擇跳過AI體態分析,直接預約體驗課程。</p>
+                    </div>
+                `;
             } else if (formData.postureScore) {
                 aiTitle.textContent = 'AI 體態分析';
-                document.getElementById('edit_score').textContent = formData.postureScore;
-                document.getElementById('edit_analysis_summary').textContent = formData.detailedAnalysis || '';
-                aiContent.style.display = 'block';
+                aiContent.innerHTML = `
+                    <p><strong>體態評分:</strong> <span id="edit_score">${formData.postureScore}</span> 分</p>
+                    <div style="margin-top: 10px;">
+                        <p><strong>評估後重點報告:</strong></p>
+                        <p id="edit_analysis_summary" style="color: #5f846f; margin-top: 5px; line-height: 1.6;">${formData.detailedAnalysis || ''}</p>
+                    </div>
+                `;
             } else {
-                aiSection.style.display = 'none';
-            }
-        }
-
-        function toggleEdit(section) {
-            editingSections[section] = !editingSections[section];
-            
-            if (section === 'basic') {
-                const inputs = ['edit_name', 'edit_birthday', 'edit_email', 'edit_phone'];
-                inputs.forEach(id => {
-                    document.getElementById(id).disabled = !editingSections[section];
-                });
-                document.querySelectorAll('input[name="editGenderSelect"]').forEach(radio => {
-                    radio.disabled = !editingSections[section];
-                });
-            }
-            
-            if (section === 'fitness') {
-                const goalsContainer = document.getElementById('edit_goals_container');
-                const goalsDisplay = document.getElementById('edit_goals_display');
-                const courseContainer = document.getElementById('edit_course_container');
-                const courseDisplay = document.getElementById('edit_course_display');
-                const diseasesContainer = document.getElementById('edit_diseases_container');
-                const diseasesDisplay = document.getElementById('edit_diseases_display');
-                
-                if (editingSections[section]) {
-                    goalsDisplay.style.display = 'none';
-                    goalsContainer.style.display = 'block';
-                    courseDisplay.style.display = 'none';
-                    courseContainer.style.display = 'block';
-                    diseasesDisplay.style.display = 'none';
-                    diseasesContainer.style.display = 'block';
-                    
-                    const goalsSelect = document.getElementById('edit_goals');
-                    Array.from(goalsSelect.options).forEach(option => {
-                        option.selected = (formData.goals || []).includes(option.value);
-                    });
-                    
-                    const courseSelect = document.getElementById('edit_course');
-                    Array.from(courseSelect.options).forEach(option => {
-                        option.selected = (formData.courses || []).includes(option.value);
-                    });
-                    
-                    document.querySelectorAll('[id^="edit_disease_"]').forEach(cb => {
-                        cb.checked = false;
-                    });
-                    (formData.diseases || []).forEach(disease => {
-                        if (disease.includes(':')) {
-                            const parts = disease.split(':');
-                            const diseaseName = parts[0].trim();
-                            const diseaseDetail = parts[1].trim();
-                            
-                            if (diseaseName === '關節問題') {
-                                document.getElementById('edit_disease_joint').checked = true;
-                                document.getElementById('edit_joint_detail').value = diseaseDetail;
-                            } else if (diseaseName === '脊椎問題') {
-                                document.getElementById('edit_disease_spine').checked = true;
-                                document.getElementById('edit_spine_detail').value = diseaseDetail;
-                            } else if (diseaseName === '其他') {
-                                document.getElementById('edit_disease_other').checked = true;
-                                document.getElementById('edit_other_detail').value = diseaseDetail;
-                            }
-                        } else {
-                            const diseaseMap = {
-                                '心臟病': 'edit_disease_heart',
-                                '心絞痛': 'edit_disease_angina',
-                                '糖尿病': 'edit_disease_diabetes',
-                                '疝氣/脫腸': 'edit_disease_hernia',
-                                '高血壓': 'edit_disease_hypertension',
-                                '氣喘': 'edit_disease_asthma',
-                                '貧血': 'edit_disease_anemia',
-                                '癲癇': 'edit_disease_epilepsy',
-                                '甲狀腺問題': 'edit_disease_thyroid',
-                                '靜脈瘤': 'edit_disease_varicose',
-                                '惡性腫瘤': 'edit_disease_tumor',
-                                '椎間盤突出': 'edit_disease_disc',
-                                '習慣性脫臼': 'edit_disease_dislocation',
-                                '脊椎滑脫': 'edit_disease_spondylolisthesis',
-                                '骨質疏鬆症': 'edit_disease_osteoporosis',
-                                '痛風/風濕': 'edit_disease_gout',
-                                '無': 'edit_disease_none'
-                            };
-                            
-                            const checkboxId = diseaseMap[disease];
-                            if (checkboxId) {
-                                const checkbox = document.getElementById(checkboxId);
-                                if (checkbox) checkbox.checked = true;
-                            }
-                        }
-                    });
-                } else {
-                    goalsDisplay.style.display = 'block';
-                    goalsContainer.style.display = 'none';
-                    courseDisplay.style.display = 'block';
-                    courseContainer.style.display = 'none';
-                    diseasesDisplay.style.display = 'block';
-                    diseasesContainer.style.display = 'none';
-                }
-                
-                document.getElementById('edit_remarks').disabled = !editingSections[section];
+                aiTitle.textContent = 'AI 體態分析';
+                aiContent.innerHTML = `
+                    <p style="color: #808080;">暫無分析資料</p>
+                `;
             }
         }
 
         function saveEditedData() {
-            let hasError = false;
-            let errorMsg = '';
-            
-            if (editingSections.basic) {
-                const name = document.getElementById('edit_name').value.trim();
-                const birthday = document.getElementById('edit_birthday').value;
-                const gender = document.querySelector('input[name="editGenderSelect"]:checked');
-                const email = document.getElementById('edit_email').value.trim();
-                const phone = document.getElementById('edit_phone').value.trim();
-                
-                if (!name || !birthday || !gender || !email || !phone) {
-                    hasError = true;
-                    errorMsg = '基本資料有未填寫的欄位';
-                } else {
-                    formData.name = name;
-                    formData.birthday = birthday;
-                    formData.gender = gender.value;
-                    formData.email = email;
-                    formData.phone = phone;
+            for (let section in editingSections) {
+                if (editingSections[section]) {
+                    alert('請先保存所有修改');
+                    return;
                 }
             }
             
-            if (editingSections.fitness && !hasError) {
-                const selectedGoals = Array.from(document.getElementById('edit_goals').selectedOptions).map(o => o.value);
-                const selectedCourses = Array.from(document.getElementById('edit_course').selectedOptions).map(o => o.value);
-                
-                if (selectedGoals.length === 0) {
-                    hasError = true;
-                    errorMsg = '請至少選擇一項健身目標';
-                } else if (selectedCourses.length === 0) {
-                    hasError = true;
-                    errorMsg = '請至少選擇一項課程偏好';
-                } else {
-                    formData.goals = selectedGoals;
-                    formData.courses = selectedCourses;
-                    
-                    const diseases = [];
-                    document.querySelectorAll('[id^="edit_disease_"]:checked').forEach(cb => {
-                        const value = cb.value;
-                        if (value === '關節問題') {
-                            const detail = document.getElementById('edit_joint_detail').value.trim();
-                            diseases.push(detail ? `關節問題: ${detail}` : '關節問題');
-                        } else if (value === '脊椎問題') {
-                            const detail = document.getElementById('edit_spine_detail').value.trim();
-                            diseases.push(detail ? `脊椎問題: ${detail}` : '脊椎問題');
-                        } else if (value === '其他') {
-                            const detail = document.getElementById('edit_other_detail').value.trim();
-                            diseases.push(detail ? `其他: ${detail}` : '其他');
+            formData.name = document.getElementById('edit_name').value.trim();
+            formData.gender = document.querySelector('input[name="editGenderSelect"]:checked')?.value || '';
+            formData.birthday = document.getElementById('edit_birthday').value;
+            formData.email = document.getElementById('edit_email').value.trim();
+            formData.phone = document.getElementById('edit_phone').value.trim();
+            
+            const goalsSelect = document.getElementById('edit_goals');
+            formData.goals = Array.from(goalsSelect.selectedOptions).map(opt => opt.value);
+            
+            const courseSelect = document.getElementById('edit_course');
+            formData.courses = Array.from(courseSelect.selectedOptions).map(opt => opt.value);
+            
+            const diseaseCheckboxes = document.querySelectorAll('#edit_diseases_container input[type="checkbox"]');
+            formData.diseases = [];
+            
+            diseaseCheckboxes.forEach(cb => {
+                if (cb.checked) {
+                    if (cb.value === '關節問題') {
+                        const detail = document.getElementById('edit_joint_detail').value.trim();
+                        if (detail) {
+                            formData.diseases.push(`關節問題: ${detail}`);
                         } else {
-                            diseases.push(value);
+                            formData.diseases.push('關節問題');
                         }
-                    });
-                    
-                    if (diseases.length === 0) {
-                        hasError = true;
-                        errorMsg = '請至少選擇一項疾病史選項';
+                    } else if (cb.value === '脊椎問題') {
+                        const detail = document.getElementById('edit_spine_detail').value.trim();
+                        if (detail) {
+                            formData.diseases.push(`脊椎問題: ${detail}`);
+                        } else {
+                            formData.diseases.push('脊椎問題');
+                        }
+                    } else if (cb.value === '其他') {
+                        const detail = document.getElementById('edit_other_detail').value.trim();
+                        if (detail) {
+                            formData.diseases.push(`其他: ${detail}`);
+                        } else {
+                            formData.diseases.push('其他');
+                        }
                     } else {
-                        formData.diseases = diseases;
+                        formData.diseases.push(cb.value);
                     }
-                    
-                    formData.remarks = document.getElementById('edit_remarks').value.trim();
                 }
-            }
+            });
             
-            const errorDiv = document.getElementById('editError');
-            if (hasError) {
-                errorDiv.textContent = errorMsg;
-                errorDiv.style.display = 'block';
-                return;
-            } else {
-                errorDiv.style.display = 'none';
-            }
+            formData.remarks = document.getElementById('edit_remarks').value;
             
-            saveFormDataToStorage();
             nextPage();
         }
 
-        async function loadVenueRules() {
-            const rulesContainer = document.getElementById('venueRules');
-            const agreeCheckbox = document.getElementById('agreeRules');
-            const agreeLabel = document.getElementById('agreeRulesLabel');
+        // 稍後預約體驗
+        async function submitFormLater() {
+            if (!validateCurrentPage()) {
+                return;
+            }
+            
+            const submitButton = event.target;
+            if (submitButton.disabled) {
+                return;
+            }
+            
+            submitButton.disabled = true;
+            const originalText = submitButton.innerHTML;
+            submitButton.innerHTML = '<span>⏳ 正在送出中...</span>';
+            submitButton.style.background = '#808080';
+            submitButton.style.cursor = 'not-allowed';
+            
+            saveCurrentPageData();
+            formData.bookingType = 'later';
+            
+            const submitData = {
+                lineId: formData.lineId || '',
+                name: formData.name || '',
+                gender: formData.gender || '',
+                birthday: formData.birthday || '',
+                email: formData.email || '',
+                phone: formData.phone || '',
+                
+                goals: (formData.goals || []).join('、'),
+                courses: (formData.courses || []).join('、'),
+                diseases: (formData.diseases || []).join('、'),
+                remarks: formData.remarks || '',
+                
+                timePreferences: (formData.timePreferences || []).map(tp => `${tp.slot}: ${tp.time || '全時段'}`).join(' | '),
+                experienceSlots: '',
+                
+                skippedAI: formData.skippedAI || false,
+                postureScore: formData.postureScore || null,
+                shoulderBalance: formData.shoulderBalance || null,
+                pelvisBalance: formData.pelvisBalance || null,
+                spineAlignment: formData.spineAlignment || null,
+                overallStability: formData.overallStability || null,
+                recommendExercise: formData.recommendExercise || null,
+                recommendDiet: formData.recommendDiet || null,
+                detailedAnalysis: formData.detailedAnalysis || null,
+                
+                photo: formData.photo || null,
+                bookingType: 'later',
+                
+                submittedAt: new Date().toISOString()
+            };
             
             try {
-                const response = await fetch('https://hook.us2.make.com/w8lxmgdfkwhekfy1lxlxp74tq8oa46xx');
-                const data = await response.json();
-                
-                if (data.rules && Array.isArray(data.rules)) {
-                    let rulesHTML = '';
-                    data.rules.forEach((section, index) => {
-                        rulesHTML += `
-                            <div style="margin-bottom: ${index < data.rules.length - 1 ? '25px' : '0'};">
-                                <h3 style="color: #5f846f; font-size: 17px; margin-bottom: 12px; padding-left: 12px; border-left: 4px solid #7ac19a;">${section.title}</h3>
-                                <div style="color: #66888e; font-size: 14px; line-height: 1.8;">
-                                    ${section.items.map(item => `
-                                        <div style="padding: 10px 15px; margin-bottom: 8px; background: #f8faf9; border-radius: 8px; border-left: 3px solid #9fcccc;">
-                                            ${item}
-                                        </div>
-                                    `).join('')}
-                                </div>
-                            </div>
-                        `;
-                    });
-                    
-                    if (data.footer) {
-                        rulesHTML += `
-                            <div style="background: #daedec; padding: 14px; border-radius: 10px; text-align: center; color: #66888e; font-size: 13px; margin-top: 20px;">
-                                ${data.footer.split('\n').join('<br>')}
-                            </div>
-                        `;
-                    }
-                    
-                    rulesContainer.innerHTML = rulesHTML;
-                    
-                    agreeCheckbox.disabled = false;
-                    agreeLabel.style.cursor = 'pointer';
-                    agreeLabel.style.opacity = '1';
-                } else {
-                    throw new Error('規範格式錯誤');
-                }
-            } catch (error) {
-                console.error('載入場館規範失敗:', error);
-                rulesContainer.innerHTML = '<p style="color: #c67566; text-align: center;">載入場館規範失敗,請稍後再試</p>';
-            }
-        }
-
-        function submitLaterBooking() {
-            if (!validateCurrentPage()) {
-                return;
-            }
-            isLaterBooking = true;
-            submitFormData(true);
-        }
-
-        async function submitForm() {
-            if (!validateCurrentPage()) {
-                return;
-            }
-            isLaterBooking = false;
-            submitFormData(false);
-        }
-
-        async function submitFormData(isLater) {
-            const overlay = document.createElement('div');
-            overlay.className = 'analyzing-overlay';
-            overlay.innerHTML = `
-                <div class="analyzing-spinner"></div>
-                <div class="analyzing-text">提交中...</div>
-                <div class="analyzing-subtext">正在儲存您的資料</div>
-            `;
-            document.body.appendChild(overlay);
-
-            try {
-                const submitData = {
-                    lineId: formData.lineId || document.getElementById('lineId').value || '',
-                    name: formData.name || '',
-                    gender: formData.gender || '',
-                    birthday: formData.birthday || '',
-                    email: formData.email || '',
-                    phone: formData.phone || '',
-                    goals: (formData.goals || []).join('、'),
-                    courses: (formData.courses || []).join('、'),
-                    diseases: (formData.diseases || []).join('、'),
-                    remarks: formData.remarks || '',
-                    timePreferences: (formData.timePreferences || []).map(tp => `${tp.slot}: ${tp.time}`).join(' | '),
-                    skippedAI: formData.skippedAI || false,
-                    postureScore: formData.postureScore || null,
-                    shoulderBalance: formData.shoulderBalance || null,
-                    pelvisBalance: formData.pelvisBalance || null,
-                    spineAlignment: formData.spineAlignment || null,
-                    overallStability: formData.overallStability || null,
-                    recommendExercise: formData.recommendExercise || null,
-                    recommendDiet: formData.recommendDiet || null,
-                    detailedAnalysis: formData.detailedAnalysis || null,
-                    photo: formData.photo || null,
-                    bookingStatus: isLater ? '稍後預約' : '馬上預約',
-                    submittedAt: new Date().toISOString()
-                };
-
                 const jsonBody = JSON.stringify(submitData);
-
+                
                 const response = await fetch('https://hook.us2.make.com/6rfz9vsjnqqxr6s6bnx2cr9njax93yyg', {
                     method: 'POST',
                     headers: {
@@ -3844,55 +4502,152 @@ function initializeCanvas() {
                     },
                     body: jsonBody
                 });
-
+                
                 if (response.ok) {
+                    localStorage.setItem('bookingType', 'later');
                     localStorage.removeItem('fitnessFormData');
-                    
-                    currentPage = 12;
-                    document.querySelectorAll('.question-page').forEach(page => {
-                        page.classList.remove('active');
-                    });
-                    document.querySelector('[data-page="12"]').classList.add('active');
-                    
-                    if (isLater) {
-                        document.getElementById('bookNowButtonContainer').style.display = 'block';
-                    } else {
-                        document.getElementById('bookNowButtonContainer').style.display = 'none';
-                    }
-                    
-                    updateProgress();
-                    window.scrollTo(0, 0);
+                    // 顯示馬上預約體驗按鈕
+                    document.getElementById('bookNowButtonContainer').style.display = 'block';
+                    nextPage();
                 } else {
-                    throw new Error('提交失敗');
+                    submitButton.disabled = false;
+                    submitButton.innerHTML = originalText;
+                    submitButton.style.background = '#808080';
+                    submitButton.style.cursor = '';
+                    alert('提交失敗,請稍後再試');
                 }
             } catch (error) {
                 console.error('提交錯誤:', error);
-                alert('提交失敗,請稍後再試');
-            } finally {
-                document.body.removeChild(overlay);
+                submitButton.disabled = false;
+                submitButton.innerHTML = originalText;
+                submitButton.style.background = '#808080';
+                submitButton.style.cursor = '';
+                alert('網路錯誤,請稍後再試');
             }
+        }
+
+        // 馬上預約體驗
+        async function submitFormNow() {
+            if (!validateCurrentPage()) {
+                return;
+            }
+            
+            const submitButton = event.target;
+            if (submitButton.disabled) {
+                return;
+            }
+            
+            submitButton.disabled = true;
+            const originalText = submitButton.innerHTML;
+            submitButton.innerHTML = '<span>⏳ 正在送出中...</span>';
+            submitButton.style.background = '#808080';
+            submitButton.style.cursor = 'not-allowed';
+            
+            saveCurrentPageData();
+            formData.bookingType = 'now';
+            
+            const submitData = {
+                lineId: formData.lineId || '',
+                name: formData.name || '',
+                gender: formData.gender || '',
+                birthday: formData.birthday || '',
+                email: formData.email || '',
+                phone: formData.phone || '',
+                
+                goals: (formData.goals || []).join('、'),
+                courses: (formData.courses || []).join('、'),
+                diseases: (formData.diseases || []).join('、'),
+                remarks: formData.remarks || '',
+                
+                timePreferences: (formData.timePreferences || []).map(tp => `${tp.slot}: ${tp.time || '全時段'}`).join(' | '),
+                experienceSlots: '',
+                
+                skippedAI: formData.skippedAI || false,
+                postureScore: formData.postureScore || null,
+                shoulderBalance: formData.shoulderBalance || null,
+                pelvisBalance: formData.pelvisBalance || null,
+                spineAlignment: formData.spineAlignment || null,
+                overallStability: formData.overallStability || null,
+                recommendExercise: formData.recommendExercise || null,
+                recommendDiet: formData.recommendDiet || null,
+                detailedAnalysis: formData.detailedAnalysis || null,
+                
+                photo: formData.photo || null,
+                bookingType: 'now',
+                
+                submittedAt: new Date().toISOString()
+            };
+            
+            try {
+                const jsonBody = JSON.stringify(submitData);
+                
+                const response = await fetch('https://hook.us2.make.com/6rfz9vsjnqqxr6s6bnx2cr9njax93yyg', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: jsonBody
+                });
+                
+                if (response.ok) {
+                    localStorage.setItem('bookingType', 'now');
+                    localStorage.removeItem('fitnessFormData');
+                    // 跳轉到預約網頁
+                    window.location.href = 'https://liff.line.me/2007947083-yb9NPJ7e';
+                } else {
+                    submitButton.disabled = false;
+                    submitButton.innerHTML = originalText;
+                    submitButton.style.background = '';
+                    submitButton.style.cursor = '';
+                    alert('提交失敗,請稍後再試');
+                }
+            } catch (error) {
+                console.error('提交錯誤:', error);
+                submitButton.disabled = false;
+                submitButton.innerHTML = originalText;
+                submitButton.style.background = '';
+                submitButton.style.cursor = '';
+                alert('網路錯誤,請稍後再試');
+            }
+        }
+
+        // 跳轉到預約網頁
+        function goToBooking() {
+            window.location.href = 'https://liff.line.me/2007947083-yb9NPJ7e';
+        }
+
+        async function submitForm() {
+            // 保留原有函數以備不時之需
+            await submitFormNow();
+        }
+
+        function updateProgress() {
+            let progressPage = currentPage;
+            if (currentPage === 2.5) {
+                progressPage = 2.5;
+            }
+            const progress = (progressPage / totalPages) * 100;
+            document.getElementById('progressFill').style.width = progress + '%';
         }
 
         document.addEventListener('change', function(e) {
             if (e.target.type === 'checkbox' || e.target.type === 'radio') {
                 const option = e.target.closest('.option');
                 if (option) {
-                    if (e.target.type === 'checkbox') {
-                        if (e.target.checked) {
-                            option.classList.add('selected');
-                        } else {
-                            option.classList.remove('selected');
-                        }
-                    } else if (e.target.type === 'radio') {
-                        document.querySelectorAll(`input[name="${e.target.name}"]`).forEach(radio => {
+                    if (e.target.type === 'radio') {
+                        const radioName = e.target.name;
+                        document.querySelectorAll(`input[name="${radioName}"]`).forEach(radio => {
                             const parentOption = radio.closest('.option');
                             if (parentOption) {
                                 parentOption.classList.remove('selected');
                             }
                         });
-                        if (e.target.checked) {
-                            option.classList.add('selected');
-                        }
+                    }
+                    
+                    if (e.target.checked) {
+                        option.classList.add('selected');
+                    } else {
+                        option.classList.remove('selected');
                     }
                 }
             }
