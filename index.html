@@ -1891,9 +1891,8 @@
 
     <input type="hidden" id="lineId" value="">
 <script>
-        // ⚠️ 重要：請在 Make 建立查詢 Webhook 後，將 URL 填入這裡
-        const CHECK_USER_WEBHOOK_URL = 'https://hook.us2.make.com/YOUR_CHECK_WEBHOOK_URL_HERE';
-        const SUBMIT_WEBHOOK_URL = 'https://hook.us2.make.com/6rfz9vsjnqqxr6s6bnx2cr9njax93yyg';
+        // 使用同一個 Webhook URL，用 action 參數分路
+        const WEBHOOK_URL = 'https://hook.us2.make.com/6rfz9vsjnqqxr6s6bnx2cr9njax93yyg';
 
         let currentPage = 1;
         const totalPages = 12;
@@ -1942,12 +1941,15 @@
 
         async function checkUserSubmitted(lineId) {
             try {
-                const response = await fetch(CHECK_USER_WEBHOOK_URL, {
+                const response = await fetch(WEBHOOK_URL, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
                     },
-                    body: JSON.stringify({ lineId: lineId })
+                    body: JSON.stringify({ 
+                        action: 'check',
+                        lineId: lineId 
+                    })
                 });
                 
                 if (response.ok) {
@@ -3001,6 +3003,7 @@ async function submitFormLater() {
             saveCurrentPageData();
             
             var submitData = {
+                action: 'submit',
                 lineId: formData.lineId || '',
                 name: formData.name || '',
                 gender: formData.gender || '',
@@ -3027,7 +3030,7 @@ async function submitFormLater() {
             };
             
             try {
-                var response = await fetch(SUBMIT_WEBHOOK_URL, {
+                var response = await fetch(WEBHOOK_URL, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(submitData)
