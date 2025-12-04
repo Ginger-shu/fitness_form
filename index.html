@@ -1514,7 +1514,7 @@
     </div>
     <input type="file" id="photoInputFile" accept="image/*" style="display: none;">
     <input type="file" id="photoInputCamera" accept="image/*" capture="environment" style="display: none;">
-    <button class="button" onclick="nextPage()">進行AI分析</button>
+    <button class="button" onclick="proceedToPrivacy()">進行AI分析</button>
     <div style="text-align: center; margin-top: 15px;">
         <button class="button" onclick="skipAIAnalysis()" style="background: #808080; font-size: 14px; padding: 12px 30px;">跳過AI檢測,直接預約體驗</button>
     </div>
@@ -2871,6 +2871,23 @@ function restoreFormState() {
             
             return `${hour.toString().padStart(2, '0')}:${minute.toString().padStart(2, '0')}`;
         }
+
+function proceedToPrivacy() {
+    if (!uploadedImage) {
+        alert('請先上傳體態照片');
+        return;
+    }
+    
+    saveCurrentPageData();
+    
+    document.querySelectorAll('.question-page').forEach(page => {
+        page.classList.remove('active');
+    });
+    currentPage = 2;
+    document.querySelector('[data-page="2"]').classList.add('active');
+    updateProgress();
+    window.scrollTo(0, 0);
+}
 
         function proceedAfterPrivacy() {
             const agreePrivacy = document.getElementById('agreePrivacy').checked;
