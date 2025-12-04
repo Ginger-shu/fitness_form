@@ -78,12 +78,8 @@
         }
 
         @keyframes rainbow-shift {
-            0%, 100% {
-                background-position: 0% 50%;
-            }
-            50% {
-                background-position: 100% 50%;
-            }
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
         }
 
         .container:hover .progress-bar::before {
@@ -98,15 +94,13 @@
             width: 180%;
             height: 100%;
             background: linear-gradient(90deg, 
-                transparent 0%, 
-                transparent 15%,
+                transparent 0%, transparent 15%,
                 rgba(255, 255, 255, 0.1) 25%,
                 rgba(255, 255, 255, 0.35) 40%,
                 rgba(255, 255, 255, 0.7) 50%,
                 rgba(255, 255, 255, 0.35) 60%,
                 rgba(255, 255, 255, 0.1) 75%,
-                transparent 85%,
-                transparent 100%);
+                transparent 85%, transparent 100%);
             animation: beam-sweep 5s cubic-bezier(0.4, 0, 0.2, 1) infinite;
             pointer-events: none;
             border-radius: 25px;
@@ -129,20 +123,10 @@
                     rgba(0, 0, 0, 0.02) 75%,
                     rgba(0, 0, 0, 0.04) 100%),
                 linear-gradient(135deg, 
-                    #2d7a4d 0%,
-                    #3d8c5f 8%, 
-                    #4a9d6f 16%,
-                    #58b07e 24%,
-                    #6fc99b 32%,
-                    #7ac19a 40%, 
-                    #87c9a5 48%,
-                    #95d1b5 56%,
-                    #a5d8c5 64%,
-                    #aad9d9 72%, 
-                    #b3dedd 80%,
-                    #bde3e3 88%,
-                    #c8e8e9 96%,
-                    #d0ecee 100%);
+                    #2d7a4d 0%, #3d8c5f 8%, #4a9d6f 16%, #58b07e 24%,
+                    #6fc99b 32%, #7ac19a 40%, #87c9a5 48%, #95d1b5 56%,
+                    #a5d8c5 64%, #aad9d9 72%, #b3dedd 80%, #bde3e3 88%,
+                    #c8e8e9 96%, #d0ecee 100%);
             position: relative;
             transition: width 0.9s cubic-bezier(0.22, 1, 0.36, 1);
             box-shadow: 
@@ -162,9 +146,7 @@
         .progress-fill::before {
             content: '';
             position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
+            top: 0; left: 0; right: 0;
             height: 45%;
             background: 
                 radial-gradient(ellipse at 30% 20%, rgba(255, 255, 255, 0.9) 0%, transparent 60%),
@@ -180,57 +162,25 @@
         .progress-fill::after {
             content: '';
             position: absolute;
-            top: -60%;
-            right: -15px;
-            width: 50px;
-            height: 220%;
-            background: 
-                radial-gradient(ellipse at center, 
-                    rgba(255, 255, 255, 1) 0%,
-                    rgba(255, 255, 255, 0.8) 20%,
-                    rgba(255, 255, 255, 0.5) 40%,
-                    rgba(255, 255, 255, 0.2) 60%,
-                    transparent 80%);
+            top: -60%; right: -15px;
+            width: 50px; height: 220%;
+            background: radial-gradient(ellipse at center, 
+                rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0.8) 20%,
+                rgba(255, 255, 255, 0.5) 40%, rgba(255, 255, 255, 0.2) 60%, transparent 80%);
             filter: blur(6px);
             animation: tail-pulse 2.8s ease-in-out infinite;
             transform-origin: center;
         }
 
         @keyframes tail-pulse {
-            0%, 100% { 
-                opacity: 0.6;
-                transform: translateX(0) scale(1) rotate(0deg);
-            }
-            33% { 
-                opacity: 0.95;
-                transform: translateX(-4px) scale(1.08) rotate(-2deg);
-            }
-            66% {
-                opacity: 0.75;
-                transform: translateX(-2px) scale(1.04) rotate(1deg);
-            }
-        }
-
-        .progress-bar:hover .progress-fill {
-            box-shadow: 
-                0 0 40px rgba(122, 193, 154, 0.75),
-                0 0 65px rgba(122, 193, 154, 0.45),
-                0 0 95px rgba(122, 193, 154, 0.2),
-                0 4px 16px rgba(95, 132, 111, 0.45),
-                inset 0 2px 1px rgba(255, 255, 255, 0.8),
-                inset 0 -2px 1px rgba(0, 0, 0, 0.1),
-                inset 1px 0 1px rgba(255, 255, 255, 0.4),
-                inset -1px 0 1px rgba(0, 0, 0, 0.06);
-            filter: brightness(1.06) saturate(1.1);
+            0%, 100% { opacity: 0.6; transform: translateX(0) scale(1) rotate(0deg); }
+            33% { opacity: 0.95; transform: translateX(-4px) scale(1.08) rotate(-2deg); }
+            66% { opacity: 0.75; transform: translateX(-2px) scale(1.04) rotate(1deg); }
         }
 
         @keyframes subtle-breathe {
-            0%, 100% {
-                filter: brightness(1) saturate(1);
-            }
-            50% {
-                filter: brightness(1.04) saturate(1.05);
-            }
+            0%, 100% { filter: brightness(1) saturate(1); }
+            50% { filter: brightness(1.04) saturate(1.05); }
         }
 
         .content {
@@ -289,9 +239,7 @@
             min-height: 52px;
         }
 
-        .option:active {
-            transform: scale(0.98);
-        }
+        .option:active { transform: scale(0.98); }
 
         .option:hover {
             background: #ffeaea;
@@ -315,10 +263,7 @@
             color: #4a6859;
         }
 
-        .detail-input::placeholder {
-            color: #a89a9a;
-            opacity: 0.7;
-        }
+        .detail-input::placeholder { color: #a89a9a; opacity: 0.7; }
 
         .detail-input:focus {
             border-color: #c0ddd0 !important;
@@ -328,8 +273,7 @@
 
         .option input[type="checkbox"],
         .option input[type="radio"] {
-            width: 22px;
-            height: 22px;
+            width: 22px; height: 22px;
             cursor: pointer;
             flex-shrink: 0;
             accent-color: #5f846f;
@@ -338,7 +282,6 @@
         .option.selected input[type="checkbox"],
         .option.selected input[type="radio"] {
             accent-color: #2d5a3d;
-            filter: brightness(1);
         }
 
         .text-input {
@@ -383,30 +326,17 @@
         .button::before {
             content: '';
             position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 0;
-            height: 0;
+            top: 50%; left: 50%;
+            width: 0; height: 0;
             border-radius: 50%;
             background: rgba(255, 255, 255, 0.3);
             transform: translate(-50%, -50%);
             transition: width 0.6s, height 0.6s;
         }
 
-        .button:active::before {
-            width: 300px;
-            height: 300px;
-        }
-
-        .button:active {
-            transform: scale(0.98);
-        }
-
-        .button:disabled {
-            background: #808080;
-            cursor: not-allowed;
-            transform: none;
-        }
+        .button:active::before { width: 300px; height: 300px; }
+        .button:active { transform: scale(0.98); }
+        .button:disabled { background: #808080; cursor: not-allowed; transform: none; }
 
         .button.secondary {
             background: #ffffff;
@@ -466,74 +396,6 @@
             border-radius: 8px;
         }
 
-        .completion {
-            text-align: center;
-            padding: 50px 20px;
-        }
-
-        .completion h1 {
-            color: #7ac19a;
-            font-size: 28px;
-            margin-bottom: 20px;
-        }
-
-        .completion p {
-            color: #5f846f;
-            font-size: 16px;
-            line-height: 1.6;
-        }
-
-        .time-slot-input {
-            display: flex;
-            gap: 8px;
-            margin-bottom: 15px;
-            flex-wrap: wrap;
-        }
-
-        .time-slot-input input {
-            flex: 1;
-            min-width: 120px;
-        }
-
-        .time-slot-input button {
-            width: auto;
-            padding: 12px 20px;
-            font-size: 16px;
-            min-width: 80px;
-        }
-
-        .time-slot-list {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-            margin-top: 15px;
-        }
-
-        .time-slot-tag {
-            background: #9fcccc;
-            color: #ffffff;
-            padding: 10px 16px;
-            border-radius: 20px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-size: 14px;
-        }
-
-        .time-slot-tag button {
-            background: none;
-            border: none;
-            color: #ffffff;
-            cursor: pointer;
-            font-size: 20px;
-            padding: 0;
-            width: 24px;
-            height: 24px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
         .error-message {
             color: #c67566;
             font-size: 14px;
@@ -544,9 +406,7 @@
             border-left: 3px solid #c67566;
         }
 
-        .required {
-            color: #f2ac98;
-        }
+        .required { color: #f2ac98; }
 
         input[type="date"] {
             width: 100%;
@@ -554,7 +414,6 @@
             border: 2px solid #e2ede6;
             border-radius: 8px;
             font-size: 16px;
-            position: relative;
         }
 
         input[type="date"]:focus {
@@ -599,9 +458,7 @@
             background: linear-gradient(145deg, #ffffff, #f8faf9);
             border-radius: 20px;
             padding: 20px;
-            box-shadow: 
-                0 15px 40px rgba(95, 132, 111, 0.15),
-                inset 0 2px 10px rgba(255, 255, 255, 0.8);
+            box-shadow: 0 15px 40px rgba(95, 132, 111, 0.15), inset 0 2px 10px rgba(255, 255, 255, 0.8);
             border: 3px solid rgba(122, 193, 154, 0.2);
         }
 
@@ -613,8 +470,7 @@
         }
 
         #postureCanvas {
-            width: 100%;
-            height: auto;
+            width: 100%; height: auto;
             display: block;
             cursor: crosshair;
             touch-action: none;
@@ -626,10 +482,7 @@
 
         .grid-overlay {
             position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
+            top: 0; left: 0; right: 0; bottom: 0;
             background-image: 
                 linear-gradient(rgba(122, 193, 154, 0.03) 1px, transparent 1px),
                 linear-gradient(90deg, rgba(122, 193, 154, 0.03) 1px, transparent 1px);
@@ -671,8 +524,7 @@
         .instruction-card::before {
             content: '✦';
             position: absolute;
-            top: -15px;
-            right: -15px;
+            top: -15px; right: -15px;
             font-size: 80px;
             color: rgba(255, 224, 139, 0.12);
             transform: rotate(15deg);
@@ -760,11 +612,9 @@
         .stats-title::after {
             content: '';
             position: absolute;
-            bottom: 0;
-            left: 50%;
+            bottom: 0; left: 50%;
             transform: translateX(-50%);
-            width: 80px;
-            height: 3px;
+            width: 80px; height: 3px;
             background: linear-gradient(90deg, transparent, #7ac19a, transparent);
             border-radius: 2px;
         }
@@ -790,18 +640,14 @@
         .stat-card::before {
             content: '';
             position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
+            top: 0; left: 0; right: 0;
             height: 4px;
             background: linear-gradient(90deg, #7ac19a 0%, #9fcccc 100%);
             transform: scaleX(0);
             transition: transform 0.4s ease;
         }
 
-        .stat-card:active::before {
-            transform: scaleX(1);
-        }
+        .stat-card:active::before { transform: scaleX(1); }
 
         .stat-card:active {
             transform: translateY(-3px);
@@ -855,8 +701,7 @@
         }
 
         .legend-dot {
-            width: 18px;
-            height: 18px;
+            width: 18px; height: 18px;
             border-radius: 50%;
             box-shadow: 0 0 8px currentColor;
             flex-shrink: 0;
@@ -926,8 +771,7 @@
 
         .edit-button {
             position: absolute;
-            top: 20px;
-            right: 20px;
+            top: 20px; right: 20px;
             background: #7ac19a;
             color: #ffffff;
             border: none;
@@ -943,9 +787,7 @@
             transform: scale(0.95);
         }
 
-        .edit-field {
-            margin-bottom: 12px;
-        }
+        .edit-field { margin-bottom: 12px; }
 
         .edit-field label {
             display: block;
@@ -981,16 +823,11 @@
             margin-bottom: 20px;
         }
 
-        .basic-info-grid .full-width {
-            grid-column: 1 / -1;
-        }
+        .basic-info-grid .full-width { grid-column: 1 / -1; }
 
         .analyzing-overlay {
             position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
+            top: 0; left: 0; right: 0; bottom: 0;
             background: rgba(95, 132, 111, 0.95);
             display: flex;
             flex-direction: column;
@@ -1001,8 +838,7 @@
         }
 
         .analyzing-spinner {
-            width: 50px;
-            height: 50px;
+            width: 50px; height: 50px;
             border: 4px solid rgba(255, 255, 255, 0.3);
             border-top-color: #ffffff;
             border-radius: 50%;
@@ -1010,9 +846,7 @@
             margin-bottom: 15px;
         }
 
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
+        @keyframes spin { to { transform: rotate(360deg); } }
 
         .analyzing-text {
             font-size: 20px;
@@ -1031,9 +865,7 @@
             margin-top: 20px;
         }
 
-        .nav-buttons .button {
-            flex: 1;
-        }
+        .nav-buttons .button { flex: 1; }
 
         .nav-buttons-three {
             display: flex;
@@ -1047,9 +879,7 @@
             gap: 10px;
         }
 
-        .nav-buttons-three .button-row .button {
-            flex: 1;
-        }
+        .nav-buttons-three .button-row .button { flex: 1; }
 
         .email-domain-item {
             padding: 12px 16px;
@@ -1058,18 +888,10 @@
             border-bottom: 1px solid #f0f0f0;
         }
 
-        .email-domain-item:last-child {
-            border-bottom: none;
-        }
+        .email-domain-item:last-child { border-bottom: none; }
+        .email-domain-item:active { background: #e2ede6; }
 
-        .email-domain-item:active {
-            background: #e2ede6;
-        }
-
-        /* 個人資料使用同意頁面樣式 */
-        .privacy-page {
-            padding: 20px 0;
-        }
+        .privacy-page { padding: 20px 0; }
 
         .privacy-hero {
             text-align: center;
@@ -1114,9 +936,7 @@
             box-shadow: 0 4px 15px rgba(95, 132, 111, 0.08);
         }
 
-        .privacy-section {
-            margin-bottom: 25px;
-        }
+        .privacy-section { margin-bottom: 25px; }
 
         .privacy-section-title {
             color: #5f846f;
@@ -1209,7 +1029,6 @@
             margin: 0;
         }
 
-        /* 完成頁面新樣式 */
         .completion-modern {
             padding: 40px 20px;
             text-align: center;
@@ -1222,8 +1041,7 @@
         }
 
         .completion-icon-bg {
-            width: 120px;
-            height: 120px;
+            width: 120px; height: 120px;
             background: linear-gradient(135deg, #7ac19a 0%, #9fcccc 100%);
             border-radius: 50%;
             display: flex;
@@ -1236,24 +1054,15 @@
         }
 
         @keyframes success-pop {
-            0% {
-                transform: scale(0);
-                opacity: 0;
-            }
-            50% {
-                transform: scale(1.1);
-            }
-            100% {
-                transform: scale(1);
-                opacity: 1;
-            }
+            0% { transform: scale(0); opacity: 0; }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); opacity: 1; }
         }
 
         .completion-icon-bg::before {
             content: '';
             position: absolute;
-            width: 140px;
-            height: 140px;
+            width: 140px; height: 140px;
             border: 3px solid #7ac19a;
             border-radius: 50%;
             opacity: 0.3;
@@ -1261,14 +1070,8 @@
         }
 
         @keyframes pulse-ring {
-            0% {
-                transform: scale(0.9);
-                opacity: 0.5;
-            }
-            100% {
-                transform: scale(1.2);
-                opacity: 0;
-            }
+            0% { transform: scale(0.9); opacity: 0.5; }
+            100% { transform: scale(1.2); opacity: 0; }
         }
 
         .completion-icon {
@@ -1285,14 +1088,8 @@
         }
 
         @keyframes fade-in-up {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         .completion-subtitle {
@@ -1319,9 +1116,7 @@
             transition: transform 0.3s ease;
         }
 
-        .completion-info-card:active {
-            transform: scale(0.98);
-        }
+        .completion-info-card:active { transform: scale(0.98); }
 
         .completion-info-icon {
             font-size: 32px;
@@ -1372,184 +1167,113 @@
             animation: fade-in-up 0.6s ease-out 0.6s both;
         }
 
+        .loading-overlay {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(255, 255, 255, 0.95);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+        }
+
+        .loading-spinner {
+            width: 50px; height: 50px;
+            border: 4px solid #e2ede6;
+            border-top-color: #7ac19a;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-bottom: 15px;
+        }
+
+        .loading-text {
+            color: #5f846f;
+            font-size: 16px;
+            font-weight: 600;
+        }
+
         @media (max-width: 768px) {
-            body {
-                padding: 10px;
-            }
-
-            .content {
-                padding: 25px 18px;
-            }
-
-            h2 {
-                font-size: 20px;
-            }
-
-            .button {
-                font-size: 16px;
-                padding: 14px 30px;
-            }
-
-            .option {
-                padding: 12px 14px;
-                font-size: 15px;
-            }
-
-            .stats-grid {
-                grid-template-columns: repeat(3, 1fr);
-                gap: 10px;
-            }
-
-            .stat-card {
-                padding: 15px 10px;
-            }
-
-            .stat-icon {
-                font-size: 26px;
-            }
-
-            .stat-label {
-                font-size: 10px;
-            }
-
-            .stat-value {
-                font-size: 26px;
-            }
-
-            .instruction-list {
-                margin-left: 0;
-                padding-left: 15px;
-            }
-
-            .canvas-container {
-                padding: 15px;
-            }
-
-            .legend {
-                grid-template-columns: 1fr;
-                gap: 10px;
-            }
-
-            .analysis-metrics {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 12px;
-            }
-
-            .metric-card {
-                padding: 18px 12px;
-            }
-
-            .metric-value {
-                font-size: 28px;
-            }
-
-            .metric-label {
-                font-size: 12px;
-            }
-
-            [data-page="4"] > div:first-of-type {
-                grid-template-columns: repeat(2, 1fr) !important;
-            }
-
-            .privacy-hero-icon {
-                font-size: 40px;
-            }
-
-            .privacy-hero h2 {
-                font-size: 20px;
-            }
-
-            .privacy-content {
-                padding: 20px;
-            }
-
-            .completion-icon-bg {
-                width: 100px;
-                height: 100px;
-            }
-
-            .completion-icon {
-                font-size: 50px;
-            }
-
-            .completion-title {
-                font-size: 22px;
-            }
-
-            .completion-info-icon {
-                font-size: 28px;
-            }
-
-            /* 手機版生日欄位加大 */
-            #birthdayYear,
-            #birthdayMonth,
-            #birthdayDay {
+            body { padding: 10px; }
+            .content { padding: 25px 18px; }
+            h2 { font-size: 20px; }
+            .button { font-size: 16px; padding: 14px 30px; }
+            .option { padding: 12px 14px; font-size: 15px; }
+            .stats-grid { grid-template-columns: repeat(3, 1fr); gap: 10px; }
+            .stat-card { padding: 15px 10px; }
+            .stat-icon { font-size: 26px; }
+            .stat-label { font-size: 10px; }
+            .stat-value { font-size: 26px; }
+            .instruction-list { margin-left: 0; padding-left: 15px; }
+            .canvas-container { padding: 15px; }
+            .legend { grid-template-columns: 1fr; gap: 10px; }
+            .analysis-metrics { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+            .metric-card { padding: 18px 12px; }
+            .metric-value { font-size: 28px; }
+            .metric-label { font-size: 12px; }
+            .privacy-hero-icon { font-size: 40px; }
+            .privacy-hero h2 { font-size: 20px; }
+            .privacy-content { padding: 20px; }
+            .completion-icon-bg { width: 100px; height: 100px; }
+            .completion-icon { font-size: 50px; }
+            .completion-title { font-size: 22px; }
+            .completion-info-icon { font-size: 28px; }
+            #birthdayYear, #birthdayMonth, #birthdayDay {
                 font-size: 16px !important;
                 padding: 14px 12px !important;
                 min-height: 50px !important;
             }
-
-            /* 手機版場館規範內容加寬 */
-            #venueRules {
-                padding: 15px !important;
-                font-size: 14px !important;
-            }
-
-            #venueRules h3 {
-                font-size: 16px !important;
-            }
-
-            #venueRules > div > div > div {
-                padding: 12px !important;
-                font-size: 13px !important;
-            }
+            #venueRules { padding: 15px !important; font-size: 14px !important; }
+            #venueRules h3 { font-size: 16px !important; }
         }
     </style>
 </head>
 <body>
+    <!-- 載入中畫面 -->
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="loading-spinner"></div>
+        <div class="loading-text">載入中...</div>
+    </div>
+
     <div class="container">
         <div class="progress-bar">
             <div class="progress-fill" id="progressFill"></div>
         </div>
 
         <div class="content">
-           <!-- Q1: 照片上傳 -->
-<div class="question-page active" data-page="1">
-    <h2 style="text-align: center;">線上免費檢測您的體態<br>立即獲得AI分析評估報告</h2>
-    <p class="subtitle">請拍攝<strong style="color: #c67566;">背面</strong>全身照</p>
-    <div style="background: #fcf4e3; border-radius: 8px; padding: 12px; margin-bottom: 15px;">
-        <p style="color: #ba9e60; font-size: 13px; line-height: 1.5;">
-            💡 拍攝建議:請站直,雙腳與肩同寬,拍攝完整的背面全身照(從頭到腳)
-        </p>
-    </div>
-    <div class="upload-area" id="uploadArea">
-        <div id="uploadText">
-            <p style="font-size: 48px; margin-bottom: 10px;">📸</p>
-            <p style="color: #5f846f; font-size: 16px; margin-bottom: 15px;">上傳體態照片</p>
-            <div class="upload-buttons">
-                <button class="upload-button" onclick="document.getElementById('photoInputFile').click()">選擇檔案</button>
-                <button class="upload-button" onclick="document.getElementById('photoInputCamera').click()">拍照</button>
+            <!-- Q1: 照片上傳 -->
+            <div class="question-page active" data-page="1">
+                <h2 style="text-align: center;">線上免費檢測您的體態<br>立即獲得AI分析評估報告</h2>
+                <p class="subtitle">請拍攝<strong style="color: #c67566;">背面</strong>全身照</p>
+                <div style="background: #fcf4e3; border-radius: 8px; padding: 12px; margin-bottom: 15px;">
+                    <p style="color: #ba9e60; font-size: 13px; line-height: 1.5;">
+                        💡 拍攝建議:請站直,雙腳與肩同寬,拍攝完整的背面全身照(從頭到腳)
+                    </p>
+                </div>
+                <div class="upload-area" id="uploadArea">
+                    <div id="uploadText">
+                        <p style="font-size: 48px; margin-bottom: 10px;">📸</p>
+                        <p style="color: #5f846f; font-size: 16px; margin-bottom: 15px;">上傳體態照片</p>
+                        <div class="upload-buttons">
+                            <button class="upload-button" onclick="document.getElementById('photoInputFile').click()">選擇檔案</button>
+                            <button class="upload-button" onclick="document.getElementById('photoInputCamera').click()">拍照</button>
+                        </div>
+                    </div>
+                    <div id="previewContainer" style="display: none;">
+                        <img id="previewImage" class="preview-image">
+                        <div style="margin-top: 15px; display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;">
+                            <button class="upload-button" onclick="reuploadPhoto()" style="background: #9fcccc;">🔄 重新上傳</button>
+                            <button class="upload-button" onclick="deletePhoto()" style="background: #c67566;">🗑️ 刪除照片</button>
+                        </div>
+                    </div>
+                </div>
+                <input type="file" id="photoInputFile" accept="image/*" style="display: none;">
+                <input type="file" id="photoInputCamera" accept="image/*" capture="environment" style="display: none;">
+                <button class="button" onclick="nextPage()">進行AI分析</button>
+                <div style="text-align: center; margin-top: 15px;">
+                    <button class="button" onclick="skipAIAnalysis()" style="background: #808080; font-size: 14px; padding: 12px 30px;">跳過AI檢測,直接預約體驗</button>
+                </div>
             </div>
-        </div>
-        <div id="previewContainer" style="display: none;">
-            <img id="previewImage" class="preview-image">
-            <div style="margin-top: 15px; display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;">
-                <button class="upload-button" onclick="reuploadPhoto()" style="background: #9fcccc;">
-                    🔄 重新上傳
-                </button>
-                <button class="upload-button" onclick="deletePhoto()" style="background: #c67566;">
-                    🗑️ 刪除照片
-                </button>
-            </div>
-        </div>
-    </div>
-    <input type="file" id="photoInputFile" accept="image/*" style="display: none;">
-    <input type="file" id="photoInputCamera" accept="image/*" capture="environment" style="display: none;">
-    <button class="button" onclick="nextPage()">進行AI分析</button>
-    <div style="text-align: center; margin-top: 15px;">
-        <button class="button" onclick="skipAIAnalysis()" style="background: #808080; font-size: 14px; padding: 12px 30px;">跳過AI檢測,直接預約體驗</button>
-    </div>
-</div>
 
             <!-- Q2: 個資同意書 -->
             <div class="question-page privacy-page" data-page="2">
@@ -1892,8 +1616,7 @@
                     <button class="button" onclick="nextPage()">下一步</button>
                 </div>
             </div>
-
-            <!-- Q7: 備註 -->
+<!-- Q7: 備註 -->
             <div class="question-page" data-page="7">
                 <h2>備註</h2>
                 <p class="subtitle">其他想告訴我們的資訊</p>
@@ -1903,7 +1626,8 @@
                     <button class="button" onclick="nextPage()">下一步</button>
                 </div>
             </div>
-<!-- Q8: 基本資料 -->
+
+            <!-- Q8: 基本資料 -->
             <div class="question-page" data-page="8">
                 <h2>基本資料 <span class="required">*必填</span></h2>
                 <p class="subtitle">請填寫您的基本資料</p>
@@ -2052,11 +1776,6 @@
                         <label>健身目標</label>
                         <div id="edit_goals_display" style="color: #5f846f; padding: 10px; background: #f8faf9; border-radius: 8px; line-height: 1.8;"></div>
                         <div id="edit_goals_container" style="display: none;">
-                            <div style="background: #fcf4e3; border-radius: 8px; padding: 12px; margin-bottom: 10px;">
-                                <p style="color: #ba9e60; font-size: 13px; margin: 0;">
-                                    💡 使用 Ctrl (Windows) 或 Command (Mac) + 點擊可複選多個項目
-                                </p>
-                            </div>
                             <select id="edit_goals" class="text-input" multiple size="6" style="height: auto;">
                                 <option value="減脂">減脂</option>
                                 <option value="增肌">增肌</option>
@@ -2071,11 +1790,6 @@
                         <label>課程偏好</label>
                         <div id="edit_course_display" style="color: #5f846f; padding: 10px; background: #f8faf9; border-radius: 8px; line-height: 1.8;"></div>
                         <div id="edit_course_container" style="display: none;">
-                            <div style="background: #fcf4e3; border-radius: 8px; padding: 12px; margin-bottom: 10px;">
-                                <p style="color: #ba9e60; font-size: 13px; margin: 0;">
-                                    💡 使用 Ctrl (Windows) 或 Command (Mac) + 點擊可複選多個項目
-                                </p>
-                            </div>
                             <select id="edit_course" class="text-input" multiple size="3" style="height: auto;">
                                 <option value="重量訓練">重量訓練</option>
                                 <option value="器械皮拉提斯">器械皮拉提斯</option>
@@ -2086,113 +1800,6 @@
                     <div class="edit-field">
                         <label>疾病史</label>
                         <div id="edit_diseases_display" style="color: #5f846f; padding: 10px; background: #f8faf9; border-radius: 8px; line-height: 1.8;"></div>
-                        <div id="edit_diseases_container" style="display: none;">
-                            <div style="background: #fcf4e3; border-radius: 8px; padding: 12px; margin-bottom: 10px;">
-                                <p style="color: #ba9e60; font-size: 13px; margin: 0;">
-                                    💡 點擊下方選項進行選擇
-                                </p>
-                            </div>
-                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 15px;">
-                                <label class="option" style="margin: 0;">
-                                    <input type="checkbox" id="edit_disease_heart" value="心臟病">
-                                    <span>心臟病</span>
-                                </label>
-                                <label class="option" style="margin: 0;">
-                                    <input type="checkbox" id="edit_disease_angina" value="心絞痛">
-                                    <span>心絞痛</span>
-                                </label>
-                                <label class="option" style="margin: 0;">
-                                    <input type="checkbox" id="edit_disease_diabetes" value="糖尿病">
-                                    <span>糖尿病</span>
-                                </label>
-                                <label class="option" style="margin: 0;">
-                                    <input type="checkbox" id="edit_disease_hernia" value="疝氣/脫腸">
-                                    <span>疝氣/脫腸</span>
-                                </label>
-                                <label class="option" style="margin: 0;">
-                                    <input type="checkbox" id="edit_disease_hypertension" value="高血壓">
-                                    <span>高血壓</span>
-                                </label>
-                                <label class="option" style="margin: 0;">
-                                    <input type="checkbox" id="edit_disease_asthma" value="氣喘">
-                                    <span>氣喘</span>
-                                </label>
-                                <label class="option" style="margin: 0;">
-                                    <input type="checkbox" id="edit_disease_anemia" value="貧血">
-                                    <span>貧血</span>
-                                </label>
-                                <label class="option" style="margin: 0;">
-                                    <input type="checkbox" id="edit_disease_epilepsy" value="癲癇">
-                                    <span>癲癇</span>
-                                </label>
-                                <label class="option" style="margin: 0;">
-                                    <input type="checkbox" id="edit_disease_thyroid" value="甲狀腺問題">
-                                    <span>甲狀腺問題</span>
-                                </label>
-                                <label class="option" style="margin: 0;">
-                                    <input type="checkbox" id="edit_disease_varicose" value="靜脈瘤">
-                                    <span>靜脈瘤</span>
-                                </label>
-                                <label class="option" style="margin: 0;">
-                                    <input type="checkbox" id="edit_disease_tumor" value="惡性腫瘤">
-                                    <span>惡性腫瘤</span>
-                                </label>
-                                <label class="option" style="margin: 0;">
-                                    <input type="checkbox" id="edit_disease_disc" value="椎間盤突出">
-                                    <span>椎間盤突出</span>
-                                </label>
-                                <label class="option" style="margin: 0;">
-                                    <input type="checkbox" id="edit_disease_dislocation" value="習慣性脫臼">
-                                    <span>習慣性脫臼</span>
-                                </label>
-                                <label class="option" style="margin: 0;">
-                                    <input type="checkbox" id="edit_disease_spondylolisthesis" value="脊椎滑脫">
-                                    <span>脊椎滑脫</span>
-                                </label>
-                                <label class="option" style="margin: 0;">
-                                    <input type="checkbox" id="edit_disease_osteoporosis" value="骨質疏鬆症">
-                                    <span>骨質疏鬆症</span>
-                                </label>
-                                <label class="option" style="margin: 0;">
-                                    <input type="checkbox" id="edit_disease_gout" value="痛風/風濕">
-                                    <span>痛風/風濕</span>
-                                </label>
-                                <label class="option" style="margin: 0;">
-                                    <input type="checkbox" id="edit_disease_none" value="無">
-                                    <span>無</span>
-                                </label>
-                            </div>
-                            
-                            <div style="background: #fff9e6; border-radius: 8px; padding: 12px; margin-bottom: 15px;">
-                                <p style="color: #ba9e60; font-size: 13px; margin: 0;">
-                                    ⚠️ 如有選擇下方項目,請在右側對應欄位填寫詳情
-                                </p>
-                            </div>
-                            
-                            <div style="display: grid; gap: 10px;">
-                                <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
-                                    <label class="option" style="flex: 0 0 auto; margin: 0; min-width: 120px;">
-                                        <input type="checkbox" id="edit_disease_joint" value="關節問題">
-                                        <span>關節問題</span>
-                                    </label>
-                                    <input type="text" id="edit_joint_detail" class="text-input" placeholder="請說明關節問題詳情" style="flex: 1; margin: 0; min-width: 200px;">
-                                </div>
-                                <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
-                                    <label class="option" style="flex: 0 0 auto; margin: 0; min-width: 120px;">
-                                        <input type="checkbox" id="edit_disease_spine" value="脊椎問題">
-                                        <span>脊椎問題</span>
-                                    </label>
-                                    <input type="text" id="edit_spine_detail" class="text-input" placeholder="請說明脊椎問題詳情" style="flex: 1; margin: 0; min-width: 200px;">
-                                </div>
-                                <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
-                                    <label class="option" style="flex: 0 0 auto; margin: 0; min-width: 120px;">
-                                        <input type="checkbox" id="edit_disease_other" value="其他">
-                                        <span>其他</span>
-                                    </label>
-                                    <input type="text" id="edit_other_detail" class="text-input" placeholder="請說明其他疾病" style="flex: 1; margin: 0; min-width: 200px;">
-                                </div>
-                            </div>
-                        </div>
                     </div>
                     <div class="edit-field">
                         <label>備註</label>
@@ -2258,8 +1865,8 @@
                     <div class="completion-info-cards">
                         <div class="completion-info-card">
                             <div class="completion-info-icon">💬</div>
-                            <div class="completion-info-title">LINE 訊息聯繫</div>
-                            <div class="completion-info-text">專業顧問將透過 LINE<br>與您確認體驗時間</div>
+                            <div class="completion-info-title">LINE 訊息通知</div>
+                            <div class="completion-info-text">我們將透過 LINE<br>與您聯繫</div>
                         </div>
                     </div>
 
@@ -2270,7 +1877,7 @@
                         </div>
                         <p class="completion-reminder-text">
                             • 如有任何問題,歡迎直接聯繫我們的客服團隊<br>
-                            • 我們將儘快與您聯繫
+                            • 我們將在 1-2 個工作天內與您聯繫
                         </p>
                     </div>
 
@@ -2284,6 +1891,10 @@
 
     <input type="hidden" id="lineId" value="">
 <script>
+        // ⚠️ 重要：請在 Make 建立查詢 Webhook 後，將 URL 填入這裡
+        const CHECK_USER_WEBHOOK_URL = 'https://hook.us2.make.com/YOUR_CHECK_WEBHOOK_URL_HERE';
+        const SUBMIT_WEBHOOK_URL = 'https://hook.us2.make.com/6rfz9vsjnqqxr6s6bnx2cr9njax93yyg';
+
         let currentPage = 1;
         const totalPages = 12;
         let formData = {};
@@ -2295,10 +1906,8 @@
         let isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
         let editingSections = {
             basic: false,
-            fitness: false,
-            schedule: false
+            fitness: false
         };
-        let submittedLater = false;
 
         const keypointDefinitions = [
             { id: 'head', label: '頭部', x: 0.5, y: 0.12, color: '#ff6b9d' },
@@ -2322,42 +1931,64 @@
                 document.getElementById('lineId').value = lineId;
                 formData.lineId = lineId;
                 
-                checkIfSubmittedLater(lineId);
+                // 查詢用戶是否已填寫過
+                await checkUserSubmitted(lineId);
                 
             } catch (error) {
                 console.error('LIFF initialization failed:', error);
-                getLineIdFromUrl();
+                hideLoading();
             }
         }
 
-        function checkIfSubmittedLater(lineId) {
+        async function checkUserSubmitted(lineId) {
             try {
-                const submittedData = localStorage.getItem('submittedLater_' + lineId);
-                if (submittedData) {
-                    submittedLater = true;
-                    document.querySelectorAll('.question-page').forEach(page => page.classList.remove('active'));
-                    currentPage = 12;
-                    document.querySelector('[data-page="12"]').classList.add('active');
-                    document.getElementById('bookNowButtonContainer').style.display = 'block';
-                    updateProgress();
+                const response = await fetch(CHECK_USER_WEBHOOK_URL, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ lineId: lineId })
+                });
+                
+                if (response.ok) {
+                    const result = await response.json();
+                    
+                    // 如果用戶已填寫過，顯示完成頁面
+                    if (result.submitted === true || result.submitted === 'true') {
+                        document.querySelectorAll('.question-page').forEach(function(page) {
+                            page.classList.remove('active');
+                        });
+                        currentPage = 12;
+                        document.querySelector('[data-page="12"]').classList.add('active');
+                        
+                        // 如果是「稍後預約」的用戶，顯示預約按鈕
+                        if (result.bookingType === '稍後預約') {
+                            document.getElementById('bookNowButtonContainer').style.display = 'block';
+                        }
+                        
+                        updateProgress();
+                    }
                 }
-            } catch (e) {
-                console.error('檢查提交狀態失敗:', e);
+                
+                hideLoading();
+                
+            } catch (error) {
+                console.error('檢查用戶狀態失敗:', error);
+                hideLoading();
             }
         }
 
-        function getLineIdFromUrl() {
-            const urlParams = new URLSearchParams(window.location.search);
-            const lineId = urlParams.get('lineId') || urlParams.get('lineid') || urlParams.get('line_id') || '';
-            document.getElementById('lineId').value = lineId;
-            formData.lineId = lineId;
-            return lineId;
+        function hideLoading() {
+            var loadingOverlay = document.getElementById('loadingOverlay');
+            if (loadingOverlay) {
+                loadingOverlay.style.display = 'none';
+            }
         }
 
         function saveFormDataToStorage() {
             try {
-                const dataToSave = {
-                    ...formData,
+                var dataToSave = {
+                    formData: formData,
                     currentPage: currentPage,
                     timestamp: new Date().toISOString()
                 };
@@ -2367,207 +1998,33 @@
             }
         }
 
-        function loadFormDataFromStorage() {
-            try {
-                const savedData = localStorage.getItem('fitnessFormData');
-                if (savedData) {
-                    const parsed = JSON.parse(savedData);
-                    const savedTime = new Date(parsed.timestamp);
-                    const now = new Date();
-                    const hoursDiff = (now - savedTime) / (1000 * 60 * 60);
-                    
-                    if (hoursDiff < 24) {
-                        if (confirm('偵測到您有未完成的問卷,是否要繼續填寫?')) {
-                            formData = parsed;
-                            currentPage = parsed.currentPage || 1;
-                            restoreFormState();
-                            return true;
-                        } else {
-                            localStorage.removeItem('fitnessFormData');
-                        }
-                    } else {
-                        localStorage.removeItem('fitnessFormData');
-                    }
-                }
-            } catch (e) {
-                console.error('無法載入資料:', e);
-            }
-            return false;
-        }
-
-        function restoreFormState() {
-            if (formData.goals) {
-                formData.goals.forEach(goal => {
-                    const checkbox = document.querySelector(`input[name="goal"][value="${goal}"]`);
-                    if (checkbox) {
-                        checkbox.checked = true;
-                        checkbox.closest('.option').classList.add('selected');
-                    }
-                });
-            }
-            
-            if (formData.courses) {
-                formData.courses.forEach(course => {
-                    const checkbox = document.querySelector(`input[name="course"][value="${course}"]`);
-                    if (checkbox) {
-                        checkbox.checked = true;
-                        checkbox.closest('.option').classList.add('selected');
-                    }
-                });
-            }
-            
-            if (formData.diseases) {
-                formData.diseases.forEach(disease => {
-                    if (disease.includes(':')) {
-                        const parts = disease.split(':');
-                        const diseaseName = parts[0].trim();
-                        const diseaseDetail = parts[1].trim();
-                        
-                        if (diseaseName === '關節問題') {
-                            const checkbox = document.getElementById('jointIssue');
-                            if (checkbox) {
-                                checkbox.checked = true;
-                                checkbox.closest('.option').classList.add('selected');
-                                const detailInput = document.getElementById('jointDetail');
-                                detailInput.style.display = 'block';
-                                detailInput.value = diseaseDetail;
-                            }
-                        } else if (diseaseName === '脊椎問題') {
-                            const checkbox = document.getElementById('spineIssue');
-                            if (checkbox) {
-                                checkbox.checked = true;
-                                checkbox.closest('.option').classList.add('selected');
-                                const detailInput = document.getElementById('spineDetail');
-                                detailInput.style.display = 'block';
-                                detailInput.value = diseaseDetail;
-                            }
-                        } else if (diseaseName === '其他') {
-                            const checkbox = document.getElementById('otherDisease');
-                            if (checkbox) {
-                                checkbox.checked = true;
-                                checkbox.closest('.option').classList.add('selected');
-                                const detailInput = document.getElementById('otherDetail');
-                                detailInput.style.display = 'block';
-                                detailInput.value = diseaseDetail;
-                            }
-                        }
-                    } else {
-                        const checkbox = document.querySelector(`input[name="disease"][value="${disease}"]`);
-                        if (checkbox) {
-                            checkbox.checked = true;
-                            checkbox.closest('.option').classList.add('selected');
-                        }
-                    }
-                });
-            }
-            
-            if (formData.remarks) {
-                document.getElementById('remarks').value = formData.remarks;
-            }
-            
-            if (formData.photo) {
-                uploadedImage = formData.photo;
-                const preview = document.getElementById('previewImage');
-                const uploadText = document.getElementById('uploadText');
-                preview.src = uploadedImage;
-                preview.style.display = 'block';
-                uploadText.style.display = 'none';
-                document.getElementById('uploadArea').classList.add('has-image');
-            }
-            
-            if (formData.name) document.getElementById('name').value = formData.name;
-            if (formData.birthday) {
-                const birthdayParts = formData.birthday.split('-');
-                if (birthdayParts.length === 3) {
-                    document.getElementById('birthdayYear').value = birthdayParts[0];
-                    document.getElementById('birthdayMonth').value = birthdayParts[1];
-                    updateDayOptions();
-                    document.getElementById('birthdayDay').value = birthdayParts[2];
-                    document.getElementById('birthday').value = formData.birthday;
-                }
-            }
-            if (formData.gender) {
-                const genderRadio = document.querySelector(`input[name="genderSelect"][value="${formData.gender}"]`);
-                if (genderRadio) {
-                    genderRadio.checked = true;
-                    genderRadio.closest('.option').classList.add('selected');
-                }
-            }
-            if (formData.email) document.getElementById('email').value = formData.email;
-            if (formData.phone) document.getElementById('phone').value = formData.phone;
-            
-            if (formData.timePreferences) {
-                formData.timePreferences.forEach(tp => {
-                    if (tp.slot === '平日白天') {
-                        document.getElementById('weekdayDay').checked = true;
-                        document.getElementById('weekdayDay').closest('.option').classList.add('selected');
-                        document.getElementById('weekdayDayTime').style.display = 'block';
-                        document.getElementById('weekdayDayTime').value = tp.time;
-                    } else if (tp.slot === '平日晚上(尖峰)') {
-                        document.getElementById('weekdayNight').checked = true;
-                        document.getElementById('weekdayNight').closest('.option').classList.add('selected');
-                        document.getElementById('weekdayNightTime').style.display = 'block';
-                        document.getElementById('weekdayNightTime').value = tp.time;
-                    } else if (tp.slot === '假日白天(尖峰)') {
-                        document.getElementById('weekendDay').checked = true;
-                        document.getElementById('weekendDay').closest('.option').classList.add('selected');
-                        document.getElementById('weekendDayTime').style.display = 'block';
-                        document.getElementById('weekendDayTime').value = tp.time;
-                    } else if (tp.slot === '假日晚上') {
-                        document.getElementById('weekendNight').checked = true;
-                        document.getElementById('weekendNight').closest('.option').classList.add('selected');
-                        document.getElementById('weekendNightTime').style.display = 'block';
-                        document.getElementById('weekendNightTime').value = tp.time;
-                    } else if (tp.slot === '彈性不固定') {
-                        const flexCheckbox = document.querySelector('input[name="timeSlot"][value="彈性不固定"]');
-                        if (flexCheckbox) {
-                            flexCheckbox.checked = true;
-                            flexCheckbox.closest('.option').classList.add('selected');
-                        }
-                    }
-                });
-            }
-            
-            document.querySelectorAll('.question-page').forEach(page => page.classList.remove('active'));
-            const targetPage = document.querySelector(`[data-page="${currentPage}"]`);
-            if (targetPage) {
-                targetPage.classList.add('active');
-            }
-            updateProgress();
-        }
-
         document.addEventListener('DOMContentLoaded', function() {
             initializeLiff();
-            const restored = loadFormDataFromStorage();
-            if (!restored) {
-                updateProgress();
-            }
+            updateProgress();
             initializeDateInputs();
             initializeDiseaseCheckboxes();
             initializeTimeSlotCheckboxes();
             loadVenueRules();
             setupImageUpload();
             setupPhoneInput();
-            setupTimeInputs();
             setupEmailInput();
             setupGenderInput();
         });
-
-        function initializeDateInputs() {
-            const today = new Date();
+function initializeDateInputs() {
+            var today = new Date();
             
-            const yearSelect = document.getElementById('birthdayYear');
-            const currentYear = today.getFullYear();
-            for (let year = currentYear; year >= currentYear - 100; year--) {
-                const option = document.createElement('option');
+            var yearSelect = document.getElementById('birthdayYear');
+            var currentYear = today.getFullYear();
+            for (var year = currentYear; year >= currentYear - 100; year--) {
+                var option = document.createElement('option');
                 option.value = year;
                 option.textContent = year + ' 年';
                 yearSelect.appendChild(option);
             }
             
-            const monthSelect = document.getElementById('birthdayMonth');
-            for (let month = 1; month <= 12; month++) {
-                const option = document.createElement('option');
+            var monthSelect = document.getElementById('birthdayMonth');
+            for (var month = 1; month <= 12; month++) {
+                var option = document.createElement('option');
                 option.value = month.toString().padStart(2, '0');
                 option.textContent = month + ' 月';
                 monthSelect.appendChild(option);
@@ -2577,28 +2034,27 @@
             
             yearSelect.addEventListener('change', updateDayOptions);
             monthSelect.addEventListener('change', updateDayOptions);
-            
             yearSelect.addEventListener('change', updateHiddenDate);
             monthSelect.addEventListener('change', updateHiddenDate);
             document.getElementById('birthdayDay').addEventListener('change', updateHiddenDate);
         }
         
         function updateDayOptions() {
-            const yearSelect = document.getElementById('birthdayYear');
-            const monthSelect = document.getElementById('birthdayMonth');
-            const daySelect = document.getElementById('birthdayDay');
+            var yearSelect = document.getElementById('birthdayYear');
+            var monthSelect = document.getElementById('birthdayMonth');
+            var daySelect = document.getElementById('birthdayDay');
             
-            const year = parseInt(yearSelect.value);
-            const month = parseInt(monthSelect.value);
+            var year = parseInt(yearSelect.value);
+            var month = parseInt(monthSelect.value);
             
             daySelect.innerHTML = '<option value="">日</option>';
             
             if (!year || !month) return;
             
-            const daysInMonth = new Date(year, month, 0).getDate();
+            var daysInMonth = new Date(year, month, 0).getDate();
             
-            for (let day = 1; day <= daysInMonth; day++) {
-                const option = document.createElement('option');
+            for (var day = 1; day <= daysInMonth; day++) {
+                var option = document.createElement('option');
                 option.value = day.toString().padStart(2, '0');
                 option.textContent = day + ' 日';
                 daySelect.appendChild(option);
@@ -2606,71 +2062,66 @@
         }
         
         function updateHiddenDate() {
-            const year = document.getElementById('birthdayYear').value;
-            const month = document.getElementById('birthdayMonth').value;
-            const day = document.getElementById('birthdayDay').value;
+            var year = document.getElementById('birthdayYear').value;
+            var month = document.getElementById('birthdayMonth').value;
+            var day = document.getElementById('birthdayDay').value;
             
             if (year && month && day) {
-                const dateStr = `${year}-${month}-${day}`;
+                var dateStr = year + '-' + month + '-' + day;
                 document.getElementById('birthday').value = dateStr;
             }
         }
-function initializeDiseaseCheckboxes() {
-            const jointCheckbox = document.getElementById('jointIssue');
-            const spineCheckbox = document.getElementById('spineIssue');
-            const otherCheckbox = document.getElementById('otherDisease');
-            const noDiseaseCheckbox = document.getElementById('noDisease');
-            const jointDetail = document.getElementById('jointDetail');
-            const spineDetail = document.getElementById('spineDetail');
-            const otherDetail = document.getElementById('otherDetail');
+
+        function initializeDiseaseCheckboxes() {
+            var jointCheckbox = document.getElementById('jointIssue');
+            var spineCheckbox = document.getElementById('spineIssue');
+            var otherCheckbox = document.getElementById('otherDisease');
+            var noDiseaseCheckbox = document.getElementById('noDisease');
+            var jointDetail = document.getElementById('jointDetail');
+            var spineDetail = document.getElementById('spineDetail');
+            var otherDetail = document.getElementById('otherDetail');
 
             jointCheckbox.addEventListener('change', function() {
                 jointDetail.style.display = this.checked ? 'block' : 'none';
-                jointDetail.disabled = !this.checked;
                 if (!this.checked) jointDetail.value = '';
             });
 
             spineCheckbox.addEventListener('change', function() {
                 spineDetail.style.display = this.checked ? 'block' : 'none';
-                spineDetail.disabled = !this.checked;
                 if (!this.checked) spineDetail.value = '';
             });
 
             otherCheckbox.addEventListener('change', function() {
                 otherDetail.style.display = this.checked ? 'block' : 'none';
-                otherDetail.disabled = !this.checked;
                 if (!this.checked) otherDetail.value = '';
             });
 
             noDiseaseCheckbox.addEventListener('change', function() {
                 if (this.checked) {
-                    document.querySelectorAll('input[name="disease"]').forEach(cb => {
+                    document.querySelectorAll('input[name="disease"]').forEach(function(cb) {
                         if (cb !== noDiseaseCheckbox) {
                             cb.checked = false;
-                            const parentOption = cb.closest('.option');
+                            var parentOption = cb.closest('.option');
                             if (parentOption) {
                                 parentOption.classList.remove('selected');
                             }
                         }
                     });
                     jointDetail.style.display = 'none';
-                    jointDetail.disabled = true;
                     jointDetail.value = '';
                     spineDetail.style.display = 'none';
-                    spineDetail.disabled = true;
                     spineDetail.value = '';
                     otherDetail.style.display = 'none';
-                    otherDetail.disabled = true;
                     otherDetail.value = '';
                 }
             });
 
-            document.querySelectorAll('input[name="disease"]').forEach(cb => {
+            document.querySelectorAll('input[name="disease"]').forEach(function(cb) {
                 if (cb !== noDiseaseCheckbox) {
                     cb.addEventListener('change', function() {
                         if (this.checked) {
                             noDiseaseCheckbox.checked = false;
-                            const noDiseaseOption = noDiseaseCheckbox.closest('.option');
+                            var noDiseaseOption = noDiseaseCheckbox.closest('.option');
                             if (noDiseaseOption) {
                                 noDiseaseOption.classList.remove('selected');
                             }
@@ -2681,9 +2132,9 @@ function initializeDiseaseCheckboxes() {
         }
 
         function initializeTimeSlotCheckboxes() {
-            ['weekdayDay', 'weekdayNight', 'weekendDay', 'weekendNight'].forEach(id => {
-                const checkbox = document.getElementById(id);
-                const timeInput = document.getElementById(id + 'Time');
+            ['weekdayDay', 'weekdayNight', 'weekendDay', 'weekendNight'].forEach(function(id) {
+                var checkbox = document.getElementById(id);
+                var timeInput = document.getElementById(id + 'Time');
                 checkbox.addEventListener('change', function() {
                     timeInput.style.display = this.checked ? 'block' : 'none';
                 });
@@ -2691,10 +2142,10 @@ function initializeDiseaseCheckboxes() {
         }
 
         function setupGenderInput() {
-            const genderInputs = document.querySelectorAll('input[name="genderSelect"]');
-            genderInputs.forEach(input => {
+            var genderInputs = document.querySelectorAll('input[name="genderSelect"]');
+            genderInputs.forEach(function(input) {
                 input.addEventListener('change', function() {
-                    genderInputs.forEach(radio => {
+                    genderInputs.forEach(function(radio) {
                         if (radio.closest('.option')) {
                             radio.closest('.option').classList.remove('selected');
                         }
@@ -2703,20 +2154,17 @@ function initializeDiseaseCheckboxes() {
                     if (this.checked && this.closest('.option')) {
                         this.closest('.option').classList.add('selected');
                     }
-                    
-                    const hiddenGender = document.getElementById('gender');
-                    if (hiddenGender) hiddenGender.value = this.value;
                 });
             });
         }
 
         function setupEmailInput() {
-            const emailInput = document.getElementById('email');
-            const suggestionsDiv = document.getElementById('emailDomainSuggestions');
-            const domains = ['gmail.com', 'yahoo.com.tw', 'hotmail.com', 'outlook.com', 'icloud.com'];
+            var emailInput = document.getElementById('email');
+            var suggestionsDiv = document.getElementById('emailDomainSuggestions');
+            var domains = ['gmail.com', 'yahoo.com.tw', 'hotmail.com', 'outlook.com', 'icloud.com'];
             
             emailInput.addEventListener('input', function(e) {
-                const value = e.target.value;
+                var value = e.target.value;
                 
                 if (value.includes('@') && value.split('@')[1].length > 0) {
                     suggestionsDiv.style.display = 'none';
@@ -2724,15 +2172,15 @@ function initializeDiseaseCheckboxes() {
                 }
                 
                 if (value.includes('@')) {
-                    const username = value.split('@')[0];
+                    var username = value.split('@')[0];
                     if (!username) {
                         suggestionsDiv.style.display = 'none';
                         return;
                     }
                     
-                    suggestionsDiv.innerHTML = domains.map(domain => 
-                        `<div class="email-domain-item" onclick="selectEmailDomain('${username}@${domain}')">${username}@${domain}</div>`
-                    ).join('');
+                    suggestionsDiv.innerHTML = domains.map(function(domain) {
+                        return '<div class="email-domain-item" onclick="selectEmailDomain(\'' + username + '@' + domain + '\')">' + username + '@' + domain + '</div>';
+                    }).join('');
                     suggestionsDiv.style.display = 'block';
                 } else {
                     suggestionsDiv.style.display = 'none';
@@ -2752,19 +2200,19 @@ function initializeDiseaseCheckboxes() {
         }
 
         function setupImageUpload() {
-            const photoInputFile = document.getElementById('photoInputFile');
-            const photoInputCamera = document.getElementById('photoInputCamera');
+            var photoInputFile = document.getElementById('photoInputFile');
+            var photoInputCamera = document.getElementById('photoInputCamera');
             
-            [photoInputFile, photoInputCamera].forEach(input => {
+            [photoInputFile, photoInputCamera].forEach(function(input) {
                 input.addEventListener('change', function(e) {
-                    const file = e.target.files[0];
+                    var file = e.target.files[0];
                     if (file) {
-                        const reader = new FileReader();
+                        var reader = new FileReader();
                         reader.onload = function(event) {
                             uploadedImage = event.target.result;
-                            const preview = document.getElementById('previewImage');
-                            const uploadText = document.getElementById('uploadText');
-                            const previewContainer = document.getElementById('previewContainer');
+                            var preview = document.getElementById('previewImage');
+                            var uploadText = document.getElementById('uploadText');
+                            var previewContainer = document.getElementById('previewContainer');
                             
                             preview.src = uploadedImage;
                             uploadText.style.display = 'none';
@@ -2778,8 +2226,8 @@ function initializeDiseaseCheckboxes() {
         }
 
         function reuploadPhoto() {
-            const photoInputFile = document.getElementById('photoInputFile');
-            const photoInputCamera = document.getElementById('photoInputCamera');
+            var photoInputFile = document.getElementById('photoInputFile');
+            var photoInputCamera = document.getElementById('photoInputCamera');
             
             if (confirm('要選擇檔案還是拍照?\n\n點選「確定」選擇檔案\n點選「取消」開啟相機拍照')) {
                 photoInputFile.click();
@@ -2791,9 +2239,9 @@ function initializeDiseaseCheckboxes() {
         function deletePhoto() {
             if (confirm('確定要刪除照片嗎?')) {
                 uploadedImage = null;
-                const preview = document.getElementById('previewImage');
-                const uploadText = document.getElementById('uploadText');
-                const previewContainer = document.getElementById('previewContainer');
+                var preview = document.getElementById('previewImage');
+                var uploadText = document.getElementById('uploadText');
+                var previewContainer = document.getElementById('previewContainer');
                 
                 preview.src = '';
                 uploadText.style.display = 'block';
@@ -2806,98 +2254,15 @@ function initializeDiseaseCheckboxes() {
         }
 
         function setupPhoneInput() {
-            const phoneInput = document.getElementById('phone');
+            var phoneInput = document.getElementById('phone');
             if (phoneInput) {
-                phoneInput.addEventListener('input', function(e) {
+                phoneInput.addEventListener('input', function() {
                     this.value = this.value.replace(/[^0-9]/g, '');
                 });
             }
         }
-
-        function setupTimeInputs() {
-            const timeInputIds = ['weekdayDayTime', 'weekdayNightTime', 'weekendDayTime', 'weekendNightTime'];
-            timeInputIds.forEach(id => {
-                const input = document.getElementById(id);
-                if (input) {
-                    input.addEventListener('input', function(e) {
-                        let value = this.value.replace(/[^0-9:-]/g, '');
-                        if (value.length > 11) value = value.substring(0, 11);
-                        const parts = value.split('-');
-                        parts.forEach((part, index) => {
-                            const cleaned = part.replace(/:/g, '');
-                            if (cleaned.length > 4) {
-                                parts[index] = part.substring(0, part.length - (cleaned.length - 4));
-                            }
-                        });
-                        this.value = parts.join('-');
-                    });
-                    input.addEventListener('blur', function() {
-                        formatTimeInput(this);
-                    });
-                }
-            });
-        }
-
-        function formatTimeInput(input) {
-            let value = input.value.trim();
-            if (!value) return;
-            
-            value = value.replace(/[^0-9:-]/g, '');
-            
-            if (value.includes('-')) {
-                const parts = value.split('-');
-                if (parts.length === 2) {
-                    const start = formatSingleTime(parts[0]);
-                    const end = formatSingleTime(parts[1]);
-                    if (start && end) {
-                        input.value = `${start}-${end}`;
-                        return;
-                    }
-                }
-            } else {
-                const formatted = formatSingleTime(value);
-                if (formatted) {
-                    input.value = formatted;
-                    return;
-                }
-            }
-        }
-
-        function formatSingleTime(timeStr) {
-            timeStr = timeStr.replace(/[^0-9:]/g, '').replace(/:/g, '');
-            
-            if (timeStr.length === 0) return null;
-            if (timeStr.length > 4) return null;
-            
-            let hour, minute;
-            
-            if (timeStr.length <= 2) {
-                hour = parseInt(timeStr);
-                minute = 0;
-            } else if (timeStr.length === 3) {
-                hour = parseInt(timeStr[0]);
-                minute = parseInt(timeStr.substring(1));
-            } else {
-                hour = parseInt(timeStr.substring(0, 2));
-                minute = parseInt(timeStr.substring(2));
-            }
-            
-            if (isNaN(hour) || isNaN(minute) || hour < 0 || hour > 23 || minute < 0 || minute > 59) {
-                return null;
-            }
-            
-            if (minute !== 0 && minute !== 30) {
-                minute = minute < 15 ? 0 : (minute < 45 ? 30 : 0);
-                if (minute === 0 && timeStr.substring(2) >= '45') {
-                    hour = (hour + 1) % 24;
-                }
-            }
-            
-            return `${hour.toString().padStart(2, '0')}:${minute.toString().padStart(2, '0')}`;
-        }
-
-        function proceedAfterPrivacy() {
-            const agreePrivacy = document.getElementById('agreePrivacy').checked;
+function proceedAfterPrivacy() {
+            var agreePrivacy = document.getElementById('agreePrivacy').checked;
             if (!agreePrivacy) {
                 alert('請先同意個人資料使用條款');
                 return;
@@ -2906,7 +2271,7 @@ function initializeDiseaseCheckboxes() {
             saveCurrentPageData();
 
             if (formData.skippedAI) {
-                document.querySelectorAll('.question-page').forEach(page => {
+                document.querySelectorAll('.question-page').forEach(function(page) {
                     page.classList.remove('active');
                 });
                 currentPage = 4;
@@ -2926,7 +2291,7 @@ function initializeDiseaseCheckboxes() {
 
             saveCurrentPageData();
 
-            document.querySelectorAll('.question-page').forEach(page => {
+            document.querySelectorAll('.question-page').forEach(function(page) {
                 page.classList.remove('active');
             });
             currentPage = 2.5;
@@ -2934,17 +2299,17 @@ function initializeDiseaseCheckboxes() {
             updateProgress();
             window.scrollTo(0, 0);
 
-            setTimeout(() => initializeCanvas(), 100);
+            setTimeout(function() { initializeCanvas(); }, 100);
         }
 
         function initializeCanvas() {
             canvas = document.getElementById('postureCanvas');
             ctx = canvas.getContext('2d');
 
-            const img = new Image();
+            var img = new Image();
             img.onload = function() {
-                const maxWidth = 600;
-                const scale = maxWidth / img.width;
+                var maxWidth = 600;
+                var scale = maxWidth / img.width;
                 canvas.width = img.width * scale;
                 canvas.height = img.height * scale;
 
@@ -2958,7 +2323,7 @@ function initializeDiseaseCheckboxes() {
         }
 
         function autoDetectKeypoints() {
-            keypointDefinitions.forEach(kp => {
+            keypointDefinitions.forEach(function(kp) {
                 keypoints[kp.id] = {
                     x: kp.x * canvas.width,
                     y: kp.y * canvas.height,
@@ -2976,8 +2341,21 @@ function initializeDiseaseCheckboxes() {
                 navigator.vibrate([50, 30, 50]);
             }
         }
+
+        function skipAIAnalysis() {
+            saveCurrentPageData();
+            formData.skippedAI = true;
+            
+            document.querySelectorAll('.question-page').forEach(function(page) {
+                page.classList.remove('active');
+            });
+            currentPage = 2;
+            document.querySelector('[data-page="2"]').classList.add('active');
+            updateProgress();
+            window.scrollTo(0, 0);
+        }
 function drawKeypoints() {
-            const img = new Image();
+            var img = new Image();
             img.onload = function() {
                 ctx.clearRect(0, 0, canvas.width, canvas.height);
                 ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
@@ -2985,223 +2363,60 @@ function drawKeypoints() {
                 ctx.fillStyle = 'rgba(226, 237, 230, 0.15)';
                 ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-                const pointIds = Object.keys(keypoints);
-                const totalConnections = (pointIds.length * (pointIds.length - 1)) / 2;
+                var pointIds = Object.keys(keypoints);
+                var totalConnections = (pointIds.length * (pointIds.length - 1)) / 2;
                 document.getElementById('edgeCount').textContent = totalConnections;
                 
-                for (let i = 0; i < pointIds.length; i++) {
-                    for (let j = i + 1; j < pointIds.length; j++) {
-                        const p1 = keypoints[pointIds[i]];
-                        const p2 = keypoints[pointIds[j]];
+                for (var i = 0; i < pointIds.length; i++) {
+                    for (var j = i + 1; j < pointIds.length; j++) {
+                        var p1 = keypoints[pointIds[i]];
+                        var p2 = keypoints[pointIds[j]];
                         
-                        const gradient = ctx.createLinearGradient(p1.x, p1.y, p2.x, p2.y);
+                        var gradient = ctx.createLinearGradient(p1.x, p1.y, p2.x, p2.y);
                         gradient.addColorStop(0, p1.color + '55');
-                        gradient.addColorStop(0.3, '#7ac19a70');
-                        gradient.addColorStop(0.7, '#9fcccc70');
+                        gradient.addColorStop(0.5, '#7ac19a70');
                         gradient.addColorStop(1, p2.color + '55');
                         
                         ctx.strokeStyle = gradient;
                         ctx.lineWidth = 3;
                         ctx.lineCap = 'round';
-                        ctx.setLineDash([]);
-                        
-                        ctx.shadowColor = '#7ac19a';
-                        ctx.shadowBlur = 10;
                         
                         ctx.beginPath();
                         ctx.moveTo(p1.x, p1.y);
                         ctx.lineTo(p2.x, p2.y);
                         ctx.stroke();
-                        
-                        const midX = (p1.x + p2.x) / 2;
-                        const midY = (p1.y + p2.y) / 2;
-                        
-                        ctx.shadowBlur = 20;
-                        ctx.fillStyle = '#7ac19a40';
-                        ctx.beginPath();
-                        ctx.arc(midX, midY, 6, 0, Math.PI * 2);
-                        ctx.fill();
-                        
-                        ctx.shadowBlur = 15;
-                        ctx.fillStyle = '#7ac19a90';
-                        ctx.beginPath();
-                        ctx.arc(midX, midY, 3, 0, Math.PI * 2);
-                        ctx.fill();
                     }
                 }
-                
-                ctx.shadowBlur = 0;
-                ctx.setLineDash([]);
 
-                if (keypoints['head'] && keypoints['leftShoulder'] && keypoints['rightShoulder']) {
-                    const gradient = ctx.createRadialGradient(
-                        keypoints['head'].x, keypoints['head'].y, 0,
-                        keypoints['head'].x, keypoints['head'].y, 150
-                    );
-                    gradient.addColorStop(0, 'rgba(79, 172, 254, 0.12)');
-                    gradient.addColorStop(1, 'rgba(79, 172, 254, 0.05)');
+                Object.keys(keypoints).forEach(function(id) {
+                    var point = keypoints[id];
+                    var isActive = isDragging && draggedPoint === id;
+                    var baseRadius = isMobile ? 28 : 20;
+                    var radius = isActive ? baseRadius + 8 : baseRadius;
                     
-                    ctx.fillStyle = gradient;
-                    ctx.beginPath();
-                    ctx.moveTo(keypoints['head'].x, keypoints['head'].y);
-                    ctx.lineTo(keypoints['leftShoulder'].x, keypoints['leftShoulder'].y);
-                    ctx.lineTo(keypoints['rightShoulder'].x, keypoints['rightShoulder'].y);
-                    ctx.closePath();
-                    ctx.fill();
-                }
-                
-                if (keypoints['leftShoulder'] && keypoints['leftFoot'] && keypoints['rightFoot']) {
-                    ctx.fillStyle = 'rgba(255, 166, 71, 0.08)';
-                    ctx.beginPath();
-                    ctx.moveTo(keypoints['leftShoulder'].x, keypoints['leftShoulder'].y);
-                    ctx.lineTo(keypoints['leftFoot'].x, keypoints['leftFoot'].y);
-                    ctx.lineTo(keypoints['rightFoot'].x, keypoints['rightFoot'].y);
-                    ctx.closePath();
-                    ctx.fill();
-                }
-                
-                if (keypoints['rightShoulder'] && keypoints['leftFoot'] && keypoints['rightFoot']) {
-                    ctx.fillStyle = 'rgba(255, 107, 157, 0.08)';
-                    ctx.beginPath();
-                    ctx.moveTo(keypoints['rightShoulder'].x, keypoints['rightShoulder'].y);
-                    ctx.lineTo(keypoints['leftFoot'].x, keypoints['leftFoot'].y);
-                    ctx.lineTo(keypoints['rightFoot'].x, keypoints['rightFoot'].y);
-                    ctx.closePath();
-                    ctx.fill();
-                }
-
-                Object.entries(keypoints).forEach(([id, point]) => {
-                    const isActive = isDragging && draggedPoint === id;
-                    const baseRadius = isMobile ? 28 : 20;
-                    const radius = isActive ? baseRadius + 8 : baseRadius;
-                    
-                    if (isActive) {
-                        for (let i = 5; i > 0; i--) {
-                            ctx.beginPath();
-                            ctx.arc(point.x, point.y, radius + (i * 14), 0, Math.PI * 2);
-                            const alpha = (10 - i * 1.5) / 100;
-                            ctx.fillStyle = `rgba(122, 193, 154, ${alpha})`;
-                            ctx.fill();
-                        }
-                    }
-                    
-                    ctx.shadowColor = isActive ? '#7ac19a' : point.color;
-                    ctx.shadowBlur = isActive ? 30 : 18;
-                    ctx.beginPath();
-                    ctx.arc(point.x, point.y, radius + 10, 0, Math.PI * 2);
-                    ctx.fillStyle = isActive ? 'rgba(122, 193, 154, 0.35)' : point.color + '35';
-                    ctx.fill();
-                    
-                    ctx.shadowBlur = 15;
                     ctx.beginPath();
                     ctx.arc(point.x, point.y, radius + 5, 0, Math.PI * 2);
-                    ctx.fillStyle = isActive ? 'rgba(122, 193, 154, 0.5)' : point.color + '50';
+                    ctx.fillStyle = 'rgba(255, 255, 255, 0.9)';
                     ctx.fill();
                     
-                    ctx.shadowBlur = 10;
-                    ctx.beginPath();
-                    ctx.arc(point.x, point.y, radius + 2, 0, Math.PI * 2);
-                    ctx.fillStyle = 'rgba(255, 255, 255, 0.95)';
-                    ctx.fill();
-                    
-                    const gradient = ctx.createRadialGradient(
-                        point.x - radius/3, point.y - radius/3, 0,
-                        point.x, point.y, radius
-                    );
-                    gradient.addColorStop(0, lightenColor(point.color, 30));
-                    gradient.addColorStop(0.6, point.color);
-                    gradient.addColorStop(1, darkenColor(point.color, 10));
-                    
-                    ctx.shadowBlur = 0;
                     ctx.beginPath();
                     ctx.arc(point.x, point.y, radius, 0, Math.PI * 2);
-                    ctx.fillStyle = gradient;
+                    ctx.fillStyle = point.color;
                     ctx.fill();
                     
-                    ctx.beginPath();
-                    ctx.arc(point.x - radius/2.5, point.y - radius/2.5, radius/2, 0, Math.PI * 2);
-                    ctx.fillStyle = 'rgba(255, 255, 255, 0.7)';
-                    ctx.fill();
+                    ctx.font = 'bold ' + (isMobile ? 12 : 14) + 'px Arial';
+                    var textWidth = ctx.measureText(point.label).width;
+                    var labelX = id.includes('left') ? point.x - textWidth - 30 : point.x + 30;
+                    var labelY = point.y + 5;
                     
-                    ctx.beginPath();
-                    ctx.arc(point.x + radius/4, point.y + radius/4, radius/4, 0, Math.PI * 2);
-                    ctx.fillStyle = 'rgba(255, 255, 255, 0.4)';
-                    ctx.fill();
-
-                    ctx.font = `bold ${isMobile ? 12 : 14}px "Segoe UI", Arial, sans-serif`;
-                    const textWidth = ctx.measureText(point.label).width;
-                    const padding = isMobile ? 8 : 12;
-                    const labelWidth = textWidth + padding * 2;
-                    const labelHeight = isMobile ? 26 : 30;
-                    
-                    const labelX = id.includes('left') ? point.x - labelWidth - (isMobile ? 28 : 22) : point.x + (isMobile ? 28 : 22);
-                    const labelY = point.y - labelHeight / 2;
-                    
-                    ctx.shadowColor = 'rgba(95, 132, 111, 0.4)';
-                    ctx.shadowBlur = 12;
-                    ctx.shadowOffsetY = 3;
-                    
-                    const labelGradient = ctx.createLinearGradient(
-                        labelX, labelY,
-                        labelX, labelY + labelHeight
-                    );
-                    labelGradient.addColorStop(0, 'rgba(95, 132, 111, 0.98)');
-                    labelGradient.addColorStop(1, 'rgba(95, 132, 111, 0.92)');
-                    
-                    ctx.fillStyle = labelGradient;
-                    roundRect(ctx, labelX, labelY, labelWidth, labelHeight, 15);
-                    ctx.fill();
-                    
-                    ctx.shadowBlur = 0;
-                    ctx.shadowOffsetY = 0;
-                    
-                    ctx.strokeStyle = 'rgba(122, 193, 154, 0.6)';
-                    ctx.lineWidth = 2;
-                    roundRect(ctx, labelX + 1, labelY + 1, labelWidth - 2, labelHeight - 2, 14);
-                    ctx.stroke();
+                    ctx.fillStyle = 'rgba(95, 132, 111, 0.9)';
+                    ctx.fillRect(labelX - 5, labelY - 15, textWidth + 10, 20);
                     
                     ctx.fillStyle = '#ffffff';
-                    ctx.textAlign = 'center';
-                    ctx.textBaseline = 'middle';
-                    ctx.fillText(point.label, labelX + labelWidth / 2, labelY + labelHeight / 2);
-                    
-                    ctx.textAlign = 'start';
-                    ctx.textBaseline = 'alphabetic';
+                    ctx.fillText(point.label, labelX, labelY);
                 });
             };
             img.src = uploadedImage;
-        }
-
-        function roundRect(ctx, x, y, width, height, radius) {
-            ctx.beginPath();
-            ctx.moveTo(x + radius, y);
-            ctx.lineTo(x + width - radius, y);
-            ctx.quadraticCurveTo(x + width, y, x + width, y + radius);
-            ctx.lineTo(x + width, y + height - radius);
-            ctx.quadraticCurveTo(x + width, y + height, x + width - radius, y + height);
-            ctx.lineTo(x + radius, y + height);
-            ctx.quadraticCurveTo(x, y + height, x, y + height - radius);
-            ctx.lineTo(x, y + radius);
-            ctx.quadraticCurveTo(x, y, x + radius, y);
-            ctx.closePath();
-        }
-
-        function lightenColor(color, percent) {
-            const num = parseInt(color.replace("#",""), 16);
-            const amt = Math.round(2.55 * percent);
-            const R = Math.min(255, (num >> 16) + amt);
-            const G = Math.min(255, (num >> 8 & 0x00FF) + amt);
-            const B = Math.min(255, (num & 0x0000FF) + amt);
-            return "#" + (0x1000000 + R * 0x10000 + G * 0x100 + B).toString(16).slice(1);
-        }
-
-        function darkenColor(color, percent) {
-            const num = parseInt(color.replace("#",""), 16);
-            const amt = Math.round(2.55 * percent);
-            const R = Math.max(0, (num >> 16) - amt);
-            const G = Math.max(0, (num >> 8 & 0x00FF) - amt);
-            const B = Math.max(0, (num & 0x0000FF) - amt);
-            return "#" + (0x1000000 + R * 0x10000 + G * 0x100 + B).toString(16).slice(1);
         }
 
         function setupCanvasInteraction() {
@@ -3213,34 +2428,33 @@ function drawKeypoints() {
             canvas.addEventListener('touchstart', handleTouchStart, { passive: false });
             canvas.addEventListener('touchmove', handleTouchMove, { passive: false });
             canvas.addEventListener('touchend', handleTouchEnd, { passive: false });
-            canvas.addEventListener('touchcancel', handleTouchEnd, { passive: false });
         }
 
         function handleMouseDown(e) {
             e.preventDefault();
-            const rect = canvas.getBoundingClientRect();
-            const x = (e.clientX - rect.left) * (canvas.width / rect.width);
-            const y = (e.clientY - rect.top) * (canvas.height / rect.height);
+            var rect = canvas.getBoundingClientRect();
+            var x = (e.clientX - rect.left) * (canvas.width / rect.width);
+            var y = (e.clientY - rect.top) * (canvas.height / rect.height);
             checkPointClick(x, y);
         }
 
         function handleTouchStart(e) {
             e.preventDefault();
-            const rect = canvas.getBoundingClientRect();
-            const touch = e.touches[0];
-            const x = (touch.clientX - rect.left) * (canvas.width / rect.width);
-            const y = (touch.clientY - rect.top) * (canvas.height / rect.height);
+            var rect = canvas.getBoundingClientRect();
+            var touch = e.touches[0];
+            var x = (touch.clientX - rect.left) * (canvas.width / rect.width);
+            var y = (touch.clientY - rect.top) * (canvas.height / rect.height);
             checkPointClick(x, y);
         }
 
         function checkPointClick(x, y) {
-            const touchRadius = isMobile ? 80 : 45;
+            var touchRadius = isMobile ? 80 : 45;
+            var closestPoint = null;
+            var closestDistance = Infinity;
             
-            let closestPoint = null;
-            let closestDistance = Infinity;
-            
-            Object.entries(keypoints).forEach(([id, point]) => {
-                const distance = Math.sqrt(Math.pow(x - point.x, 2) + Math.pow(y - point.y, 2));
+            Object.keys(keypoints).forEach(function(id) {
+                var point = keypoints[id];
+                var distance = Math.sqrt(Math.pow(x - point.x, 2) + Math.pow(y - point.y, 2));
                 if (distance < touchRadius && distance < closestDistance) {
                     closestDistance = distance;
                     closestPoint = id;
@@ -3250,11 +2464,7 @@ function drawKeypoints() {
             if (closestPoint) {
                 isDragging = true;
                 draggedPoint = closestPoint;
-                
-                if (navigator.vibrate) {
-                    navigator.vibrate(50);
-                }
-                
+                if (navigator.vibrate) navigator.vibrate(50);
                 drawKeypoints();
             }
         }
@@ -3262,19 +2472,19 @@ function drawKeypoints() {
         function handleMouseMove(e) {
             if (!isDragging || !draggedPoint) return;
             e.preventDefault();
-            const rect = canvas.getBoundingClientRect();
-            const x = (e.clientX - rect.left) * (canvas.width / rect.width);
-            const y = (e.clientY - rect.top) * (canvas.height / rect.height);
+            var rect = canvas.getBoundingClientRect();
+            var x = (e.clientX - rect.left) * (canvas.width / rect.width);
+            var y = (e.clientY - rect.top) * (canvas.height / rect.height);
             updatePointPosition(x, y);
         }
 
         function handleTouchMove(e) {
             if (!isDragging || !draggedPoint) return;
             e.preventDefault();
-            const rect = canvas.getBoundingClientRect();
-            const touch = e.touches[0];
-            const x = (touch.clientX - rect.left) * (canvas.width / rect.width);
-            const y = (touch.clientY - rect.top) * (canvas.height / rect.height);
+            var rect = canvas.getBoundingClientRect();
+            var touch = e.touches[0];
+            var x = (touch.clientX - rect.left) * (canvas.width / rect.width);
+            var y = (touch.clientY - rect.top) * (canvas.height / rect.height);
             updatePointPosition(x, y);
         }
 
@@ -3302,123 +2512,37 @@ function drawKeypoints() {
             }
         }
 function calculatePosture() {
-            const overlay = document.createElement('div');
+            var overlay = document.createElement('div');
             overlay.className = 'analyzing-overlay';
-            overlay.innerHTML = `
-                <div class="analyzing-spinner"></div>
-                <div class="analyzing-text">AI 分析中...</div>
-                <div class="analyzing-subtext">正在評估您的體態數據</div>
-            `;
+            overlay.innerHTML = '<div class="analyzing-spinner"></div><div class="analyzing-text">AI 分析中...</div><div class="analyzing-subtext">正在評估您的體態數據</div>';
             document.body.appendChild(overlay);
 
-            setTimeout(() => {
-                const leftShoulder = keypoints['leftShoulder'];
-                const rightShoulder = keypoints['rightShoulder'];
-                const leftFoot = keypoints['leftFoot'];
-                const rightFoot = keypoints['rightFoot'];
-                const head = keypoints['head'];
+            setTimeout(function() {
+                var leftShoulder = keypoints['leftShoulder'];
+                var rightShoulder = keypoints['rightShoulder'];
+                var leftFoot = keypoints['leftFoot'];
+                var rightFoot = keypoints['rightFoot'];
+                var head = keypoints['head'];
                 
-                const shoulderHeightDiff = Math.abs(leftShoulder.y - rightShoulder.y);
-                const shoulderHeightDiffPercent = (shoulderHeightDiff / canvas.height) * 100;
-                let shoulderScore;
-                if (shoulderHeightDiffPercent < 0.5) {
-                    shoulderScore = 98 + Math.random() * 2;
-                } else if (shoulderHeightDiffPercent < 0.8) {
-                    shoulderScore = 93 + Math.random() * 5;
-                } else if (shoulderHeightDiffPercent < 1.2) {
-                    shoulderScore = 87 + Math.random() * 6;
-                } else if (shoulderHeightDiffPercent < 1.8) {
-                    shoulderScore = 78 + Math.random() * 9;
-                } else if (shoulderHeightDiffPercent < 2.5) {
-                    shoulderScore = 68 + Math.random() * 10;
-                } else if (shoulderHeightDiffPercent < 3.5) {
-                    shoulderScore = 55 + Math.random() * 13;
-                } else {
-                    shoulderScore = 40 + Math.random() * 15;
-                }
+                var shoulderHeightDiff = Math.abs(leftShoulder.y - rightShoulder.y);
+                var shoulderHeightDiffPercent = (shoulderHeightDiff / canvas.height) * 100;
+                var shoulderScore = shoulderHeightDiffPercent < 1 ? 90 + Math.random() * 10 : 70 + Math.random() * 20;
                 
-                const shoulderCenterX = (leftShoulder.x + rightShoulder.x) / 2;
-                const headDeviationX = Math.abs(head.x - shoulderCenterX);
-                const headDeviationPercent = (headDeviationX / canvas.width) * 100;
-                let headScore;
-                if (headDeviationPercent < 1.0) {
-                    headScore = 97 + Math.random() * 3;
-                } else if (headDeviationPercent < 1.8) {
-                    headScore = 90 + Math.random() * 7;
-                } else if (headDeviationPercent < 2.8) {
-                    headScore = 82 + Math.random() * 8;
-                } else if (headDeviationPercent < 4.0) {
-                    headScore = 72 + Math.random() * 10;
-                } else if (headDeviationPercent < 5.5) {
-                    headScore = 60 + Math.random() * 12;
-                } else if (headDeviationPercent < 7.0) {
-                    headScore = 48 + Math.random() * 12;
-                } else {
-                    headScore = 30 + Math.random() * 18;
-                }
+                var shoulderCenterX = (leftShoulder.x + rightShoulder.x) / 2;
+                var headDeviationX = Math.abs(head.x - shoulderCenterX);
+                var headDeviationPercent = (headDeviationX / canvas.width) * 100;
+                var headScore = headDeviationPercent < 2 ? 85 + Math.random() * 15 : 65 + Math.random() * 20;
                 
-                const footHeightDiff = Math.abs(leftFoot.y - rightFoot.y);
-                const footHeightDiffPercent = (footHeightDiff / canvas.height) * 100;
-                let footScore;
-                if (footHeightDiffPercent < 0.4) {
-                    footScore = 97 + Math.random() * 3;
-                } else if (footHeightDiffPercent < 0.7) {
-                    footScore = 92 + Math.random() * 5;
-                } else if (footHeightDiffPercent < 1.1) {
-                    footScore = 85 + Math.random() * 7;
-                } else if (footHeightDiffPercent < 1.6) {
-                    footScore = 76 + Math.random() * 9;
-                } else if (footHeightDiffPercent < 2.3) {
-                    footScore = 65 + Math.random() * 11;
-                } else if (footHeightDiffPercent < 3.2) {
-                    footScore = 52 + Math.random() * 13;
-                } else {
-                    footScore = 35 + Math.random() * 17;
-                }
+                var footHeightDiff = Math.abs(leftFoot.y - rightFoot.y);
+                var footHeightDiffPercent = (footHeightDiff / canvas.height) * 100;
+                var footScore = footHeightDiffPercent < 1 ? 88 + Math.random() * 12 : 68 + Math.random() * 20;
                 
-                const feetCenterX = (leftFoot.x + rightFoot.x) / 2;
-                const bodyDeviationX = Math.abs(head.x - feetCenterX);
-                const bodyDeviationPercent = (bodyDeviationX / canvas.width) * 100;
-                let stabilityScore;
-                if (bodyDeviationPercent < 1.2) {
-                    stabilityScore = 96 + Math.random() * 4;
-                } else if (bodyDeviationPercent < 2.2) {
-                    stabilityScore = 88 + Math.random() * 8;
-                } else if (bodyDeviationPercent < 3.5) {
-                    stabilityScore = 78 + Math.random() * 10;
-                } else if (bodyDeviationPercent < 5.0) {
-                    stabilityScore = 67 + Math.random() * 11;
-                } else if (bodyDeviationPercent < 6.8) {
-                    stabilityScore = 55 + Math.random() * 12;
-                } else if (bodyDeviationPercent < 8.5) {
-                    stabilityScore = 42 + Math.random() * 13;
-                } else {
-                    stabilityScore = 28 + Math.random() * 14;
-                }
+                var feetCenterX = (leftFoot.x + rightFoot.x) / 2;
+                var bodyDeviationX = Math.abs(head.x - feetCenterX);
+                var bodyDeviationPercent = (bodyDeviationX / canvas.width) * 100;
+                var stabilityScore = bodyDeviationPercent < 3 ? 85 + Math.random() * 15 : 60 + Math.random() * 25;
 
-                const shoulderSlope = Math.abs((rightShoulder.y - leftShoulder.y) / (rightShoulder.x - leftShoulder.x));
-                const footSlope = Math.abs((rightFoot.y - leftFoot.y) / (rightFoot.x - leftFoot.x));
-                const slopeDifference = Math.abs(shoulderSlope - footSlope) * 100;
-                let parallelScore;
-                if (slopeDifference < 0.5) {
-                    parallelScore = 97 + Math.random() * 3;
-                } else if (slopeDifference < 1.0) {
-                    parallelScore = 90 + Math.random() * 7;
-                } else if (slopeDifference < 2.0) {
-                    parallelScore = 80 + Math.random() * 10;
-                } else if (slopeDifference < 3.5) {
-                    parallelScore = 68 + Math.random() * 12;
-                } else {
-                    parallelScore = 50 + Math.random() * 18;
-                }
-
-                const overallScore = Math.round(
-                    shoulderScore * 0.25 +
-                    headScore * 0.25 +
-                    footScore * 0.18 +
-                    stabilityScore * 0.20 +
-                    parallelScore * 0.12
-                );
+                var overallScore = Math.round(shoulderScore * 0.3 + headScore * 0.25 + footScore * 0.2 + stabilityScore * 0.25);
 
                 formData.shoulderBalance = Math.round(shoulderScore);
                 formData.pelvisBalance = Math.round(footScore);
@@ -3426,21 +2550,12 @@ function calculatePosture() {
                 formData.overallStability = Math.round(stabilityScore);
                 formData.postureScore = overallScore;
 
-                formData.measurements = {
-                    shoulderHeightDiff: shoulderHeightDiffPercent.toFixed(3),
-                    headDeviation: headDeviationPercent.toFixed(3),
-                    footHeightDiff: footHeightDiffPercent.toFixed(3),
-                    bodyDeviation: bodyDeviationPercent.toFixed(3),
-                    parallelScore: parallelScore.toFixed(1),
-                    slopeDifference: slopeDifference.toFixed(3)
-                };
-
-                generateRecommendations(overallScore, shoulderScore, footScore, headScore, stabilityScore, parallelScore);
+                generateRecommendations(overallScore);
                 displayAnalysisResults();
                 
                 document.body.removeChild(overlay);
                 
-                document.querySelectorAll('.question-page').forEach(page => {
+                document.querySelectorAll('.question-page').forEach(function(page) {
                     page.classList.remove('active');
                 });
                 currentPage = 3;
@@ -3450,70 +2565,21 @@ function calculatePosture() {
             }, 3000);
         }
 
-        function skipAIAnalysis() {
-            saveCurrentPageData();
-            formData.skippedAI = true;
-            formData.returnedFromSkip = false;
-            
-            document.querySelectorAll('.question-page').forEach(page => {
-                page.classList.remove('active');
-            });
-            currentPage = 2;
-            document.querySelector('[data-page="2"]').classList.add('active');
-            updateProgress();
-            window.scrollTo(0, 0);
-        }
+        function generateRecommendations(overall) {
+            var exercise, diet, analysis;
 
-        function generateRecommendations(overall, shoulder, foot, head, stability, parallel) {
-            let exercise = '';
-            let diet = '';
-            let analysis = '';
-
-            const issues = [];
-            
-            if (shoulder < 75) issues.push('高低肩問題(肩膀評分: ' + shoulder.toFixed(1) + '分)');
-            if (head < 75) issues.push('頭部前傾或側傾(對齊評分: ' + head.toFixed(1) + '分)');
-            if (foot < 75) issues.push('腳部不對稱(對稱評分: ' + foot.toFixed(1) + '分)');
-            if (stability < 75) issues.push('身體重心偏移(穩定評分: ' + stability.toFixed(1) + '分)');
-            if (parallel < 75) issues.push('肩腳線條不平行(平行度: ' + parallel.toFixed(1) + '分)');
-
-            if (overall >= 90) {
-                exercise = '重量訓練為主(60%) + 器械皮拉提斯(25%) + 伸展課程(15%) - 您的體態表現極為優異!建議持續重量訓練維持肌力,搭配適度的伸展課程保持靈活度。可以開始進行進階訓練動作。';
+            if (overall >= 85) {
+                exercise = '重量訓練為主(60%) + 器械皮拉提斯(25%) + 伸展課程(15%) - 您的體態表現優異!';
                 diet = '均衡飲食配方:碳水化合物 40% | 蛋白質 30% | 健康脂肪 30%';
-                
-                if (issues.length > 0) {
-                    analysis = '卓越!整體體態表現極佳(' + overall.toFixed(1) + '分)!僅有非常輕微的' + issues.join('、') + '。這些細微差異在正常範圍內,建議維持現有運動習慣,並特別注意日常姿勢的維持,定期進行伸展放鬆。';
-                } else {
-                    analysis = '完美!體態表現接近理想狀態(' + overall.toFixed(1) + '分),肩膀、頭部對齊、腳部對稱、平行度及整體穩定性都維持極佳。您擁有非常良好的身體控制能力,建議持續保持良好的運動習慣和姿勢意識。';
-                }
-            } else if (overall >= 80) {
-                exercise = '重量訓練為主(55%) + 器械皮拉提斯(30%) + 伸展課程(15%) - 您的體態表現優秀!建議持續重量訓練維持肌力,並增加器械皮拉提斯來微調體態平衡。';
-                diet = '均衡飲食配方:碳水化合物 40% | 蛋白質 30% | 健康脂肪 30%';
-                
-                if (issues.length > 0) {
-                    analysis = '優秀!整體體態表現良好(' + overall.toFixed(1) + '分)!檢測到輕微的' + issues.join('、') + '。這些細微的不平衡可透過定期伸展和姿勢調整來改善。建議每週進行2-3次核心訓練,並注意日常生活中的姿勢習慣。';
-                } else {
-                    analysis = '優秀!體態表現非常理想(' + overall.toFixed(1) + '分),各項指標都維持良好水準。建議持續保持良好的運動習慣和姿勢意識,定期進行專業體態評估。';
-                }
+                analysis = '整體體態表現良好,建議持續保持良好的運動習慣。';
             } else if (overall >= 70) {
-                exercise = '器械皮拉提斯為主(50%) + 伸展課程(30%) + 重量訓練(20%) - 建議以器械皮拉提斯改善核心穩定與體態調整,搭配伸展課程放鬆緊繃肌群,待體態穩定後再增加重量訓練強度。';
+                exercise = '器械皮拉提斯為主(50%) + 伸展課程(30%) + 重量訓練(20%)';
                 diet = '增肌減脂配方:碳水化合物 35% | 蛋白質 35% | 健康脂肪 30%';
-                
-                if (issues.length > 0) {
-                    analysis = '體態評分為' + overall.toFixed(1) + '分,檢測發現:' + issues.join('、') + '。這些問題可能導致長期肌肉不平衡與痠痛。建議每週進行3-4次器械皮拉提斯訓練,搭配專業教練指導進行姿勢矯正,並注意日常生活中的姿勢習慣。特別注意單側用力的動作模式。';
-                } else {
-                    analysis = '體態評分為' + overall.toFixed(1) + '分,整體尚可但仍有改善空間。建議加強核心穩定性訓練,並注意日常姿勢的維持,定期進行專業體態評估。';
-                }
-            } else if (overall >= 55) {
-                exercise = '伸展課程為主(45%) + 器械皮拉提斯(40%) + 姿勢矯正(15%) - 優先進行伸展課程放鬆過度緊繃的肌肉,配合器械皮拉提斯強化核心,並進行專業的姿勢矯正訓練。暫時避免高強度重量訓練。';
-                diet = '抗炎健康配方:碳水化合物 30% | 蛋白質 40% | 健康脂肪 30%(建議增加Omega-3攝取)';
-                
-                analysis = '體態評分為' + overall.toFixed(1) + '分,發現明顯問題:' + issues.join('、') + '。這些體態問題可能已經造成日常不適或疼痛。強烈建議:1. 尋求專業物理治療師或運動防護員進行詳細評估 2. 制定個人化的矯正訓練計畫 3. 每週至少3-4次伸展與姿勢調整課程 4. 改善日常生活與工作姿勢 5. 注意是否有慣用側過度使用的情況';
+                analysis = '體態尚可,建議加強核心訓練改善體態平衡。';
             } else {
-                exercise = '姿勢矯正課程為主(50%) + 伸展課程(40%) + 輕度活動(10%) - 需要從基礎的姿勢矯正開始,配合大量伸展放鬆,暫時避免所有重量訓練。建議先進行專業醫療評估。';
-                diet = '抗炎修復配方:碳水化合物 25% | 蛋白質 45% | 健康脂肪 30%(富含抗氧化物與Omega-3)';
-                
-                analysis = '⚠️ 體態評分為' + overall.toFixed(1) + '分,檢測到顯著問題:' + issues.join('、') + '。這些問題可能導致慢性疼痛、活動受限或其他健康風險。重要建議:1. 立即尋求專業醫療評估 2. 可能需要搭配物理治療或徒手治療 3. 制定長期的漸進式矯正計畫 4. 全面檢視並改善日常生活習慣 5. 在專業指導下進行所有運動訓練';
+                exercise = '伸展課程為主(45%) + 器械皮拉提斯(40%) + 姿勢矯正(15%)';
+                diet = '抗炎健康配方:碳水化合物 30% | 蛋白質 40% | 健康脂肪 30%';
+                analysis = '建議尋求專業教練指導,制定個人化矯正計畫。';
             }
 
             formData.recommendExercise = exercise;
@@ -3532,16 +2598,16 @@ function calculatePosture() {
             document.getElementById('detailedAnalysis').textContent = formData.detailedAnalysis;
         }
 function loadVenueRules() {
-            const rulesHTML = '<div style="color: #5f846f; line-height: 1.6; font-size: 15px;"><div style="margin-bottom: 24px;"><h3 style="color: #5f846f; font-size: 18px; font-weight: 700; margin-bottom: 16px; padding-bottom: 12px; border-bottom: 2px solid #7ac19a;">場館規範</h3><p style="margin-bottom: 18px; color: #66888e; font-size: 14px;">為提供穩定及高品質的課程體驗,敬請上課學員配合以下規範</p><div style="display: grid; grid-template-columns: 1fr; gap: 12px; margin-bottom: 18px;"><div style="background: #fcf4e3; padding: 14px; border-radius: 10px; border-left: 4px solid #ffe08b; font-size: 15px;"><strong style="color: #ba9e60;">1.</strong> 採全預約制,預約依照系統為準,不做口頭保留</div><div style="background: #fcf4e3; padding: 14px; border-radius: 10px; border-left: 4px solid #ffe08b; font-size: 15px;"><strong style="color: #ba9e60;">2.</strong> 為維護三方權益,到場上課務必進行紙本及電子簽到</div><div style="background: #fcf4e3; padding: 14px; border-radius: 10px; border-left: 4px solid #ffe08b; font-size: 15px;"><strong style="color: #ba9e60;">3.</strong> 除飲用水外,私人物品請寄放於置物櫃,請勿擺放其他地方</div><div style="background: #fcf4e3; padding: 14px; border-radius: 10px; border-left: 4px solid #ffe08b; font-size: 15px;"><strong style="color: #ba9e60;">4.</strong> 運動/伸展/等待區域禁止用餐</div><div style="background: #fcf4e3; padding: 14px; border-radius: 10px; border-left: 4px solid #ffe08b; font-size: 15px;"><strong style="color: #ba9e60;">5.</strong> 服裝規範:全館須脫鞋、須著運動服裝<div style="margin-top: 8px; padding-left: 12px; font-size: 14px; color: #66888e;">• 皮拉提斯課程須著止滑襪,建議著瑜珈服飾、綁髮上課<br>• 重訓健身課程可自備室內運動鞋</div></div><div style="background: #fcf4e3; padding: 14px; border-radius: 10px; border-left: 4px solid #ffe08b; font-size: 15px;"><strong style="color: #ba9e60;">6.</strong> 正課學員若攜陪同者,陪同者不得滯留超過15分鐘,特殊情況另議</div></div></div><div style="background: linear-gradient(135deg, #66888e 0%, #5f846f 100%); color: #ffffff; padding: 18px; border-radius: 12px; margin: 18px 0; text-align: center; font-weight: 600; font-size: 14px;">為維護他人上課品質及權益,場館有權拒絕未遵守規範者進入<br>※衡點健康保留最終解釋權</div><div style="background: #faece8; padding: 18px; border-radius: 12px; margin-bottom: 24px; border: 2px solid #f2ac98;"><h3 style="color: #c67566; font-size: 17px; font-weight: 700; margin-bottom: 14px;">取消及請假政策</h3><div style="display: grid; gap: 10px;"><div style="background: #ffffff; padding: 12px; border-radius: 8px; border-left: 3px solid #f2ac98; font-size: 14px;"><strong>一般「取消預約」政策:</strong><br>預約日的<span style="color: #ba9e60; font-weight: bold;">前一天晚上8點前</span>提出取消</div><div style="background: #ffffff; padding: 12px; border-radius: 8px; border-left: 3px solid #f2ac98; font-size: 14px;"><strong>臨時「請假」政策:</strong><br>課程<span style="color: #ba9e60; font-weight: bold;">前3小時</span>提出請假 (補課須購買補課卡)<br><strong style="color: #c67566;">補課卡:300元</strong></div><div style="background: #ffffff; padding: 12px; border-radius: 8px; border-left: 3px solid #f2ac98; font-size: 14px;"><strong style="color: #c67566;">重要提醒:</strong><br>無遵守規則皆視同「曠課」曠課無法進行補課<br>※為維護三方權益請遵守以上規則</div><div style="background: #ffffff; padding: 12px; border-radius: 8px; border-left: 3px solid #f2ac98; font-size: 14px;"><strong>病假規定:</strong><br>病假不在此限,須主動於課程開始前「盡早」提出,避免造成雙方困擾,並於請假課程兩日內提交醫療證明文件</div></div></div><div style="background: #daedec; padding: 14px; border-radius: 10px; text-align: center; color: #66888e; font-size: 13px;">如有疑問請洽官方LINE<br><span style="font-size: 12px;">衡點健康 © 2025</span></div></div>';
+            var rulesHTML = '<div style="color: #5f846f; line-height: 1.6; font-size: 15px;"><h3 style="color: #5f846f; font-size: 18px; font-weight: 700; margin-bottom: 16px; padding-bottom: 12px; border-bottom: 2px solid #7ac19a;">場館規範</h3><p style="margin-bottom: 18px; color: #66888e; font-size: 14px;">為提供穩定及高品質的課程體驗,敬請上課學員配合以下規範</p><div style="display: grid; gap: 12px; margin-bottom: 18px;"><div style="background: #fcf4e3; padding: 14px; border-radius: 10px; border-left: 4px solid #ffe08b;"><strong style="color: #ba9e60;">1.</strong> 採全預約制,預約依照系統為準,不做口頭保留</div><div style="background: #fcf4e3; padding: 14px; border-radius: 10px; border-left: 4px solid #ffe08b;"><strong style="color: #ba9e60;">2.</strong> 為維護三方權益,到場上課務必進行紙本及電子簽到</div><div style="background: #fcf4e3; padding: 14px; border-radius: 10px; border-left: 4px solid #ffe08b;"><strong style="color: #ba9e60;">3.</strong> 除飲用水外,私人物品請寄放於置物櫃</div><div style="background: #fcf4e3; padding: 14px; border-radius: 10px; border-left: 4px solid #ffe08b;"><strong style="color: #ba9e60;">4.</strong> 運動/伸展/等待區域禁止用餐</div><div style="background: #fcf4e3; padding: 14px; border-radius: 10px; border-left: 4px solid #ffe08b;"><strong style="color: #ba9e60;">5.</strong> 服裝規範:全館須脫鞋、須著運動服裝</div><div style="background: #fcf4e3; padding: 14px; border-radius: 10px; border-left: 4px solid #ffe08b;"><strong style="color: #ba9e60;">6.</strong> 正課學員若攜陪同者,陪同者不得滯留超過15分鐘</div></div><div style="background: linear-gradient(135deg, #66888e 0%, #5f846f 100%); color: #ffffff; padding: 18px; border-radius: 12px; margin: 18px 0; text-align: center; font-weight: 600; font-size: 14px;">為維護他人上課品質及權益,場館有權拒絕未遵守規範者進入<br>※衡點健康保留最終解釋權</div><div style="background: #faece8; padding: 18px; border-radius: 12px; margin-bottom: 24px; border: 2px solid #f2ac98;"><h3 style="color: #c67566; font-size: 17px; font-weight: 700; margin-bottom: 14px;">取消及請假政策</h3><div style="display: grid; gap: 10px;"><div style="background: #ffffff; padding: 12px; border-radius: 8px; border-left: 3px solid #f2ac98;"><strong>一般「取消預約」政策:</strong><br>預約日的<span style="color: #ba9e60; font-weight: bold;">前一天晚上8點前</span>提出取消</div><div style="background: #ffffff; padding: 12px; border-radius: 8px; border-left: 3px solid #f2ac98;"><strong>臨時「請假」政策:</strong><br>課程<span style="color: #ba9e60; font-weight: bold;">前3小時</span>提出請假<br><strong style="color: #c67566;">補課卡:300元</strong></div><div style="background: #ffffff; padding: 12px; border-radius: 8px; border-left: 3px solid #f2ac98;"><strong style="color: #c67566;">重要提醒:</strong><br>無遵守規則皆視同「曠課」,曠課無法進行補課</div></div></div><div style="background: #daedec; padding: 14px; border-radius: 10px; text-align: center; color: #66888e; font-size: 13px;">如有疑問請洽官方LINE<br><span style="font-size: 12px;">衡點健康 © 2025</span></div></div>';
             
             document.getElementById('venueRules').innerHTML = rulesHTML;
             
-            const rulesContainer = document.getElementById('venueRules');
-            const agreeCheckbox = document.getElementById('agreeRules');
-            const agreeLabel = document.getElementById('agreeRulesLabel');
+            var rulesContainer = document.getElementById('venueRules');
+            var agreeCheckbox = document.getElementById('agreeRules');
+            var agreeLabel = document.getElementById('agreeRulesLabel');
             
             rulesContainer.addEventListener('scroll', function() {
-                const isAtBottom = rulesContainer.scrollHeight - rulesContainer.scrollTop - rulesContainer.clientHeight < 5;
+                var isAtBottom = rulesContainer.scrollHeight - rulesContainer.scrollTop - rulesContainer.clientHeight < 5;
                 
                 if (isAtBottom) {
                     agreeCheckbox.disabled = false;
@@ -3554,14 +2620,14 @@ function loadVenueRules() {
 
         function toggleEdit(section) {
             editingSections[section] = !editingSections[section];
-            const button = event.target;
+            var button = event.target;
             
             if (section === 'basic') {
-                const nameInput = document.getElementById('edit_name');
-                const genderInputs = document.querySelectorAll('input[name="editGenderSelect"]');
-                const birthdayInput = document.getElementById('edit_birthday');
-                const emailInput = document.getElementById('edit_email');
-                const phoneInput = document.getElementById('edit_phone');
+                var nameInput = document.getElementById('edit_name');
+                var genderInputs = document.querySelectorAll('input[name="editGenderSelect"]');
+                var birthdayInput = document.getElementById('edit_birthday');
+                var emailInput = document.getElementById('edit_email');
+                var phoneInput = document.getElementById('edit_phone');
                 
                 if (editingSections[section]) {
                     nameInput.disabled = false;
@@ -3583,21 +2649,17 @@ function loadVenueRules() {
                     button.textContent = '修改';
                 }
             } else if (section === 'fitness') {
-                const goalsDisplay = document.getElementById('edit_goals_display');
-                const goalsContainer = document.getElementById('edit_goals_container');
-                const courseDisplay = document.getElementById('edit_course_display');
-                const courseContainer = document.getElementById('edit_course_container');
-                const diseasesDisplay = document.getElementById('edit_diseases_display');
-                const diseasesContainer = document.getElementById('edit_diseases_container');
-                const remarksTextarea = document.getElementById('edit_remarks');
+                var goalsDisplay = document.getElementById('edit_goals_display');
+                var goalsContainer = document.getElementById('edit_goals_container');
+                var courseDisplay = document.getElementById('edit_course_display');
+                var courseContainer = document.getElementById('edit_course_container');
+                var remarksTextarea = document.getElementById('edit_remarks');
                 
                 if (editingSections[section]) {
                     goalsDisplay.style.display = 'none';
                     goalsContainer.style.display = 'block';
                     courseDisplay.style.display = 'none';
                     courseContainer.style.display = 'block';
-                    diseasesDisplay.style.display = 'none';
-                    diseasesContainer.style.display = 'block';
                     remarksTextarea.disabled = false;
                     button.textContent = '保存';
                 } else {
@@ -3626,30 +2688,18 @@ function loadVenueRules() {
                     goalsContainer.style.display = 'none';
                     courseDisplay.style.display = 'block';
                     courseContainer.style.display = 'none';
-                    diseasesDisplay.style.display = 'block';
-                    diseasesContainer.style.display = 'none';
                     remarksTextarea.disabled = true;
                     button.textContent = '修改';
                     
-                    updateDisplayText();
+                    document.getElementById('edit_goals_display').textContent = selectedGoals.join('、');
+                    document.getElementById('edit_course_display').textContent = selectedCourses.join('、');
                 }
             }
-        }
-        
-        function updateDisplayText() {
-            var goalsSelect = document.getElementById('edit_goals');
-            var selectedGoals = Array.from(goalsSelect.selectedOptions).map(function(opt) { return opt.value; });
-            document.getElementById('edit_goals_display').textContent = selectedGoals.length > 0 ? selectedGoals.join('、') : '未填寫';
-            
-            var courseSelect = document.getElementById('edit_course');
-            var selectedCourses = Array.from(courseSelect.selectedOptions).map(function(opt) { return opt.value; });
-            document.getElementById('edit_course_display').textContent = selectedCourses.length > 0 ? selectedCourses.join('、') : '未填寫';
         }
 
         function validateBasicInfoEdit() {
             var name = document.getElementById('edit_name').value.trim();
             var genderChecked = document.querySelector('input[name="editGenderSelect"]:checked');
-            var gender = genderChecked ? genderChecked.value : '';
             var birthday = document.getElementById('edit_birthday').value;
             var email = document.getElementById('edit_email').value.trim();
             var phone = document.getElementById('edit_phone').value.trim();
@@ -3657,43 +2707,18 @@ function loadVenueRules() {
             var errorDiv = document.getElementById('editError');
             errorDiv.style.display = 'none';
             
-            if (!name) {
-                errorDiv.textContent = '請輸入姓名';
-                errorDiv.style.display = 'block';
-                return false;
-            }
-            
-            if (!gender) {
-                errorDiv.textContent = '請選擇性別';
-                errorDiv.style.display = 'block';
-                return false;
-            }
-            
-            if (!birthday) {
-                errorDiv.textContent = '請選擇生日';
-                errorDiv.style.display = 'block';
-                return false;
-            }
+            if (!name) { errorDiv.textContent = '請輸入姓名'; errorDiv.style.display = 'block'; return false; }
+            if (!genderChecked) { errorDiv.textContent = '請選擇性別'; errorDiv.style.display = 'block'; return false; }
+            if (!birthday) { errorDiv.textContent = '請選擇生日'; errorDiv.style.display = 'block'; return false; }
             
             var emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            if (!email || !emailPattern.test(email)) {
-                errorDiv.textContent = '請輸入有效的電子信箱';
-                errorDiv.style.display = 'block';
-                return false;
-            }
-            
-            if (phone.length !== 10 || !phone.startsWith('09')) {
-                errorDiv.textContent = '請輸入正確的手機號碼(09開頭的10碼)';
-                errorDiv.style.display = 'block';
-                return false;
-            }
+            if (!email || !emailPattern.test(email)) { errorDiv.textContent = '請輸入有效的電子信箱'; errorDiv.style.display = 'block'; return false; }
+            if (phone.length !== 10 || !phone.startsWith('09')) { errorDiv.textContent = '請輸入正確的手機號碼'; errorDiv.style.display = 'block'; return false; }
             
             return true;
         }
 function nextPage() {
-            if (!validateCurrentPage()) {
-                return;
-            }
+            if (!validateCurrentPage()) return;
             
             saveCurrentPageData();
             saveFormDataToStorage();
@@ -3739,20 +2764,17 @@ function nextPage() {
         }
 
         function validateCurrentPage() {
-            var errorElements = document.querySelectorAll('.error-message');
-            errorElements.forEach(function(el) { el.style.display = 'none'; });
+            document.querySelectorAll('.error-message').forEach(function(el) { el.style.display = 'none'; });
             
             if (currentPage === 2) {
-                var agreePrivacy = document.getElementById('agreePrivacy').checked;
-                if (!agreePrivacy) {
+                if (!document.getElementById('agreePrivacy').checked) {
                     alert('⚠️ 請勾選同意個人資料使用條款');
                     return false;
                 }
             }
             
             if (currentPage === 4) {
-                var goalChecked = document.querySelectorAll('input[name="goal"]:checked').length > 0;
-                if (!goalChecked) {
+                if (document.querySelectorAll('input[name="goal"]:checked').length === 0) {
                     document.getElementById('goalError').style.display = 'block';
                     alert('⚠️ 請至少選擇一項健身目標');
                     return false;
@@ -3760,8 +2782,7 @@ function nextPage() {
             }
             
             if (currentPage === 5) {
-                var courseChecked = document.querySelectorAll('input[name="course"]:checked').length > 0;
-                if (!courseChecked) {
+                if (document.querySelectorAll('input[name="course"]:checked').length === 0) {
                     document.getElementById('courseError').style.display = 'block';
                     alert('⚠️ 請至少選擇一項課程類型');
                     return false;
@@ -3769,10 +2790,9 @@ function nextPage() {
             }
             
             if (currentPage === 6) {
-                var diseaseChecked = document.querySelectorAll('input[name="disease"]:checked').length > 0;
-                if (!diseaseChecked) {
+                if (document.querySelectorAll('input[name="disease"]:checked').length === 0) {
                     document.getElementById('diseaseError').style.display = 'block';
-                    alert('⚠️ 請至少選擇一項疾病史選項(若無請選擇「無」)');
+                    alert('⚠️ 請至少選擇一項疾病史選項');
                     return false;
                 }
             }
@@ -3780,50 +2800,20 @@ function nextPage() {
             if (currentPage === 8) {
                 var name = document.getElementById('name').value.trim();
                 var genderChecked = document.querySelector('input[name="genderSelect"]:checked');
-                var gender = genderChecked ? genderChecked.value : '';
                 var year = document.getElementById('birthdayYear').value;
                 var month = document.getElementById('birthdayMonth').value;
                 var day = document.getElementById('birthdayDay').value;
                 var email = document.getElementById('email').value.trim();
                 var phone = document.getElementById('phone').value.trim();
-                
                 var errorDiv = document.getElementById('basicInfoError');
                 
-                if (!name) {
-                    errorDiv.textContent = '請輸入姓名';
-                    errorDiv.style.display = 'block';
-                    alert('⚠️ 請輸入您的姓名');
-                    return false;
-                }
-                
-                if (!gender) {
-                    errorDiv.textContent = '請選擇性別';
-                    errorDiv.style.display = 'block';
-                    alert('⚠️ 請選擇您的性別');
-                    return false;
-                }
-                
-                if (!year || !month || !day) {
-                    errorDiv.textContent = '請選擇完整的生日';
-                    errorDiv.style.display = 'block';
-                    alert('⚠️ 請選擇完整的生日(年、月、日)');
-                    return false;
-                }
+                if (!name) { errorDiv.textContent = '請輸入姓名'; errorDiv.style.display = 'block'; return false; }
+                if (!genderChecked) { errorDiv.textContent = '請選擇性別'; errorDiv.style.display = 'block'; return false; }
+                if (!year || !month || !day) { errorDiv.textContent = '請選擇完整的生日'; errorDiv.style.display = 'block'; return false; }
                 
                 var emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-                if (!email || !emailPattern.test(email)) {
-                    errorDiv.textContent = '請輸入有效的電子信箱';
-                    errorDiv.style.display = 'block';
-                    alert('⚠️ 請輸入有效的電子信箱格式');
-                    return false;
-                }
-                
-                if (phone.length !== 10 || !phone.startsWith('09')) {
-                    errorDiv.textContent = '請輸入正確的手機號碼';
-                    errorDiv.style.display = 'block';
-                    alert('⚠️ 請輸入正確的手機號碼(09開頭的10碼)');
-                    return false;
-                }
+                if (!email || !emailPattern.test(email)) { errorDiv.textContent = '請輸入有效的電子信箱'; errorDiv.style.display = 'block'; return false; }
+                if (phone.length !== 10 || !phone.startsWith('09')) { errorDiv.textContent = '請輸入正確的手機號碼'; errorDiv.style.display = 'block'; return false; }
             }
             
             return true;
@@ -3838,8 +2828,41 @@ function saveCurrentPageData() {
             if (currentPage === 5) {
                 formData.courses = Array.from(document.querySelectorAll('input[name="course"]:checked')).map(function(cb) { return cb.value; });
             }
+            // ★★★ 問題2修正：正確處理關節/脊椎/其他的詳細欄位 ★★★
             if (currentPage === 6) {
-                formData.diseases = Array.from(document.querySelectorAll('input[name="disease"]:checked')).map(function(cb) { return cb.value; });
+                formData.diseases = [];
+                
+                var allCheckedBoxes = document.querySelectorAll('input[name="disease"]:checked');
+                
+                allCheckedBoxes.forEach(function(checkbox) {
+                    var checkboxId = checkbox.id;
+                    var checkboxValue = checkbox.value;
+                    
+                    if (checkboxId === 'jointIssue') {
+                        var jointDetail = document.getElementById('jointDetail').value.trim();
+                        if (jointDetail) {
+                            formData.diseases.push('關節問題: ' + jointDetail);
+                        } else {
+                            formData.diseases.push('關節問題');
+                        }
+                    } else if (checkboxId === 'spineIssue') {
+                        var spineDetail = document.getElementById('spineDetail').value.trim();
+                        if (spineDetail) {
+                            formData.diseases.push('脊椎問題: ' + spineDetail);
+                        } else {
+                            formData.diseases.push('脊椎問題');
+                        }
+                    } else if (checkboxId === 'otherDisease') {
+                        var otherDetail = document.getElementById('otherDetail').value.trim();
+                        if (otherDetail) {
+                            formData.diseases.push('其他: ' + otherDetail);
+                        } else {
+                            formData.diseases.push('其他');
+                        }
+                    } else {
+                        formData.diseases.push(checkboxValue);
+                    }
+                });
             }
             if (currentPage === 7) {
                 formData.remarks = document.getElementById('remarks').value;
@@ -3858,10 +2881,7 @@ function saveCurrentPageData() {
                     var checkbox = document.getElementById(id);
                     if (checkbox.checked) {
                         var time = document.getElementById(id + 'Time').value;
-                        formData.timePreferences.push({
-                            slot: checkbox.value,
-                            time: time || ''
-                        });
+                        formData.timePreferences.push({ slot: checkbox.value, time: time || '' });
                     }
                 });
                 var flexCheckbox = document.querySelector('input[name="timeSlot"][value="彈性不固定"]');
@@ -3870,8 +2890,7 @@ function saveCurrentPageData() {
                 }
             }
         }
-
-        function displayReviewData() {
+function displayReviewData() {
             document.getElementById('edit_name').value = formData.name || '';
             
             if (formData.gender) {
@@ -3906,7 +2925,6 @@ function saveCurrentPageData() {
             }).join('');
             document.getElementById('edit_time_preferences').innerHTML = timePrefsHTML || '<p style="color: #808080;">未填寫</p>';
             
-            var aiSection = document.getElementById('aiAnalysisSection');
             var aiTitle = document.getElementById('aiAnalysisTitle');
             var aiContent = document.getElementById('aiAnalysisContent');
             
@@ -3947,11 +2965,11 @@ function saveCurrentPageData() {
             
             nextPage();
         }
-function goToBooking() {
+
+        function goToBooking() {
             window.location.href = 'https://liff.line.me/2007947083-yb9NPJ7e';
         }
-
-        async function submitFormLater() {
+async function submitFormLater() {
             if (!document.getElementById('agreeRules').checked) {
                 document.getElementById('rulesError').style.display = 'block';
                 alert('⚠️ 請勾選同意場館規範');
@@ -4009,20 +3027,14 @@ function goToBooking() {
             };
             
             try {
-                var response = await fetch('https://hook.us2.make.com/6rfz9vsjnqqxr6s6bnx2cr9njax93yyg', {
+                var response = await fetch(SUBMIT_WEBHOOK_URL, {
                     method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
+                    headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(submitData)
                 });
                 
                 if (response.ok) {
                     localStorage.removeItem('fitnessFormData');
-                    
-                    if (!redirectToBooking && formData.lineId) {
-                        localStorage.setItem('submittedLater_' + formData.lineId, 'true');
-                    }
                     
                     if (redirectToBooking) {
                         window.location.href = 'https://liff.line.me/2007947083-yb9NPJ7e';
@@ -4037,27 +3049,19 @@ function goToBooking() {
                         window.scrollTo(0, 0);
                     }
                 } else {
-                    buttons.forEach(function(btn) {
-                        btn.disabled = false;
-                        btn.style.opacity = '1';
-                    });
+                    buttons.forEach(function(btn) { btn.disabled = false; btn.style.opacity = '1'; });
                     alert('提交失敗,請稍後再試');
                 }
             } catch (error) {
                 console.error('提交錯誤:', error);
-                buttons.forEach(function(btn) {
-                    btn.disabled = false;
-                    btn.style.opacity = '1';
-                });
+                buttons.forEach(function(btn) { btn.disabled = false; btn.style.opacity = '1'; });
                 alert('網路錯誤,請稍後再試');
             }
         }
 
         function updateProgress() {
             var progressPage = currentPage;
-            if (currentPage === 2.5) {
-                progressPage = 2.5;
-            }
+            if (currentPage === 2.5) progressPage = 2.5;
             var progress = (progressPage / totalPages) * 100;
             document.getElementById('progressFill').style.width = progress + '%';
         }
@@ -4070,9 +3074,7 @@ function goToBooking() {
                         var radioName = e.target.name;
                         document.querySelectorAll('input[name="' + radioName + '"]').forEach(function(radio) {
                             var parentOption = radio.closest('.option');
-                            if (parentOption) {
-                                parentOption.classList.remove('selected');
-                            }
+                            if (parentOption) parentOption.classList.remove('selected');
                         });
                     }
                     
