@@ -2,8 +2,9 @@
 <html lang="zh-TW">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>AI 體態分析 - 健身體驗問卷</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>衡點健身 - 體驗課程問卷</title>
+    <script charset="utf-8" src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
     <style>
         * {
             margin: 0;
@@ -12,224 +13,66 @@
         }
 
         body {
-            font-family: 'Segoe UI', 'Microsoft JhengHei', sans-serif;
-            background: linear-gradient(135deg, #e2ede6 0%, #daedec 100%);
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Microsoft JhengHei", Arial, sans-serif;
+            background: linear-gradient(135deg, #e8f5f3 0%, #d4e9e6 100%);
             min-height: 100vh;
-            padding: 15px;
-            overflow-x: hidden;
-            touch-action: pan-y;
-            -webkit-tap-highlight-color: transparent;
+            padding: 20px 10px;
         }
 
         .container {
-            max-width: 600px;
+            max-width: 800px;
             margin: 0 auto;
-            background: #ffffff;
+            background: white;
             border-radius: 20px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            box-shadow: 0 10px 40px rgba(45, 90, 61, 0.1);
             overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #2d5a3d 0%, #3d6b4d 100%);
+            color: white;
+            padding: 30px 20px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 28px;
+            margin-bottom: 8px;
+            font-weight: 700;
+        }
+
+        .header p {
+            font-size: 15px;
+            opacity: 0.95;
+            line-height: 1.6;
+        }
+
+        .progress-container {
+            background: #f5f5f5;
+            padding: 15px 20px;
+            border-bottom: 1px solid #e0e0e0;
         }
 
         .progress-bar {
-            height: 14px;
-            background: 
-                radial-gradient(ellipse at top, rgba(255, 255, 255, 0.6) 0%, transparent 70%),
-                linear-gradient(135deg, 
-                    #f8fcfa 0%, 
-                    #f2f9f6 15%,
-                    #ecf7f2 30%,
-                    #e8f5f1 45%, 
-                    #e2ede6 60%, 
-                    #d8e9de 75%,
-                    #d0e5d9 90%,
-                    #cce3d8 100%);
-            position: relative;
-            overflow: visible;
-            border-radius: 25px;
-            box-shadow: 
-                inset 0 4px 8px rgba(95, 132, 111, 0.06),
-                inset 0 2px 4px rgba(95, 132, 111, 0.1),
-                inset 0 -1px 2px rgba(255, 255, 255, 0.5),
-                0 2px 6px rgba(255, 255, 255, 0.95),
-                0 4px 12px rgba(122, 193, 154, 0.04);
-            padding: 3px;
-            background-clip: padding-box;
-        }
-
-        .progress-bar::before {
-            content: '';
-            position: absolute;
-            top: -3px;
-            left: -3px;
-            right: -3px;
-            bottom: -3px;
-            border-radius: 28px;
-            background: linear-gradient(135deg, 
-                rgba(122, 193, 154, 0.08) 0%,
-                rgba(143, 204, 170, 0.06) 25%,
-                rgba(159, 204, 204, 0.08) 50%,
-                rgba(170, 217, 217, 0.06) 75%,
-                rgba(184, 220, 224, 0.08) 100%);
-            z-index: -1;
-            opacity: 0;
-            transition: opacity 0.4s ease;
-            animation: rainbow-shift 6s ease-in-out infinite;
-        }
-
-        @keyframes rainbow-shift {
-            0%, 100% {
-                background-position: 0% 50%;
-            }
-            50% {
-                background-position: 100% 50%;
-            }
-        }
-
-        .container:hover .progress-bar::before {
-            opacity: 1;
-        }
-
-        .progress-bar::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -180%;
-            width: 180%;
-            height: 100%;
-            background: linear-gradient(90deg, 
-                transparent 0%, 
-                transparent 15%,
-                rgba(255, 255, 255, 0.1) 25%,
-                rgba(255, 255, 255, 0.35) 40%,
-                rgba(255, 255, 255, 0.7) 50%,
-                rgba(255, 255, 255, 0.35) 60%,
-                rgba(255, 255, 255, 0.1) 75%,
-                transparent 85%,
-                transparent 100%);
-            animation: beam-sweep 5s cubic-bezier(0.4, 0, 0.2, 1) infinite;
-            pointer-events: none;
-            border-radius: 25px;
-        }
-
-        @keyframes beam-sweep {
-            0% { left: -180%; opacity: 0; }
-            5% { opacity: 1; }
-            95% { opacity: 1; }
-            100% { left: 200%; opacity: 0; }
+            background: #e0e0e0;
+            height: 8px;
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 8px;
         }
 
         .progress-fill {
+            background: linear-gradient(90deg, #2d5a3d 0%, #9fcccc 100%);
             height: 100%;
-            background: 
-                linear-gradient(180deg, 
-                    rgba(255, 255, 255, 0.5) 0%, 
-                    rgba(255, 255, 255, 0.2) 25%,
-                    rgba(255, 255, 255, 0) 50%,
-                    rgba(0, 0, 0, 0.02) 75%,
-                    rgba(0, 0, 0, 0.04) 100%),
-                linear-gradient(135deg, 
-                    #2d7a4d 0%,
-                    #3d8c5f 8%, 
-                    #4a9d6f 16%,
-                    #58b07e 24%,
-                    #6fc99b 32%,
-                    #7ac19a 40%, 
-                    #87c9a5 48%,
-                    #95d1b5 56%,
-                    #a5d8c5 64%,
-                    #aad9d9 72%, 
-                    #b3dedd 80%,
-                    #bde3e3 88%,
-                    #c8e8e9 96%,
-                    #d0ecee 100%);
-            position: relative;
-            transition: width 0.9s cubic-bezier(0.22, 1, 0.36, 1);
-            box-shadow: 
-                0 0 30px rgba(122, 193, 154, 0.6),
-                0 0 50px rgba(122, 193, 154, 0.35),
-                0 0 80px rgba(122, 193, 154, 0.15),
-                0 3px 12px rgba(95, 132, 111, 0.35),
-                inset 0 2px 1px rgba(255, 255, 255, 0.7),
-                inset 0 -2px 1px rgba(0, 0, 0, 0.08),
-                inset 1px 0 1px rgba(255, 255, 255, 0.3),
-                inset -1px 0 1px rgba(0, 0, 0, 0.05);
-            border-radius: 22px;
-            overflow: hidden;
-            animation: subtle-breathe 5s ease-in-out infinite;
+            width: 0%;
+            transition: width 0.3s ease;
         }
 
-        .progress-fill::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 45%;
-            background: 
-                radial-gradient(ellipse at 30% 20%, rgba(255, 255, 255, 0.9) 0%, transparent 60%),
-                linear-gradient(180deg, 
-                    rgba(255, 255, 255, 0.8) 0%, 
-                    rgba(255, 255, 255, 0.5) 30%,
-                    rgba(255, 255, 255, 0.15) 60%,
-                    transparent 100%);
-            border-radius: 22px 22px 0 0;
-            filter: blur(0.5px);
-        }
-
-        .progress-fill::after {
-            content: '';
-            position: absolute;
-            top: -60%;
-            right: -15px;
-            width: 50px;
-            height: 220%;
-            background: 
-                radial-gradient(ellipse at center, 
-                    rgba(255, 255, 255, 1) 0%,
-                    rgba(255, 255, 255, 0.8) 20%,
-                    rgba(255, 255, 255, 0.5) 40%,
-                    rgba(255, 255, 255, 0.2) 60%,
-                    transparent 80%);
-            filter: blur(6px);
-            animation: tail-pulse 2.8s ease-in-out infinite;
-            transform-origin: center;
-        }
-
-        @keyframes tail-pulse {
-            0%, 100% { 
-                opacity: 0.6;
-                transform: translateX(0) scale(1) rotate(0deg);
-            }
-            33% { 
-                opacity: 0.95;
-                transform: translateX(-4px) scale(1.08) rotate(-2deg);
-            }
-            66% {
-                opacity: 0.75;
-                transform: translateX(-2px) scale(1.04) rotate(1deg);
-            }
-        }
-
-        .progress-bar:hover .progress-fill {
-            box-shadow: 
-                0 0 40px rgba(122, 193, 154, 0.75),
-                0 0 65px rgba(122, 193, 154, 0.45),
-                0 0 95px rgba(122, 193, 154, 0.2),
-                0 4px 16px rgba(95, 132, 111, 0.45),
-                inset 0 2px 1px rgba(255, 255, 255, 0.8),
-                inset 0 -2px 1px rgba(0, 0, 0, 0.1),
-                inset 1px 0 1px rgba(255, 255, 255, 0.4),
-                inset -1px 0 1px rgba(0, 0, 0, 0.06);
-            filter: brightness(1.06) saturate(1.1);
-        }
-
-        @keyframes subtle-breathe {
-            0%, 100% {
-                filter: brightness(1) saturate(1);
-            }
-            50% {
-                filter: brightness(1.04) saturate(1.05);
-            }
+        .progress-text {
+            text-align: center;
+            color: #5f846f;
+            font-size: 13px;
+            font-weight: 600;
         }
 
         .content {
@@ -242,1026 +85,13 @@
 
         .question-page.active {
             display: block;
-            animation: fadeIn 0.3s ease;
+            animation: fadeIn 0.4s ease;
         }
 
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        h2 {
-            color: #5f846f;
-            font-size: 22px;
-            margin-bottom: 10px;
-            word-wrap: break-word;
-            line-height: 1.4;
-        }
-
-        .subtitle {
-            color: #808080;
-            font-size: 14px;
-            margin-bottom: 25px;
-            line-height: 1.5;
-        }
-
-        .option-group {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-            margin-bottom: 25px;
-            max-width: 100%;
-        }
-
-        .option {
-            background: #fff5f5;
-            border: 2px solid #ffe8e8;
-            border-radius: 12px;
-            padding: 14px 16px;
-            cursor: pointer;
-            transition: all 0.25s ease;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            max-width: 100%;
-            word-wrap: break-word;
-            min-height: 52px;
-        }
-
-        .option:active {
-            transform: scale(0.98);
-        }
-
-        .option:hover {
-            background: #ffeaea;
-            border-color: #ffd5d5;
-            transform: translateX(3px);
-        }
-
-        .option.selected {
-            background: linear-gradient(135deg, #c8e6d7 0%, #e8f5f0 100%);
-            border-color: #7ac19a;
-            color: #2d5a3d;
-            box-shadow: 0 4px 15px rgba(122, 193, 154, 0.5);
-            font-weight: 600;
-        }
-
-        .detail-input {
-            margin-top: 12px;
-            background: #fffafa !important;
-            border-color: #ffe8e8 !important;
-            font-size: 14px;
-            color: #4a6859;
-        }
-
-        .detail-input::placeholder {
-            color: #a89a9a;
-            opacity: 0.7;
-        }
-
-        .detail-input:focus {
-            border-color: #c0ddd0 !important;
-            box-shadow: 0 0 0 4px rgba(212, 235, 224, 0.15) !important;
-            background: #ffffff !important;
-        }
-
-        .option input[type="checkbox"],
-        .option input[type="radio"] {
-            width: 22px;
-            height: 22px;
-            cursor: pointer;
-            flex-shrink: 0;
-            accent-color: #5f846f;
-        }
-
-        .option.selected input[type="checkbox"],
-        .option.selected input[type="radio"] {
-            accent-color: #2d5a3d;
-            filter: brightness(1);
-        }
-
-        .text-input {
-            width: 100%;
-            padding: 12px 16px;
-            border: 2px solid #e2ede6;
-            border-radius: 8px;
-            font-size: 16px;
-            margin-top: 10px;
-            transition: border-color 0.2s;
-            max-width: 100%;
-        }
-
-        .text-input:focus {
-            outline: none;
-            border-color: #7ac19a;
-            box-shadow: 0 0 0 3px rgba(122, 193, 154, 0.1);
-        }
-
-        .text-input:disabled {
-            background: #f5f5f5;
-            cursor: not-allowed;
-        }
-
-        .button {
-            background: linear-gradient(135deg, #7ac19a 0%, #9fcccc 100%);
-            color: #ffffff;
-            border: none;
-            border-radius: 12px;
-            padding: 15px 35px;
-            font-size: 17px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            width: 100%;
-            font-weight: 600;
-            -webkit-tap-highlight-color: transparent;
-            position: relative;
-            overflow: hidden;
-            min-height: 52px;
-        }
-
-        .button::before {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 0;
-            height: 0;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.3);
-            transform: translate(-50%, -50%);
-            transition: width 0.6s, height 0.6s;
-        }
-
-        .button:active::before {
-            width: 300px;
-            height: 300px;
-        }
-
-        .button:active {
-            transform: scale(0.98);
-        }
-
-        .button:disabled {
-            background: #808080;
-            cursor: not-allowed;
-            transform: none;
-        }
-
-        .button.secondary {
-            background: #ffffff;
-            color: #7ac19a;
-            border: 2px solid #7ac19a;
-        }
-
-        .upload-area {
-            border: 3px dashed #7ac19a;
-            border-radius: 12px;
-            padding: 35px 20px;
-            text-align: center;
-            transition: all 0.3s;
-            margin-bottom: 20px;
-            background: #fcf4e3;
-        }
-
-        .upload-buttons {
-            display: flex;
-            gap: 10px;
-            justify-content: center;
-            margin-top: 15px;
-            flex-wrap: wrap;
-        }
-
-        .upload-button {
-            background: #7ac19a;
-            color: white;
-            border: none;
-            padding: 12px 24px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 14px;
-            transition: all 0.2s;
-            min-height: 44px;
-        }
-
-        .upload-button:active {
-            transform: scale(0.95);
-            background: #5f846f;
-        }
-
-        .upload-area.has-image {
-            border-color: #7ac19a;
-            background: #e2ede6;
-        }
-
-        .preview-image {
-            max-width: 100%;
-            max-height: 300px;
-            margin-top: 15px;
-            border-radius: 8px;
-        }
-
-        .completion {
-            text-align: center;
-            padding: 50px 20px;
-        }
-
-        .completion h1 {
-            color: #7ac19a;
-            font-size: 28px;
-            margin-bottom: 20px;
-        }
-
-        .completion p {
-            color: #5f846f;
-            font-size: 16px;
-            line-height: 1.6;
-        }
-.time-slot-input {
-            display: flex;
-            gap: 8px;
-            margin-bottom: 15px;
-            flex-wrap: wrap;
-        }
-
-        .time-slot-input input {
-            flex: 1;
-            min-width: 120px;
-        }
-
-        .time-slot-input button {
-            width: auto;
-            padding: 12px 20px;
-            font-size: 16px;
-            min-width: 80px;
-        }
-
-        .time-slot-list {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-            margin-top: 15px;
-        }
-
-        .time-slot-tag {
-            background: #9fcccc;
-            color: #ffffff;
-            padding: 10px 16px;
-            border-radius: 20px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-size: 14px;
-        }
-
-        .time-slot-tag button {
-            background: none;
-            border: none;
-            color: #ffffff;
-            cursor: pointer;
-            font-size: 20px;
-            padding: 0;
-            width: 24px;
-            height: 24px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .error-message {
-            color: #c67566;
-            font-size: 14px;
-            margin-top: 8px;
-            padding: 10px;
-            background: #fff5f5;
-            border-radius: 6px;
-            border-left: 3px solid #c67566;
-        }
-
-        .required {
-            color: #f2ac98;
-        }
-
-        input[type="date"] {
-            width: 100%;
-            padding: 12px 16px;
-            border: 2px solid #e2ede6;
-            border-radius: 8px;
-            font-size: 16px;
-            position: relative;
-        }
-
-        input[type="date"]:focus {
-            outline: none;
-            border-color: #7ac19a;
-            box-shadow: 0 0 0 3px rgba(122, 193, 154, 0.1);
-        }
-
-        .analysis-result {
-            background: #e2ede6;
-            border-radius: 12px;
-            padding: 25px;
-            margin: 20px 0;
-        }
-
-        .score-display {
-            text-align: center;
-            font-size: 48px;
-            font-weight: bold;
-            color: #7ac19a;
-            margin: 20px 0;
-        }
-
-        .recommendation {
-            background: #ffffff;
-            border-radius: 8px;
-            padding: 18px;
-            margin-top: 15px;
-        }
-
-        .recommendation h3 {
-            color: #5f846f;
-            margin-bottom: 10px;
-            font-size: 16px;
-        }
-
-        .canvas-container {
-            position: relative;
-            width: 100%;
-            max-width: 100%;
-            margin: 0 auto 30px;
-            background: linear-gradient(145deg, #ffffff, #f8faf9);
-            border-radius: 20px;
-            padding: 20px;
-            box-shadow: 
-                0 15px 40px rgba(95, 132, 111, 0.15),
-                inset 0 2px 10px rgba(255, 255, 255, 0.8);
-            border: 3px solid rgba(122, 193, 154, 0.2);
-        }
-
-        .canvas-wrapper {
-            position: relative;
-            border-radius: 15px;
-            overflow: hidden;
-            box-shadow: 0 5px 20px rgba(95, 132, 111, 0.1);
-        }
-
-        #postureCanvas {
-            width: 100%;
-            height: auto;
-            display: block;
-            cursor: crosshair;
-            touch-action: none;
-            -webkit-tap-highlight-color: transparent;
-            -webkit-touch-callout: none;
-            -webkit-user-select: none;
-            user-select: none;
-        }
-
-        .grid-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-image: 
-                linear-gradient(rgba(122, 193, 154, 0.03) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(122, 193, 154, 0.03) 1px, transparent 1px);
-            background-size: 20px 20px;
-            pointer-events: none;
-        }
-
-        .title-wrapper {
-            display: inline-block;
-            position: relative;
-            padding: 12px 25px;
-            background: linear-gradient(135deg, rgba(122, 193, 154, 0.1) 0%, rgba(159, 204, 204, 0.1) 100%);
-            border-radius: 20px;
-            border: 2px solid rgba(122, 193, 154, 0.3);
-            margin-bottom: 15px;
-        }
-
-        .star-icon {
-            display: inline-block;
-            animation: rotate 20s linear infinite;
-        }
-
-        @keyframes rotate {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
-
-        .instruction-card {
-            background: linear-gradient(135deg, #fcf4e3 0%, #fff9e6 100%);
-            border-radius: 15px;
-            padding: 18px;
-            border: 2px solid #ffe08b;
-            margin-bottom: 25px;
-            box-shadow: 0 6px 20px rgba(186, 158, 96, 0.1);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .instruction-card::before {
-            content: '✦';
-            position: absolute;
-            top: -15px;
-            right: -15px;
-            font-size: 80px;
-            color: rgba(255, 224, 139, 0.12);
-            transform: rotate(15deg);
-        }
-
-        .instruction-header {
-            display: flex;
-            align-items: flex-start;
-            gap: 12px;
-            margin-bottom: 12px;
-            position: relative;
-            z-index: 1;
-        }
-
-        .instruction-icon {
-            font-size: 24px;
-            flex-shrink: 0;
-            animation: bounce 2s ease-in-out infinite;
-        }
-
-        @keyframes bounce {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-6px); }
-        }
-
-        .instruction-title {
-            color: #5f846f;
-            font-weight: 700;
-            font-size: 16px;
-            margin-bottom: 6px;
-        }
-
-        .instruction-desc {
-            color: #66888e;
-            font-size: 13px;
-            line-height: 1.5;
-        }
-
-        .instruction-list {
-            list-style: none;
-            color: #5f846f;
-            font-size: 13px;
-            line-height: 1.8;
-            margin-left: 38px;
-            position: relative;
-            z-index: 1;
-        }
-
-        .instruction-list li {
-            margin-bottom: 6px;
-            position: relative;
-            padding-left: 20px;
-        }
-
-        .instruction-list li::before {
-            content: '✦';
-            position: absolute;
-            left: 0;
-            color: #7ac19a;
-            font-weight: bold;
-            font-size: 14px;
-        }
-
-        .stats-section {
-            background: linear-gradient(135deg, #e2ede6 0%, #d5e7dc 100%);
-            border-radius: 20px;
-            padding: 25px 20px;
-            margin-bottom: 25px;
-            border: 2px solid #7ac19a;
-            box-shadow: 0 8px 25px rgba(122, 193, 154, 0.12);
-        }
-
-        .stats-title {
-            text-align: center;
-            color: #5f846f;
-            font-size: 18px;
-            font-weight: 700;
-            margin-bottom: 25px;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            position: relative;
-            padding-bottom: 12px;
-        }
-
-        .stats-title::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 80px;
-            height: 3px;
-            background: linear-gradient(90deg, transparent, #7ac19a, transparent);
-            border-radius: 2px;
-        }
-
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 15px;
-        }
-
-        .stat-card {
-            background: #ffffff;
-            border-radius: 15px;
-            padding: 20px 15px;
-            text-align: center;
-            border: 2px solid transparent;
-            transition: all 0.4s ease;
-            position: relative;
-            overflow: hidden;
-            box-shadow: 0 4px 15px rgba(95, 132, 111, 0.1);
-        }
-
-        .stat-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 4px;
-            background: linear-gradient(90deg, #7ac19a 0%, #9fcccc 100%);
-            transform: scaleX(0);
-            transition: transform 0.4s ease;
-        }
-
-        .stat-card:active::before {
-            transform: scaleX(1);
-        }
-
-        .stat-card:active {
-            transform: translateY(-3px);
-            box-shadow: 0 12px 30px rgba(122, 193, 154, 0.25);
-            border-color: #7ac19a;
-        }
-
-        .stat-icon {
-            font-size: 30px;
-            margin-bottom: 10px;
-            filter: drop-shadow(0 2px 4px rgba(95, 132, 111, 0.2));
-        }
-
-        .stat-label {
-            color: #66888e;
-            font-size: 11px;
-            margin-bottom: 10px;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .stat-value {
-            color: #7ac19a;
-            font-size: 32px;
-            font-weight: 800;
-            line-height: 1;
-            text-shadow: 0 2px 8px rgba(122, 193, 154, 0.2);
-        }
-
-        .legend {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-            gap: 12px;
-            margin-top: 25px;
-            margin-bottom: 30px;
-            padding: 20px;
-            background: linear-gradient(135deg, rgba(250, 236, 232, 0.3) 0%, rgba(253, 240, 236, 0.3) 100%);
-            border-radius: 15px;
-            border: 2px solid rgba(242, 172, 152, 0.3);
-        }
-
-        .legend-item {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            padding: 10px;
-            background: rgba(255, 255, 255, 0.5);
-            border-radius: 10px;
-            transition: all 0.3s ease;
-        }
-
-        .legend-dot {
-            width: 18px;
-            height: 18px;
-            border-radius: 50%;
-            box-shadow: 0 0 8px currentColor;
-            flex-shrink: 0;
-            opacity: 0.6;
-        }
-
-        .legend-text {
-            color: #5f846f;
-            font-size: 13px;
-            font-weight: 600;
-            opacity: 0.7;
-        }
-
-        .analysis-metrics {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 15px;
-            margin: 20px 0;
-        }
-
-        .metric-card {
-            background: #ffffff;
-            border-radius: 12px;
-            padding: 20px 15px;
-            text-align: center;
-            border: 2px solid transparent;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 12px rgba(95, 132, 111, 0.1);
-        }
-
-        .metric-card:active {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(122, 193, 154, 0.2);
-            border-color: #7ac19a;
-        }
-
-        .metric-value {
-            font-size: 32px;
-            font-weight: bold;
-            color: #7ac19a;
-            margin: 10px 0;
-            text-shadow: 0 2px 4px rgba(122, 193, 154, 0.2);
-        }
-
-        .metric-label {
-            font-size: 13px;
-            color: #66888e;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        .editable-section {
-            background: #ffffff;
-            border: 2px solid #e2ede6;
-            border-radius: 12px;
-            padding: 20px;
-            margin-bottom: 15px;
-            position: relative;
-        }
-
-        .editable-section h3 {
-            color: #5f846f;
-            margin-bottom: 15px;
-            font-size: 17px;
-        }
-
-        .edit-button {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            background: #7ac19a;
-            color: #ffffff;
-            border: none;
-            padding: 8px 16px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 14px;
-            min-height: 36px;
-        }
-
-        .edit-button:active {
-            background: #5f846f;
-            transform: scale(0.95);
-        }
-
-        .edit-field {
-            margin-bottom: 12px;
-        }
-
-        .edit-field label {
-            display: block;
-            color: #5f846f;
-            font-size: 14px;
-            margin-bottom: 6px;
-            font-weight: 600;
-        }
-
-        .edit-field input,
-        .edit-field select,
-        .edit-field textarea {
-            width: 100%;
-            padding: 10px 14px;
-            border: 2px solid #e2ede6;
-            border-radius: 8px;
-            font-size: 15px;
-            transition: border-color 0.2s;
-        }
-
-        .edit-field input:focus,
-        .edit-field select:focus,
-        .edit-field textarea:focus {
-            outline: none;
-            border-color: #7ac19a;
-            box-shadow: 0 0 0 3px rgba(122, 193, 154, 0.1);
-        }
-
-        .basic-info-grid {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 15px;
-            margin-bottom: 20px;
-        }
-
-        .basic-info-grid .full-width {
-            grid-column: 1 / -1;
-        }
-
-        .analyzing-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(95, 132, 111, 0.95);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            z-index: 1000;
-            color: white;
-        }
-
-        .analyzing-spinner {
-            width: 50px;
-            height: 50px;
-            border: 4px solid rgba(255, 255, 255, 0.3);
-            border-top-color: #ffffff;
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-            margin-bottom: 15px;
-        }
-
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
-
-        .analyzing-text {
-            font-size: 20px;
-            font-weight: bold;
-            margin-bottom: 8px;
-        }
-
-        .analyzing-subtext {
-            font-size: 14px;
-            opacity: 0.8;
-        }
-
-        .nav-buttons {
-            display: flex;
-            gap: 10px;
-            margin-top: 20px;
-        }
-
-        .nav-buttons .button {
-            flex: 1;
-        }
-
-        .email-domain-item {
-            padding: 12px 16px;
-            cursor: pointer;
-            transition: background 0.2s;
-            border-bottom: 1px solid #f0f0f0;
-        }
-
-        .email-domain-item:last-child {
-            border-bottom: none;
-        }
-
-        .email-domain-item:active {
-            background: #e2ede6;
-        }
-
-        .privacy-page {
-            padding: 20px 0;
-        }
-
-        .privacy-hero {
-            text-align: center;
-            margin-bottom: 30px;
-            padding: 25px 20px;
-            background: linear-gradient(135deg, #e2ede6 0%, #daedec 100%);
-            border-radius: 15px;
-            border: 2px solid #7ac19a;
-        }
-
-        .privacy-hero-icon {
-            font-size: 48px;
-            margin-bottom: 15px;
-            animation: pulse 2s ease-in-out infinite;
-        }
-
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-        }
-
-        .privacy-hero h2 {
-            color: #5f846f;
-            font-size: 24px;
-            margin-bottom: 10px;
-        }
-
-        .privacy-hero p {
-            color: #66888e;
-            font-size: 14px;
-            line-height: 1.6;
-        }
-
-        .privacy-content {
-            background: #ffffff;
-            border: 2px solid #e2ede6;
-            border-radius: 15px;
-            padding: 25px;
-            margin-bottom: 25px;
-            max-height: 400px;
-            overflow-y: auto;
-            box-shadow: 0 4px 15px rgba(95, 132, 111, 0.08);
-        }
-
-        .privacy-section {
-            margin-bottom: 25px;
-        }
-
-        .privacy-section-title {
-            color: #5f846f;
-            font-size: 17px;
-            font-weight: 700;
-            margin-bottom: 12px;
-            padding-left: 15px;
-            border-left: 4px solid #7ac19a;
-        }
-
-        .privacy-text {
-            color: #66888e;
-            font-size: 14px;
-            line-height: 1.8;
-            margin-bottom: 12px;
-        }
-
-        .privacy-list {
-            list-style: none;
-            padding-left: 20px;
-            margin-top: 10px;
-        }
-
-        .privacy-list li {
-            position: relative;
-            padding-left: 25px;
-            margin-bottom: 10px;
-            color: #5f846f;
-            font-size: 14px;
-            line-height: 1.6;
-        }
-
-        .privacy-list li::before {
-            content: '✓';
-            position: absolute;
-            left: 0;
-            color: #7ac19a;
-            font-weight: bold;
-            font-size: 16px;
-        }
-
-        .privacy-agree-box {
-            background: linear-gradient(135deg, #fcf4e3 0%, #fff9e6 100%);
-            border: 2px solid #ffe08b;
-            border-radius: 15px;
-            padding: 20px;
-            margin-bottom: 25px;
-            transition: all 0.3s ease;
-        }
-
-        .privacy-agree-box:hover {
-            box-shadow: 0 4px 15px rgba(255, 224, 139, 0.3);
-        }
-
-        .privacy-checkbox-wrapper {
-            display: flex;
-            align-items: flex-start;
-            gap: 15px;
-            cursor: pointer;
-        }
-
-        .privacy-checkbox-wrapper input[type="checkbox"] {
-            margin-top: 3px;
-            min-width: 24px;
-            min-height: 24px;
-            cursor: pointer;
-            accent-color: #7ac19a;
-        }
-
-        .privacy-checkbox-label {
-            color: #5f846f;
-            font-size: 15px;
-            font-weight: 600;
-            line-height: 1.6;
-            flex: 1;
-        }
-
-        .privacy-note {
-            background: #e2ede6;
-            border-radius: 10px;
-            padding: 15px;
-            margin-top: 20px;
-            border-left: 4px solid #7ac19a;
-        }
-
-        .privacy-note p {
-            color: #5f846f;
-            font-size: 13px;
-            line-height: 1.6;
-            margin: 0;
-        }
-.completion-modern {
-            padding: 40px 20px;
-            text-align: center;
-        }
-
-        .completion-icon-wrapper {
-            position: relative;
-            display: inline-block;
-            margin-bottom: 30px;
-        }
-
-        .completion-icon-bg {
-            width: 120px;
-            height: 120px;
-            background: linear-gradient(135deg, #7ac19a 0%, #9fcccc 100%);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto;
-            position: relative;
-            box-shadow: 0 10px 30px rgba(122, 193, 154, 0.3);
-            animation: success-pop 0.6s ease-out;
-        }
-
-        @keyframes success-pop {
-            0% {
-                transform: scale(0);
-                opacity: 0;
-            }
-            50% {
-                transform: scale(1.1);
-            }
-            100% {
-                transform: scale(1);
-                opacity: 1;
-            }
-        }
-
-        .completion-icon-bg::before {
-            content: '';
-            position: absolute;
-            width: 140px;
-            height: 140px;
-            border: 3px solid #7ac19a;
-            border-radius: 50%;
-            opacity: 0.3;
-            animation: pulse-ring 2s ease-out infinite;
-        }
-
-        @keyframes pulse-ring {
-            0% {
-                transform: scale(0.9);
-                opacity: 0.5;
-            }
-            100% {
-                transform: scale(1.2);
-                opacity: 0;
-            }
-        }
-
-        .completion-icon {
-            font-size: 60px;
-            color: #ffffff;
-        }
-
-        .completion-title {
-            color: #5f846f;
-            font-size: 26px;
-            font-weight: 700;
-            margin-bottom: 15px;
-            animation: fade-in-up 0.6s ease-out 0.2s both;
-        }
-
-        @keyframes fade-in-up {
             from {
                 opacity: 0;
-                transform: translateY(20px);
+                transform: translateY(10px);
             }
             to {
                 opacity: 1;
@@ -1269,904 +99,1028 @@
             }
         }
 
-        .completion-subtitle {
-            color: #66888e;
+        h2 {
+            color: #2d5a3d;
+            font-size: 24px;
+            margin-bottom: 12px;
+            font-weight: 700;
+        }
+
+        .subtitle {
+            color: #666;
             font-size: 15px;
-            line-height: 1.6;
-            margin-bottom: 30px;
-            animation: fade-in-up 0.6s ease-out 0.3s both;
-        }
-
-        .completion-info-cards {
-            display: grid;
-            gap: 15px;
             margin-bottom: 25px;
-            animation: fade-in-up 0.6s ease-out 0.4s both;
+            line-height: 1.6;
         }
 
-        .completion-info-card {
-            background: linear-gradient(135deg, #e2ede6 0%, #daedec 100%);
-            border-radius: 15px;
-            padding: 20px;
-            border: 2px solid #7ac19a;
+        .upload-container {
             text-align: center;
-            transition: transform 0.3s ease;
+            padding: 30px 20px;
+            background: linear-gradient(135deg, #f8fffe 0%, #e8f5f3 100%);
+            border-radius: 15px;
+            border: 2px dashed #9fcccc;
+            margin-bottom: 20px;
         }
 
-        .completion-info-card:active {
+        .upload-icon {
+            font-size: 48px;
+            margin-bottom: 15px;
+        }
+
+        .upload-btn {
+            background: linear-gradient(135deg, #2d5a3d 0%, #3d6b4d 100%);
+            color: white;
+            border: none;
+            padding: 14px 32px;
+            border-radius: 25px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 600;
+            box-shadow: 0 4px 15px rgba(45, 90, 61, 0.2);
+        }
+
+        .upload-btn:active {
+            transform: scale(0.98);
+            box-shadow: 0 2px 10px rgba(45, 90, 61, 0.2);
+        }
+
+        #photoPreview {
+            margin-top: 20px;
+            min-height: 50px;
+        }
+
+        #photoPreview img {
+            max-width: 100%;
+            max-height: 400px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .button {
+            background: linear-gradient(135deg, #2d5a3d 0%, #3d6b4d 100%);
+            color: white;
+            border: none;
+            padding: 14px 28px;
+            border-radius: 25px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 600;
+            box-shadow: 0 4px 15px rgba(45, 90, 61, 0.2);
+            width: 100%;
+        }
+
+        .button:active {
             transform: scale(0.98);
         }
 
-        .completion-info-icon {
-            font-size: 32px;
-            margin-bottom: 12px;
+        .button.secondary {
+            background: #e0e0e0;
+            color: #333;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
         }
 
-        .completion-info-title {
-            color: #5f846f;
-            font-size: 16px;
-            font-weight: 700;
-            margin-bottom: 8px;
-        }
-
-        .completion-info-text {
-            color: #66888e;
-            font-size: 13px;
-            line-height: 1.5;
-        }
-
-        .completion-reminder {
-            background: #fcf4e3;
-            border: 2px solid #ffe08b;
-            border-radius: 15px;
-            padding: 20px;
+        .nav-buttons {
+            display: flex;
+            gap: 12px;
             margin-top: 25px;
-            animation: fade-in-up 0.6s ease-out 0.5s both;
         }
 
-        .completion-reminder-title {
+        .nav-buttons .button {
+            flex: 1;
+        }
+
+        .privacy-box {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            border-left: 4px solid #9fcccc;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .privacy-box h3 {
+            color: #2d5a3d;
+            margin-bottom: 15px;
+            font-size: 18px;
+        }
+
+        .privacy-box p, .privacy-box li {
+            color: #333;
+            line-height: 1.8;
+            margin-bottom: 10px;
+            font-size: 14px;
+        }
+
+        .checkbox-label {
             display: flex;
             align-items: center;
-            gap: 10px;
-            color: #ba9e60;
-            font-size: 15px;
-            font-weight: 700;
+            gap: 12px;
+            padding: 15px;
+            background: #f5f5f5;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-bottom: 20px;
+        }
+
+        .checkbox-label input[type="checkbox"] {
+            min-width: 20px;
+            min-height: 20px;
+            cursor: pointer;
+            accent-color: #2d5a3d;
+        }
+
+        .error-message {
+            background: #fee;
+            color: #c33;
+            padding: 12px 16px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            font-size: 14px;
+            display: none;
+            border-left: 4px solid #c33;
+        }
+
+        .option {
+            background: white;
+            border: 2px solid #e0e0e0;
+            padding: 16px 20px;
+            border-radius: 12px;
             margin-bottom: 12px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 15px;
+            color: #333;
+            display: flex;
+            align-items: center;
+            gap: 12px;
         }
 
-        .completion-reminder-text {
-            color: #66888e;
-            font-size: 13px;
-            line-height: 1.6;
-            text-align: left;
+        .option:active {
+            transform: scale(0.98);
         }
 
-        @media (max-width: 768px) {
-            body {
-                padding: 10px;
+        .option.selected {
+            background: linear-gradient(135deg, #e8f5f3 0%, #d4e9e6 100%);
+            border-color: #2d5a3d;
+            color: #2d5a3d;
+            font-weight: 600;
+        }
+
+        .option::before {
+            content: '';
+            width: 20px;
+            height: 20px;
+            border: 2px solid #ccc;
+            border-radius: 50%;
+            flex-shrink: 0;
+            transition: all 0.3s;
+        }
+
+        .option.selected::before {
+            background: #2d5a3d;
+            border-color: #2d5a3d;
+            box-shadow: inset 0 0 0 3px white;
+        }
+
+        @media (max-width: 600px) {
+            .header h1 {
+                font-size: 24px;
             }
 
-            .content {
-                padding: 25px 18px;
+            .header p {
+                font-size: 14px;
             }
 
             h2 {
                 font-size: 20px;
             }
 
-            .button {
-                font-size: 16px;
-                padding: 14px 30px;
-            }
-
-            .option {
-                padding: 12px 14px;
-                font-size: 15px;
-            }
-
-            .stats-grid {
-                grid-template-columns: repeat(3, 1fr);
-                gap: 10px;
-            }
-
-            .stat-card {
-                padding: 15px 10px;
-            }
-
-            .stat-icon {
-                font-size: 26px;
-            }
-
-            .stat-label {
-                font-size: 10px;
-            }
-
-            .stat-value {
-                font-size: 26px;
-            }
-
-            .instruction-list {
-                margin-left: 0;
-                padding-left: 15px;
-            }
-
-            .canvas-container {
-                padding: 15px;
-            }
-
-            .legend {
-                grid-template-columns: 1fr;
-                gap: 10px;
-            }
-
-            .analysis-metrics {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 12px;
-            }
-
-            .metric-card {
-                padding: 18px 12px;
-            }
-
-            .metric-value {
-                font-size: 28px;
-            }
-
-            .metric-label {
-                font-size: 12px;
-            }
-
-            [data-page="4"] > div:first-of-type {
-                grid-template-columns: repeat(2, 1fr) !important;
-            }
-
-            .privacy-hero-icon {
-                font-size: 40px;
-            }
-
-            .privacy-hero h2 {
-                font-size: 20px;
-            }
-
-            .privacy-content {
-                padding: 20px;
-            }
-
-            .completion-icon-bg {
-                width: 100px;
-                height: 100px;
-            }
-
-            .completion-icon {
-                font-size: 50px;
-            }
-
-            .completion-title {
-                font-size: 22px;
-            }
-
-            .completion-info-icon {
-                font-size: 28px;
-            }
-
-            #birthdayYear,
-            #birthdayMonth,
-            #birthdayDay {
-                font-size: 16px !important;
-                padding: 14px 12px !important;
-                min-height: 50px !important;
-            }
-
-            #venueRules {
-                padding: 15px !important;
-                font-size: 14px !important;
-            }
-
-            #venueRules h3 {
-                font-size: 16px !important;
-            }
-
-            #venueRules > div > div > div {
-                padding: 12px !important;
-                font-size: 13px !important;
+            .content {
+                padding: 20px 15px;
             }
         }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="tel"],
+        textarea,
+        select {
+            width: 100%;
+            padding: 14px 16px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 15px;
+            margin-bottom: 15px;
+            transition: all 0.3s;
+            font-family: inherit;
+        }
+
+        input:focus,
+        textarea:focus,
+        select:focus {
+            outline: none;
+            border-color: #2d5a3d;
+            box-shadow: 0 0 0 3px rgba(45, 90, 61, 0.1);
+        }
+
+        textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            color: #333;
+            font-weight: 600;
+            margin-bottom: 8px;
+            font-size: 15px;
+        }
+
+        .gender-options {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .gender-option {
+            padding: 14px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 15px;
+            background: white;
+        }
+
+        .gender-option:active {
+            transform: scale(0.95);
+        }
+
+        .gender-option.selected {
+            background: linear-gradient(135deg, #e8f5f3 0%, #d4e9e6 100%);
+            border-color: #2d5a3d;
+            color: #2d5a3d;
+            font-weight: 600;
+        }
+
+        .date-inputs {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            gap: 10px;
+        }
+
+        .email-domains {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-top: 8px;
+        }
+
+        .email-domain {
+            padding: 6px 14px;
+            background: #f5f5f5;
+            border: 1px solid #ddd;
+            border-radius: 15px;
+            font-size: 13px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .email-domain:active {
+            background: #2d5a3d;
+            color: white;
+            border-color: #2d5a3d;
+        }
+
+        .time-slot-item {
+            margin-bottom: 15px;
+        }
+
+        .time-input {
+            margin-top: 8px;
+            display: none;
+        }
+
+        .checkbox-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            padding: 12px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            margin-bottom: 10px;
+        }
+
+        .checkbox-item input[type="checkbox"] {
+            min-width: 20px;
+            min-height: 20px;
+            margin-top: 2px;
+            cursor: pointer;
+            accent-color: #2d5a3d;
+        }
+
+        .checkbox-item label {
+            flex: 1;
+            cursor: pointer;
+            margin: 0;
+            font-weight: normal;
+        }
+
+        .detail-input {
+            margin-top: 10px;
+            margin-left: 32px;
+            display: none;
+        }
+
+        #photoInput {
+            display: none;
+        }
+
+        .hero-section {
+            background: linear-gradient(135deg, #2d5a3d 0%, #3d6b4d 100%);
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+            border-radius: 15px;
+            margin-bottom: 25px;
+            box-shadow: 0 8px 25px rgba(45, 90, 61, 0.2);
+        }
+
+        .hero-section h2 {
+            color: white;
+            font-size: 26px;
+            margin-bottom: 15px;
+            line-height: 1.4;
+        }
+
+        .hero-section p {
+            font-size: 16px;
+            opacity: 0.95;
+            line-height: 1.6;
+        }
+
+        .info-card {
+            background: linear-gradient(135deg, #f8fffe 0%, #e8f5f3 100%);
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            border-left: 4px solid #9fcccc;
+        }
+
+        .info-card h3 {
+            color: #2d5a3d;
+            margin-bottom: 12px;
+            font-size: 18px;
+        }
+
+        .info-card ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .info-card li {
+            padding: 8px 0;
+            color: #333;
+            line-height: 1.6;
+            font-size: 14px;
+        }
+
+        .info-card li::before {
+            content: '✓ ';
+            color: #2d5a3d;
+            font-weight: bold;
+            margin-right: 8px;
+        }
     </style>
-<!-- LINE LIFF SDK -->
-<script charset="utf-8" src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
 </head>
 <body>
     <div class="container">
-        <div class="progress-bar">
-            <div class="progress-fill" id="progressFill"></div>
+        <div class="header">
+            <h1>衡點健身體驗課程</h1>
+            <p>線上免費檢測您的體態<br>立即獲得AI分析評估報告</p>
+        </div>
+
+        <div class="progress-container">
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressBar"></div>
+            </div>
+            <div class="progress-text" id="progressText">0%</div>
         </div>
 
         <div class="content">
-           <!-- Q1: 照片上傳 -->
-<div class="question-page active" data-page="1">
-    <h2>線上免費檢測您的體態 立即獲得AI分析評估報告</h2>
-    <p class="subtitle">請拍攝<strong style="color: #c67566;">背面</strong>全身照</p>
-    <div style="background: #fcf4e3; border-radius: 8px; padding: 12px; margin-bottom: 15px;">
-        <p style="color: #ba9e60; font-size: 13px; line-height: 1.5;">
-            💡 拍攝建議:請站直,雙腳與肩同寬,拍攝完整的背面全身照(從頭到腳)
-        </p>
-    </div>
-    <div class="upload-area" id="uploadArea">
-        <div id="uploadText">
-            <p style="font-size: 48px; margin-bottom: 10px;">📸</p>
-            <p style="color: #5f846f; font-size: 16px; margin-bottom: 15px;">上傳體態照片</p>
-            <div class="upload-buttons">
-                <button class="upload-button" onclick="document.getElementById('photoInputFile').click()">選擇檔案</button>
-                <button class="upload-button" onclick="document.getElementById('photoInputCamera').click()">拍照</button>
-            </div>
-        </div>
-        <div id="previewContainer" style="display: none;">
-            <img id="previewImage" class="preview-image">
-            <div style="margin-top: 15px; display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;">
-                <button class="upload-button" onclick="reuploadPhoto()" style="background: #9fcccc;">
-                    🔄 重新上傳
-                </button>
-                <button class="upload-button" onclick="deletePhoto()" style="background: #c67566;">
-                    🗑️ 刪除照片
-                </button>
-            </div>
-        </div>
-    </div>
-    <input type="file" id="photoInputFile" accept="image/*" style="display: none;">
-    <input type="file" id="photoInputCamera" accept="image/*" capture="environment" style="display: none;">
-    <button class="button" onclick="nextPage()">進行AI分析</button>
-    <div style="text-align: center; margin-top: 15px;">
-        <button class="button" onclick="skipAIAnalysis()" style="background: #808080; font-size: 14px; padding: 12px 30px;">跳過AI檢測,直接預約體驗</button>
-    </div>
-</div>
-
-            <!-- Q2: 個資同意書 -->
-            <div class="question-page privacy-page" data-page="2">
-                <div class="privacy-hero">
-                    <div class="privacy-hero-icon">🔒</div>
-                    <h2>個人資料使用同意</h2>
-                    <p>我們重視您的隱私權益<br>請詳閱以下條款並同意後繼續</p>
+            <!-- Q1: 上傳照片 -->
+            <div class="question-page active" data-page="1">
+                <div class="hero-section">
+                    <h2>歡迎來到衡點健身！</h2>
+                    <p>讓我們透過AI科技，為您提供專業的體態分析與個人化健身建議</p>
                 </div>
 
-                <div class="privacy-content" style="max-height: none; overflow-y: visible;">
-                    <div class="privacy-section">
-                        <div class="privacy-section-title">蒐集目的</div>
-                        <p class="privacy-text">依據個人資料保護法規定,本公司將妥善保管您所提供的個人資料,並僅用於以下目的:</p>
-                        <ul class="privacy-list">
-                            <li>課程諮詢與安排</li>
-                            <li>會員服務與管理</li>
-                            <li>行銷活動通知</li>
-                        </ul>
-                    </div>
+                <h2>上傳您的全身照片（可選）</h2>
+                <p class="subtitle">上傳一張全身正面站立照片，我們將透過AI為您分析體態。如果暫時沒有照片，也可以直接跳過此步驟。</p>
 
-                    <div class="privacy-section">
-                        <div class="privacy-section-title">您的權利</div>
-                        <p class="privacy-text">您對於個人資料享有以下權利:</p>
-                        <ul class="privacy-list">
-                            <li>查詢或請求閱覽</li>
-                            <li>請求製給複製本</li>
-                            <li>請求補充或更正</li>
-                            <li>請求停止蒐集、處理或利用</li>
-                            <li>請求刪除</li>
-                        </ul>
-                    </div>
-
-                    <div class="privacy-note">
-                        <p><strong>📌 重要提醒</strong><br>
-                        若您不同意提供個人資料,可能影響我們為您提供完整的服務。您可隨時聯繫我們行使上述權利。</p>
-                    </div>
-                </div>
-
-                <div class="privacy-agree-box">
-                    <label class="privacy-checkbox-wrapper">
-                        <input type="checkbox" id="agreePrivacy">
-                        <span class="privacy-checkbox-label">我已詳細閱讀並同意個人資料使用條款,瞭解本人享有的權利</span>
-                    </label>
-                </div>
-
-                <div class="nav-buttons">
-                    <button class="button secondary" onclick="prevPage()">上一步</button>
-                    <button class="button" onclick="proceedAfterPrivacy()">同意並繼續</button>
-                </div>
-            </div>
-<!-- Q2.5: AI分析中 -->
-            <div class="question-page" data-page="2.5">
-                <div style="text-align: center; margin-bottom: 20px;">
-                    <div class="title-wrapper" style="display: inline-block;">
-                        <h2 style="margin: 0; display: flex; align-items: center; justify-content: center; gap: 10px; font-size: 20px;">
-                            <span class="star-icon">✦</span>
-                            AI 體態分析系統
-                            <span class="star-icon">✦</span>
-                        </h2>
-                    </div>
-                    <p style="color: #7ac19a; font-size: 14px; margin-top: 8px; font-weight: 600;">⚡ 能量網格運行中</p>
-                </div>
-                
-                <div class="canvas-container">
-                    <div class="canvas-wrapper">
-                        <canvas id="postureCanvas"></canvas>
-                        <div class="grid-overlay"></div>
-                    </div>
-                </div>
-                
-                <div class="instruction-card">
-                    <div class="instruction-header">
-                        <span class="instruction-icon">💎</span>
-                        <div style="flex: 1;">
-                            <p class="instruction-title">體態分析系統</p>
-                            <p class="instruction-desc">透過精準定位技術,分析您的體態狀況</p>
-                        </div>
-                    </div>
-                    <ul class="instruction-list">
-                        <li>點擊任意彩色圓點進行選取</li>
-                        <li>拖動節點即時調整關鍵點位置</li>
-                        <li>系統自動重新計算平衡狀態</li>
-                        <li>確認位置無誤後開始體態計算</li>
+                <div class="info-card">
+                    <h3>📸 拍照小技巧</h3>
+                    <ul>
+                        <li>選擇光線充足的環境</li>
+                        <li>站在純色背景前方</li>
+                        <li>穿著貼身運動服裝</li>
+                        <li>保持自然站立姿勢</li>
+                        <li>確保全身都在畫面中</li>
                     </ul>
                 </div>
 
-                <div class="legend">
-                    <div class="legend-item">
-                        <div class="legend-dot" style="background: #ff6b9d;"></div>
-                        <span class="legend-text">頭部定位點</span>
-                    </div>
-                    <div class="legend-item">
-                        <div class="legend-dot" style="background: #4facfe;"></div>
-                        <span class="legend-text">肩部定位點</span>
-                    </div>
-                    <div class="legend-item">
-                        <div class="legend-dot" style="background: #ffa647;"></div>
-                        <span class="legend-text">足部定位點</span>
-                    </div>
+                <div class="upload-container">
+                    <div class="upload-icon">📷</div>
+                    <p style="color: #666; margin-bottom: 20px; font-size: 14px;">點擊下方按鈕選擇照片或拍照</p>
+                    <input type="file" id="photoInput" accept="image/*" capture="environment">
+                    <button type="button" class="upload-btn" id="uploadBtn">選擇照片 / 拍照</button>
+                    <div id="photoPreview"></div>
                 </div>
 
-                <div class="stats-section">
-                    <h3 class="stats-title">系統數據</h3>
-                    <div class="stats-grid">
-                        <div class="stat-card">
-                            <div class="stat-icon">⬢</div>
-                            <div class="stat-label">關鍵節點</div>
-                            <div class="stat-value" id="nodeCount">5</div>
-                        </div>
-                        <div class="stat-card">
-                            <div class="stat-icon">⬡</div>
-                            <div class="stat-label">連線數量</div>
-                            <div class="stat-value" id="edgeCount">10</div>
-                        </div>
-                        <div class="stat-card">
-                            <div class="stat-icon">✦</div>
-                            <div class="stat-label">完整度</div>
-                            <div class="stat-value">100%</div>
-                        </div>
-                    </div>
+                <div class="nav-buttons">
+                    <button type="button" class="button" onclick="nextPage()">下一步</button>
+                </div>
+            </div>
+<!-- Q2: 隱私權政策同意 -->
+            <div class="question-page" data-page="2">
+                <h2>隱私權政策與個資同意</h2>
+                <p class="subtitle">請詳閱以下隱私權政策，並勾選同意後繼續</p>
+
+                <div class="privacy-box">
+                    <h3>個人資料蒐集與使用說明</h3>
+                    <p><strong>一、資料蒐集目的：</strong></p>
+                    <ul>
+                        <li>提供健身課程預約與諮詢服務</li>
+                        <li>進行AI體態分析與健身建議</li>
+                        <li>會員關係管理與課程通知</li>
+                        <li>健身效果追蹤與改善建議</li>
+                    </ul>
+
+                    <p><strong>二、蒐集的個人資料類型：</strong></p>
+                    <ul>
+                        <li>基本資料：姓名、性別、生日、聯絡方式</li>
+                        <li>健康資料：健身目標、疾病史、體態照片</li>
+                        <li>使用資料：課程偏好、時間安排</li>
+                    </ul>
+
+                    <p><strong>三、資料使用方式：</strong></p>
+                    <ul>
+                        <li>您的資料僅用於提供健身服務與AI分析</li>
+                        <li>不會在未經同意下分享給第三方</li>
+                        <li>體態照片僅用於AI分析，分析後可選擇刪除</li>
+                        <li>所有資料均採加密儲存與傳輸</li>
+                    </ul>
+
+                    <p><strong>四、您的權利：</strong></p>
+                    <ul>
+                        <li>查詢、閱覽您的個人資料</li>
+                        <li>請求補充或更正資料</li>
+                        <li>請求停止蒐集、處理或利用</li>
+                        <li>請求刪除您的個人資料</li>
+                    </ul>
+
+                    <p><strong>五、資料保存期限：</strong></p>
+                    <p>您的資料將保存至會員資格終止後一年，或您要求刪除時立即處理。</p>
+
+                    <p style="margin-top: 15px; padding-top: 15px; border-top: 1px solid #ddd;">
+                        如有任何疑問或需行使上述權利，請聯繫我們的客服團隊。
+                    </p>
                 </div>
 
-                <button class="button secondary" onclick="autoAdjustKeypoints()" style="margin-bottom: 15px;">
-                    <span>🔄 智能重新定位</span>
-                </button>
-                <button class="button" onclick="calculatePosture()">
-                    <span>✨ 開始計算體態</span>
-                </button>
+                <label class="checkbox-label">
+                    <input type="checkbox" id="privacyAgree">
+                    <span>我已詳閱並同意以上隱私權政策，同意提供個人資料用於健身服務</span>
+                </label>
+
+                <div id="privacyError" class="error-message">請勾選同意隱私權政策</div>
+
+                <div class="nav-buttons">
+                    <button type="button" class="button secondary" onclick="prevPage()">上一步</button>
+                    <button type="button" class="button" onclick="proceedAfterPrivacy()">下一步</button>
+                </div>
             </div>
 
-            <!-- Q3: AI分析結果 -->
+            <!-- Q2.5: AI 體態分析 (調整關鍵點) -->
+            <div class="question-page" data-page="2.5">
+                <h2>調整體態關鍵點位置</h2>
+                <p class="subtitle">請拖曳各個關鍵點到正確的身體位置，以獲得更準確的分析結果</p>
+
+                <div class="info-card">
+                    <h3>💡 操作說明</h3>
+                    <ul>
+                        <li>用手指點擊並拖曳各個彩色圓點</li>
+                        <li>將圓點精確對齊到對應的身體部位</li>
+                        <li>調整完成後點擊「開始分析」按鈕</li>
+                        <li>如需重新調整，可點擊「自動調整」按鈕</li>
+                    </ul>
+                </div>
+
+                <div style="text-align: center; margin: 20px 0;">
+                    <canvas id="keypointCanvas" style="max-width: 100%; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); touch-action: none;"></canvas>
+                </div>
+
+                <div style="background: #f8f9fa; padding: 15px; border-radius: 10px; margin-bottom: 20px;">
+                    <p style="color: #666; font-size: 14px; text-align: center; margin: 0;">
+                        <strong>關鍵點說明：</strong><br>
+                        🔴 頭部 | 🔵 雙肩 | 🟠 雙腳
+                    </p>
+                </div>
+
+                <div class="nav-buttons" style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                    <button type="button" class="button secondary" onclick="skipAIAnalysis()" style="grid-column: 1 / -1;">跳過 AI 分析</button>
+                    <button type="button" class="button secondary" onclick="autoAdjustKeypoints()">自動調整</button>
+                    <button type="button" class="button" onclick="calculatePosture()">開始分析</button>
+                </div>
+
+                <div id="analysisOverlay" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 9999; justify-content: center; align-items: center; flex-direction: column;">
+                    <div style="color: white; text-align: center;">
+                        <div style="font-size: 48px; margin-bottom: 20px;">🤖</div>
+                        <h2 style="color: white; margin-bottom: 10px;">AI 分析中...</h2>
+                        <p style="font-size: 16px; opacity: 0.9;">請稍候，正在計算您的體態數據</p>
+                        <div style="margin-top: 30px;">
+                            <div style="width: 200px; height: 4px; background: rgba(255,255,255,0.3); border-radius: 2px; overflow: hidden;">
+                                <div style="width: 100%; height: 100%; background: linear-gradient(90deg, #9fcccc, #2d5a3d); animation: loading 2s ease-in-out infinite;"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <style>
+                    @keyframes loading {
+                        0% { transform: translateX(-100%); }
+                        100% { transform: translateX(100%); }
+                    }
+                </style>
+            </div>
+
+            <!-- Q3: AI 分析結果 -->
             <div class="question-page" data-page="3">
-                <h2>AI 體態分析報告</h2>
-                <div class="analysis-result">
-                    <div class="score-display" id="postureScore">85</div>
-                    <p style="text-align: center; color: #5f846f; margin-bottom: 20px;">整體體態評分</p>
+                <h2>您的 AI 體態分析報告</h2>
+                <p class="subtitle">以下是根據您的照片分析得出的體態評估結果</p>
+
+                <div style="background: linear-gradient(135deg, #2d5a3d 0%, #3d6b4d 100%); color: white; padding: 30px 20px; border-radius: 15px; text-align: center; margin-bottom: 25px;">
+                    <p style="font-size: 16px; opacity: 0.9; margin-bottom: 10px;">整體體態評分</p>
+                    <div style="font-size: 48px; font-weight: bold; margin-bottom: 5px;" id="postureScore">0</div>
+                    <p style="font-size: 14px; opacity: 0.8;">分</p>
+                </div>
+
+                <div style="background: white; border: 2px solid #e8f5f3; border-radius: 12px; padding: 20px; margin-bottom: 20px;">
+                    <h3 style="color: #2d5a3d; margin-bottom: 20px; font-size: 18px;">📊 詳細分析數據</h3>
                     
-                    <div class="analysis-metrics">
-                        <div class="metric-card">
-                            <div class="metric-label">肩膀平衡</div>
-                            <div class="metric-value" id="shoulderBalance">90</div>
+                    <div style="margin-bottom: 20px;">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                            <span style="color: #333; font-weight: 600;">肩部平衡</span>
+                            <span style="color: #2d5a3d; font-weight: bold;" id="shoulderBalance">0</span>
                         </div>
-                        <div class="metric-card">
-                            <div class="metric-label">骨盆對稱</div>
-                            <div class="metric-value" id="pelvisBalance">85</div>
+                        <div style="background: #e0e0e0; height: 8px; border-radius: 10px; overflow: hidden;">
+                            <div id="shoulderBar" style="background: linear-gradient(90deg, #2d5a3d, #9fcccc); height: 100%; width: 0%; transition: width 1s ease;"></div>
                         </div>
-                        <div class="metric-card">
-                            <div class="metric-label">脊椎排列</div>
-                            <div class="metric-value" id="spineAlignment">80</div>
-                        </div>
-                        <div class="metric-card">
-                            <div class="metric-label">整體穩定</div>
-                            <div class="metric-value" id="overallStability">88</div>
-                        </div>
-                    </div>
-                    
-                    <div class="recommendation">
-                        <h3>💪 推薦運動課程</h3>
-                        <p id="recommendExercise"></p>
-                    </div>
-                    
-                    <div class="recommendation">
-                        <h3>🍽️ 飲食建議比例</h3>
-                        <p id="recommendDiet"></p>
                     </div>
 
-                    <div class="recommendation">
-                        <h3>📋 評估後重點報告</h3>
-                        <p id="detailedAnalysis"></p>
+                    <div style="margin-bottom: 20px;">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                            <span style="color: #333; font-weight: 600;">骨盆平衡</span>
+                            <span style="color: #2d5a3d; font-weight: bold;" id="pelvisBalance">0</span>
+                        </div>
+                        <div style="background: #e0e0e0; height: 8px; border-radius: 10px; overflow: hidden;">
+                            <div id="pelvisBar" style="background: linear-gradient(90deg, #2d5a3d, #9fcccc); height: 100%; width: 0%; transition: width 1s ease;"></div>
+                        </div>
+                    </div>
+
+                    <div style="margin-bottom: 20px;">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                            <span style="color: #333; font-weight: 600;">脊椎排列</span>
+                            <span style="color: #2d5a3d; font-weight: bold;" id="spineAlignment">0</span>
+                        </div>
+                        <div style="background: #e0e0e0; height: 8px; border-radius: 10px; overflow: hidden;">
+                            <div id="spineBar" style="background: linear-gradient(90deg, #2d5a3d, #9fcccc); height: 100%; width: 0%; transition: width 1s ease;"></div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                            <span style="color: #333; font-weight: 600;">整體穩定性</span>
+                            <span style="color: #2d5a3d; font-weight: bold;" id="overallStability">0</span>
+                        </div>
+                        <div style="background: #e0e0e0; height: 8px; border-radius: 10px; overflow: hidden;">
+                            <div id="stabilityBar" style="background: linear-gradient(90deg, #2d5a3d, #9fcccc); height: 100%; width: 0%; transition: width 1s ease;"></div>
+                        </div>
                     </div>
                 </div>
-                <button class="button" onclick="nextPage()">我想預約體驗</button>
-            </div>
 
-            <!-- Q4: 健身目標 -->
-            <div class="question-page" data-page="4">
-                <h2>您的健身目標是什麼?<span class="required">*必填</span></h2>
-                <p class="subtitle">可複選多個目標</p>
-                <div class="option-group">
-                    <label class="option">
-                        <input type="checkbox" name="goal" value="減脂">
-                        <span>減脂</span>
-                    </label>
-                    <label class="option">
-                        <input type="checkbox" name="goal" value="增肌">
-                        <span>增肌</span>
-                    </label>
-                    <label class="option">
-                        <input type="checkbox" name="goal" value="改善體態">
-                        <span>改善體態</span>
-                    </label>
-                    <label class="option">
-                        <input type="checkbox" name="goal" value="改善痠痛/調整姿勢">
-                        <span>改善痠痛 / 調整姿勢</span>
-                    </label>
-                    <label class="option">
-                        <input type="checkbox" name="goal" value="術後/產後恢復">
-                        <span>術後 / 產後恢復</span>
-                    </label>
-                    <label class="option">
-                        <input type="checkbox" name="goal" value="日常健康維持">
-                        <span>日常健康維持</span>
-                    </label>
+                <div style="background: #f8fffe; border-left: 4px solid #9fcccc; border-radius: 12px; padding: 20px; margin-bottom: 20px;">
+                    <h3 style="color: #2d5a3d; margin-bottom: 12px; font-size: 18px;">💪 建議運動配比</h3>
+                    <p id="recommendExercise" style="color: #333; line-height: 1.8; font-size: 15px;">載入中...</p>
                 </div>
-                <div id="goalError" class="error-message" style="display: none;">請至少選擇一項健身目標</div>
+
+                <div style="background: #f8fffe; border-left: 4px solid #9fcccc; border-radius: 12px; padding: 20px; margin-bottom: 20px;">
+                    <h3 style="color: #2d5a3d; margin-bottom: 12px; font-size: 18px;">🥗 飲食建議</h3>
+                    <p id="recommendDiet" style="color: #333; line-height: 1.8; font-size: 15px;">載入中...</p>
+                </div>
+
+                <div style="background: #f8fffe; border-left: 4px solid #9fcccc; border-radius: 12px; padding: 20px; margin-bottom: 20px;">
+                    <h3 style="color: #2d5a3d; margin-bottom: 12px; font-size: 18px;">📋 詳細分析</h3>
+                    <p id="detailedAnalysis" style="color: #333; line-height: 1.8; font-size: 15px;">載入中...</p>
+                </div>
+
                 <div class="nav-buttons">
-                    <button class="button secondary" onclick="prevPage()">上一步</button>
-                    <button class="button" onclick="nextPage()">下一步</button>
+                    <button type="button" class="button" onclick="nextPage()">繼續填寫問卷</button>
+                </div>
+            </div>
+<!-- Q4: 健身目標 -->
+            <div class="question-page" data-page="4" id="goalsPage">
+                <h2>您的健身目標是什麼？</h2>
+                <p class="subtitle">可複選，請選擇所有符合的選項</p>
+
+                <div class="option" data-value="weight">
+                    <span>體重管理（減重/增重）</span>
+                </div>
+                <div class="option" data-value="muscle">
+                    <span>增肌塑形</span>
+                </div>
+                <div class="option" data-value="health">
+                    <span>改善健康狀況</span>
+                </div>
+                <div class="option" data-value="posture">
+                    <span>姿勢矯正</span>
+                </div>
+                <div class="option" data-value="stress">
+                    <span>紓壓放鬆</span>
+                </div>
+                <div class="option" data-value="flexibility">
+                    <span>提升柔軟度</span>
+                </div>
+
+                <div id="goalsError" class="error-message"></div>
+
+                <div class="nav-buttons">
+                    <button type="button" class="button secondary" onclick="prevPage()">上一步</button>
+                    <button type="button" class="button" onclick="nextPage()">下一步</button>
                 </div>
             </div>
 
-            <!-- Q5: 課程偏好 -->
-            <div class="question-page" data-page="5">
-                <h2>您偏好的課程類型?<span class="required">*必填</span></h2>
-                <p class="subtitle">可複選多個課程</p>
-                <div class="option-group">
-                    <label class="option">
-                        <input type="checkbox" name="course" value="重量訓練">
-                        <span>重量訓練</span>
-                    </label>
-                    <label class="option">
-                        <input type="checkbox" name="course" value="器械皮拉提斯">
-                        <span>器械皮拉提斯</span>
-                    </label>
-                    <label class="option">
-                        <input type="checkbox" name="course" value="伸展課程">
-                        <span>伸展課程</span>
-                    </label>
+            <!-- Q5: 想體驗的課程 -->
+            <div class="question-page" data-page="5" id="coursesPage">
+                <h2>您想體驗哪些課程？</h2>
+                <p class="subtitle">可複選，了解您的興趣以便為您安排最適合的體驗</p>
+
+                <div class="option" data-value="ai">
+                    <span>AI 體態分析 - 科技檢測身體狀況</span>
                 </div>
-                <div id="courseError" class="error-message" style="display: none;">請至少選擇一項課程類型</div>
+                <div class="option" data-value="pilates">
+                    <span>器械皮拉提斯 - 核心訓練與體態調整</span>
+                </div>
+                <div class="option" data-value="weight">
+                    <span>重量訓練 - 增肌減脂塑形</span>
+                </div>
+                <div class="option" data-value="stretch">
+                    <span>伸展課程 - 提升柔軟度與放鬆</span>
+                </div>
+
+                <div id="coursesError" class="error-message"></div>
+
                 <div class="nav-buttons">
-                    <button class="button secondary" onclick="prevPage()">上一步</button>
-                    <button class="button" onclick="nextPage()">下一步</button>
+                    <button type="button" class="button secondary" onclick="prevPage()">上一步</button>
+                    <button type="button" class="button" onclick="nextPage()">下一步</button>
                 </div>
             </div>
-<!-- Q6: 疾病史 -->
+
+            <!-- Q6: 疾病史 -->
             <div class="question-page" data-page="6">
-                <h2>疾病史 <span class="required">*必填</span></h2>
-                <p class="subtitle">請選擇所有與您健康史相關的疾病項目</p>
-                
-                <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-bottom: 25px;">
-                    <label class="option">
-                        <input type="checkbox" name="disease" value="心臟病">
-                        <span>心臟病</span>
-                    </label>
-                    <label class="option">
-                        <input type="checkbox" name="disease" value="心絞痛">
-                        <span>心絞痛</span>
-                    </label>
-                    <label class="option">
-                        <input type="checkbox" name="disease" value="糖尿病">
-                        <span>糖尿病</span>
-                    </label>
-                    <label class="option">
-                        <input type="checkbox" name="disease" value="疝氣/脫腸">
-                        <span>疝氣/脫腸</span>
-                    </label>
-                    <label class="option">
-                        <input type="checkbox" name="disease" value="高血壓">
-                        <span>高血壓</span>
-                    </label>
-                    <label class="option">
-                        <input type="checkbox" name="disease" value="氣喘">
-                        <span>氣喘</span>
-                    </label>
-                    <label class="option">
-                        <input type="checkbox" name="disease" value="貧血">
-                        <span>貧血</span>
-                    </label>
-                    <label class="option">
-                        <input type="checkbox" name="disease" value="癲癇">
-                        <span>癲癇</span>
-                    </label>
-                    <label class="option">
-                        <input type="checkbox" name="disease" value="甲狀腺問題">
-                        <span>甲狀腺問題</span>
-                    </label>
-                    <label class="option">
-                        <input type="checkbox" name="disease" value="靜脈瘤">
-                        <span>靜脈瘤</span>
-                    </label>
-                    <label class="option">
-                        <input type="checkbox" name="disease" value="惡性腫瘤">
-                        <span>惡性腫瘤</span>
-                    </label>
-                    <label class="option">
-                        <input type="checkbox" name="disease" value="椎間盤突出">
-                        <span>椎間盤突出</span>
-                    </label>
-                    <label class="option">
-                        <input type="checkbox" name="disease" value="習慣性脫臼">
-                        <span>習慣性脫臼</span>
-                    </label>
-                    <label class="option">
-                        <input type="checkbox" name="disease" value="脊椎滑脫">
-                        <span>脊椎滑脫</span>
-                    </label>
-                    <label class="option">
-                        <input type="checkbox" name="disease" value="骨質疏鬆症">
-                        <span>骨質疏鬆症</span>
-                    </label>
-                    <label class="option">
-                        <input type="checkbox" name="disease" value="痛風/風濕">
-                        <span>痛風/風濕</span>
-                    </label>
+                <h2>健康狀況調查</h2>
+                <p class="subtitle">請告訴我們您的健康狀況，以便提供更安全的訓練建議（可複選）</p>
+
+                <div class="checkbox-item">
+                    <input type="checkbox" id="disease_none" name="diseases" value="無">
+                    <label for="disease_none">無特殊疾病或健康問題</label>
                 </div>
 
-                <div class="option-group">
-                    <label class="option" style="flex-direction: column; align-items: flex-start;">
-                        <div style="display: flex; align-items: center; gap: 12px; width: 100%;">
-                            <input type="checkbox" name="disease" value="關節問題" id="jointIssue">
-                            <span>關節問題</span>
-                        </div>
-                        <input type="text" class="text-input detail-input" id="jointDetail" placeholder="例如:右膝關節疼痛3個月" style="display: none; width: 100%;">
-                    </label>
-                    <label class="option" style="flex-direction: column; align-items: flex-start;">
-                        <div style="display: flex; align-items: center; gap: 12px; width: 100%;">
-                            <input type="checkbox" name="disease" value="脊椎問題" id="spineIssue">
-                            <span>脊椎問題</span>
-                        </div>
-                        <input type="text" class="text-input detail-input" id="spineDetail" placeholder="例如:腰椎輕微突出" style="display: none; width: 100%;">
-                    </label>
-                    <label class="option" style="flex-direction: column; align-items: flex-start;">
-                        <div style="display: flex; align-items: center; gap: 12px; width: 100%;">
-                            <input type="checkbox" name="disease" value="其他" id="otherDisease">
-                            <span>其他</span>
-                        </div>
-                        <input type="text" class="text-input detail-input" id="otherDetail" placeholder="例如:偏頭痛、鼻炎等" style="display: none; width: 100%;">
-                    </label>
-                    <label class="option">
-                        <input type="checkbox" name="disease" value="無" id="noDisease">
-                        <span>無</span>
-                    </label>
+                <div class="checkbox-item">
+                    <input type="checkbox" id="disease_joint" name="diseases" value="關節問題" data-detail="joint_detail">
+                    <label for="disease_joint">關節問題（如膝蓋、肩膀、腰部等）</label>
                 </div>
-                <div id="diseaseError" class="error-message" style="display: none;">請至少選擇一項</div>
+                <input type="text" id="joint_detail" class="detail-input" placeholder="請說明具體的關節問題...">
+
+                <div class="checkbox-item">
+                    <input type="checkbox" id="disease_spine" name="diseases" value="脊椎相關" data-detail="spine_detail">
+                    <label for="disease_spine">脊椎相關問題（如駝背、脊椎側彎等）</label>
+                </div>
+                <input type="text" id="spine_detail" class="detail-input" placeholder="請說明具體的脊椎問題...">
+
+                <div class="checkbox-item">
+                    <input type="checkbox" id="disease_cardio" name="diseases" value="心血管疾病">
+                    <label for="disease_cardio">心血管疾病</label>
+                </div>
+
+                <div class="checkbox-item">
+                    <input type="checkbox" id="disease_bp" name="diseases" value="高血壓">
+                    <label for="disease_bp">高血壓</label>
+                </div>
+
+                <div class="checkbox-item">
+                    <input type="checkbox" id="disease_diabetes" name="diseases" value="糖尿病">
+                    <label for="disease_diabetes">糖尿病</label>
+                </div>
+
+                <div class="checkbox-item">
+                    <input type="checkbox" id="disease_pregnant" name="diseases" value="懷孕中">
+                    <label for="disease_pregnant">懷孕中</label>
+                </div>
+
+                <div class="checkbox-item">
+                    <input type="checkbox" id="disease_other" name="diseases" value="其他" data-detail="other_detail">
+                    <label for="disease_other">其他健康問題</label>
+                </div>
+                <input type="text" id="other_detail" class="detail-input" placeholder="請說明其他健康問題...">
+
+                <div id="diseasesError" class="error-message"></div>
+
                 <div class="nav-buttons">
-                    <button class="button secondary" onclick="prevPage()">上一步</button>
-                    <button class="button" onclick="nextPage()">下一步</button>
+                    <button type="button" class="button secondary" onclick="prevPage()">上一步</button>
+                    <button type="button" class="button" onclick="nextPage()">下一步</button>
                 </div>
             </div>
 
             <!-- Q7: 備註 -->
             <div class="question-page" data-page="7">
-                <h2>備註</h2>
-                <p class="subtitle">其他想告訴我們的資訊</p>
-                <textarea class="text-input" id="remarks" rows="6" placeholder="疾病或受傷史、時間長度、生活習慣、醫生建議"></textarea>
+                <h2>其他補充說明</h2>
+                <p class="subtitle">有任何想讓我們知道的事情嗎？（選填）</p>
+
+                <div class="form-group">
+                    <label for="remarks">備註說明</label>
+                    <textarea id="remarks" placeholder="例如：特殊飲食習慣、用藥狀況、訓練經驗、期望達成的具體目標等..."></textarea>
+                </div>
+
+                <div class="info-card">
+                    <h3>💡 您可以在這裡說明</h3>
+                    <ul>
+                        <li>過往的運動或訓練經驗</li>
+                        <li>目前的生活作息與工作型態</li>
+                        <li>特殊的飲食習慣或限制</li>
+                        <li>希望教練特別注意的事項</li>
+                        <li>其他任何想讓我們了解的資訊</li>
+                    </ul>
+                </div>
+
                 <div class="nav-buttons">
-                    <button class="button secondary" onclick="prevPage()">上一步</button>
-                    <button class="button" onclick="nextPage()">下一步</button>
+                    <button type="button" class="button secondary" onclick="prevPage()">上一步</button>
+                    <button type="button" class="button" onclick="nextPage()">下一步</button>
+                </div>
+            </div>
+<!-- Q8: 基本資料 -->
+            <div class="question-page" data-page="8">
+                <h2>基本資料</h2>
+                <p class="subtitle">請填寫您的基本資料，以便我們與您聯繫</p>
+
+                <div class="form-group">
+                    <label for="name">姓名 *</label>
+                    <input type="text" id="name" placeholder="請輸入您的姓名" required>
+                </div>
+
+                <div class="form-group">
+                    <label>性別 *</label>
+                    <input type="hidden" id="gender" value="">
+                    <div class="gender-options">
+                        <div class="gender-option" data-value="male">男</div>
+                        <div class="gender-option" data-value="female">女</div>
+                        <div class="gender-option" data-value="other">其他</div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>生日 *</label>
+                    <input type="hidden" id="birthday" value="">
+                    <div class="date-inputs">
+                        <select id="year" required>
+                            <option value="">年</option>
+                        </select>
+                        <select id="month" required>
+                            <option value="">月</option>
+                        </select>
+                        <select id="day" required>
+                            <option value="">日</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">電子郵件 *</label>
+                    <input type="email" id="email" placeholder="example@gmail.com" required>
+                    <div class="email-domains">
+                        <span class="email-domain" data-domain="gmail.com">@gmail.com</span>
+                        <span class="email-domain" data-domain="yahoo.com.tw">@yahoo.com.tw</span>
+                        <span class="email-domain" data-domain="hotmail.com">@hotmail.com</span>
+                        <span class="email-domain" data-domain="outlook.com">@outlook.com</span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="phone">手機號碼 *</label>
+                    <input type="tel" id="phone" placeholder="0912345678" maxlength="10" required>
+                </div>
+
+                <div id="basicError" class="error-message"></div>
+
+                <div class="nav-buttons">
+                    <button type="button" class="button secondary" onclick="prevPage()">上一步</button>
+                    <button type="button" class="button" onclick="nextPage()">下一步</button>
                 </div>
             </div>
 
-            <!-- Q8: 基本資料 -->
-            <div class="question-page" data-page="8">
-                <h2>基本資料 <span class="required">*必填</span></h2>
-                <p class="subtitle">請填寫您的基本資料</p>
-                
-                <div class="basic-info-grid">
-                    <div class="edit-field full-width">
-                        <label>姓名 <span class="required">*</span></label>
-                        <input type="text" id="name" class="text-input" placeholder="請輸入您的姓名">
-                    </div>
-                    
-                    <div class="edit-field full-width">
-                        <label>生日 <span class="required">*</span></label>
-                        <div style="display: flex; gap: 8px;">
-                            <select id="birthdayYear" class="text-input" style="flex: 1;">
-                                <option value="">年</option>
-                            </select>
-                            <select id="birthdayMonth" class="text-input" style="flex: 1;">
-                                <option value="">月</option>
-                            </select>
-                            <select id="birthdayDay" class="text-input" style="flex: 1;">
-                                <option value="">日</option>
-                            </select>
-                        </div>
-                        <input type="date" id="birthday" style="display: none;">
-                    </div>
-                    
-                    <div class="edit-field full-width">
-                        <label>性別 <span class="required">*</span></label>
-                        <div style="display: flex; gap: 10px;">
-                            <label class="option" style="flex: 1; margin: 0;">
-                                <input type="radio" name="genderSelect" value="男">
-                                <span>男</span>
-                            </label>
-                            <label class="option" style="flex: 1; margin: 0;">
-                                <input type="radio" name="genderSelect" value="女">
-                                <span>女</span>
-                            </label>
-                        </div>
-                    </div>
-                    
-                    <div class="edit-field full-width">
-                        <label>電子信箱 <span class="required">*</span></label>
-                        <div style="position: relative;">
-                            <input type="email" id="email" class="text-input" placeholder="example@gmail.com">
-                            <div id="emailDomainSuggestions" style="display: none; position: absolute; top: 100%; left: 0; right: 0; background: white; border: 2px solid #e2ede6; border-top: none; border-radius: 0 0 8px 8px; z-index: 10; max-height: 200px; overflow-y: auto;"></div>
-                        </div>
-                    </div>
-                    
-                    <div class="edit-field full-width">
-                        <label>電話 <span class="required">*</span></label>
-                        <input type="tel" id="phone" class="text-input" placeholder="09xxxxxxxx" maxlength="10">
-                    </div>
-                </div>
-                
-                <div id="basicInfoError" class="error-message" style="display: none;"></div>
-                <div class="nav-buttons">
-                    <button class="button secondary" onclick="prevPage()">上一步</button>
-                    <button class="button" onclick="nextPage()">下一步</button>
-                </div>
-            </div>
-<!-- Q9: 上課時段 -->
+            <!-- Q9: 上課時段偏好 -->
             <div class="question-page" data-page="9">
-                <h2>方便固定上課時段區間</h2>
-                <p class="subtitle">💡 我們會盡可能依照您的時間需求安排,時段範圍可超過範例時間</p>
-                <div class="option-group">
-                    <label class="option">
-                        <input type="checkbox" name="timeSlot" value="平日白天" id="weekdayDay">
-                        <span>平日白天</span>
-                    </label>
-                    <input type="text" class="text-input" id="weekdayDayTime" placeholder="例:09:00-17:00 *必填" style="display: none; margin-top: -5px;">
-                    
-                    <label class="option">
-                        <input type="checkbox" name="timeSlot" value="平日晚上(尖峰)" id="weekdayNight">
-                        <span>平日晚上(尖峰)</span>
-                    </label>
-                    <input type="text" class="text-input" id="weekdayNightTime" placeholder="例:18:00-21:00 *必填" style="display: none; margin-top: -5px;">
-                    
-                    <label class="option">
-                        <input type="checkbox" name="timeSlot" value="假日白天(尖峰)" id="weekendDay">
-                        <span>假日白天(尖峰)</span>
-                    </label>
-                    <input type="text" class="text-input" id="weekendDayTime" placeholder="例:09:00-17:00 *必填" style="display: none; margin-top: -5px;">
-                    
-                    <label class="option">
-                        <input type="checkbox" name="timeSlot" value="假日晚上" id="weekendNight">
-                        <span>假日晚上</span>
-                    </label>
-                    <input type="text" class="text-input" id="weekendNightTime" placeholder="例:18:00-21:00 *必填" style="display: none; margin-top: -5px;">
-                    
-                    <label class="option">
-                        <input type="checkbox" name="timeSlot" value="彈性不固定">
-                        <span>彈性不固定</span>
-                    </label>
+                <h2>上課時段偏好</h2>
+                <p class="subtitle">請勾選您方便的時段，並填寫具體的時間範圍（可複選）</p>
+
+                <div class="info-card">
+                    <h3>⏰ 時間填寫範例</h3>
+                    <ul>
+                        <li>09:00-12:00（早上時段）</li>
+                        <li>14:00-17:00（下午時段）</li>
+                        <li>18:00-21:00（晚上時段）</li>
+                    </ul>
                 </div>
-                <div id="timeSlotError" class="error-message" style="display: none;"></div>
+
+                <div class="time-slot-item">
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="weekday_morning" name="timeSlots" value="weekday_morning" data-time="weekday_morning_time">
+                        <label for="weekday_morning">平日早上</label>
+                    </div>
+                    <input type="text" id="weekday_morning_time" class="time-input" placeholder="例如：09:00-12:00">
+                </div>
+
+                <div class="time-slot-item">
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="weekday_afternoon" name="timeSlots" value="weekday_afternoon" data-time="weekday_afternoon_time">
+                        <label for="weekday_afternoon">平日下午</label>
+                    </div>
+                    <input type="text" id="weekday_afternoon_time" class="time-input" placeholder="例如：14:00-17:00">
+                </div>
+
+                <div class="time-slot-item">
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="weekday_evening" name="timeSlots" value="weekday_evening" data-time="weekday_evening_time">
+                        <label for="weekday_evening">平日晚上</label>
+                    </div>
+                    <input type="text" id="weekday_evening_time" class="time-input" placeholder="例如：18:00-21:00">
+                </div>
+
+                <div class="time-slot-item">
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="weekend_morning" name="timeSlots" value="weekend_morning" data-time="weekend_morning_time">
+                        <label for="weekend_morning">假日早上</label>
+                    </div>
+                    <input type="text" id="weekend_morning_time" class="time-input" placeholder="例如：09:00-12:00">
+                </div>
+
+                <div class="time-slot-item">
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="weekend_afternoon" name="timeSlots" value="weekend_afternoon" data-time="weekend_afternoon_time">
+                        <label for="weekend_afternoon">假日下午</label>
+                    </div>
+                    <input type="text" id="weekend_afternoon_time" class="time-input" placeholder="例如：14:00-17:00">
+                </div>
+
+                <div class="time-slot-item">
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="weekend_evening" name="timeSlots" value="weekend_evening" data-time="weekend_evening_time">
+                        <label for="weekend_evening">假日晚上</label>
+                    </div>
+                    <input type="text" id="weekend_evening_time" class="time-input" placeholder="例如：18:00-21:00">
+                </div>
+
+                <div id="timeError" class="error-message"></div>
+
                 <div class="nav-buttons">
-                    <button class="button secondary" onclick="prevPage()">上一步</button>
-                    <button class="button" onclick="nextPage()">下一步</button>
+                    <button type="button" class="button secondary" onclick="prevPage()">上一步</button>
+                    <button type="button" class="button" onclick="nextPage()">下一步</button>
                 </div>
             </div>
 
             <!-- Q11: 資料確認 -->
             <div class="question-page" data-page="11">
                 <h2>資料確認</h2>
-                <p class="subtitle">請確認所有資料正確,點擊「修改」按鈕可編輯</p>
-                
+                <p class="subtitle">請確認以下資料是否正確，如需修改請點擊「修改」按鈕</p>
+
                 <div class="editable-section">
-                    <button class="edit-button" onclick="toggleEdit('basic')">修改</button>
-                    <h3>基本資料</h3>
-                    <div class="edit-field">
-                        <label>姓名 <span class="required">*</span></label>
-                        <input type="text" id="edit_name" class="text-input" disabled>
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                        <h3>基本資料</h3>
+                        <button type="button" class="button secondary" onclick="toggleEdit('basic')" style="width: auto; padding: 8px 20px; font-size: 14px;">修改</button>
                     </div>
-                    <div class="edit-field">
-                        <label>生日 <span class="required">*</span></label>
-                        <input type="date" id="edit_birthday" class="text-input" disabled>
+                    <div id="edit_basic_display">
+                        <p><strong>姓名：</strong><span id="review_name"></span></p>
+                        <p><strong>性別：</strong><span id="review_gender"></span></p>
+                        <p><strong>生日：</strong><span id="review_birthday"></span></p>
+                        <p><strong>電子郵件：</strong><span id="review_email"></span></p>
+                        <p><strong>手機：</strong><span id="review_phone"></span></p>
                     </div>
-                    <div class="edit-field">
-                        <label>性別 <span class="required">*</span></label>
-                        <div style="display: flex; gap: 10px;">
-                            <label class="option" style="flex: 1; margin: 0;">
-                                <input type="radio" name="editGenderSelect" value="男" disabled>
-                                <span>男</span>
-                            </label>
-                            <label class="option" style="flex: 1; margin: 0;">
-                                <input type="radio" name="editGenderSelect" value="女" disabled>
-                                <span>女</span>
-                            </label>
+                    <div id="edit_basic_edit" style="display: none;">
+                        <div class="form-group">
+                            <label for="edit_name">姓名</label>
+                            <input type="text" id="edit_name">
                         </div>
-                    </div>
-                    <div class="edit-field">
-                        <label>電子信箱 <span class="required">*</span></label>
-                        <input type="email" id="edit_email" class="text-input" disabled>
-                    </div>
-                    <div class="edit-field">
-                        <label>電話 <span class="required">*</span></label>
-                        <input type="tel" id="edit_phone" class="text-input" maxlength="10" disabled>
+                        <div class="form-group">
+                            <label>性別</label>
+                            <div class="gender-options">
+                                <div class="gender-option" data-value="male">男</div>
+                                <div class="gender-option" data-value="female">女</div>
+                                <div class="gender-option" data-value="other">其他</div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>生日</label>
+                            <div class="date-inputs">
+                                <select id="year">
+                                    <option value="">年</option>
+                                </select>
+                                <select id="month">
+                                    <option value="">月</option>
+                                </select>
+                                <select id="day">
+                                    <option value="">日</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="edit_email">電子郵件</label>
+                            <input type="email" id="edit_email">
+                        </div>
+                        <div class="form-group">
+                            <label for="edit_phone">手機號碼</label>
+                            <input type="tel" id="edit_phone" maxlength="10">
+                        </div>
                     </div>
                 </div>
 
                 <div class="editable-section">
-                    <button class="edit-button" onclick="toggleEdit('fitness')">修改</button>
-                    <h3>健身資訊</h3>
-                    <div class="edit-field">
-                        <label>健身目標</label>
-                        <div id="edit_goals_display" style="color: #5f846f; padding: 10px; background: #f8faf9; border-radius: 8px; line-height: 1.8;"></div>
-                        <div id="edit_goals_container" style="display: none;">
-                            <div style="background: #fcf4e3; border-radius: 8px; padding: 12px; margin-bottom: 10px;">
-                                <p style="color: #ba9e60; font-size: 13px; margin: 0;">
-                                    💡 使用 Ctrl (Windows) 或 Command (Mac) + 點擊可複選多個項目
-                                </p>
-                            </div>
-                            <select id="edit_goals" class="text-input" multiple size="6" style="height: auto;">
-                                <option value="減脂">減脂</option>
-                                <option value="增肌">增肌</option>
-                                <option value="改善體態">改善體態</option>
-                                <option value="改善痠痛/調整姿勢">改善痠痛/調整姿勢</option>
-                                <option value="術後/產後恢復">術後/產後恢復</option>
-                                <option value="日常健康維持">日常健康維持</option>
-                            </select>
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                        <h3>健身目標與課程</h3>
+                        <button type="button" class="button secondary" onclick="toggleEdit('fitness')" style="width: auto; padding: 8px 20px; font-size: 14px;">修改</button>
+                    </div>
+                    <div id="edit_goals_display">
+                        <p><strong>健身目標：</strong><span id="review_goals"></span></p>
+                    </div>
+                    <div id="edit_goals_edit" style="display: none;">
+                        <label style="display: block; margin-bottom: 10px; font-weight: 600;">健身目標</label>
+                        <div class="option" data-value="weight">
+                            <span>體重管理（減重/增重）</span>
+                        </div>
+                        <div class="option" data-value="muscle">
+                            <span>增肌塑形</span>
+                        </div>
+                        <div class="option" data-value="health">
+                            <span>改善健康狀況</span>
+                        </div>
+                        <div class="option" data-value="posture">
+                            <span>姿勢矯正</span>
+                        </div>
+                        <div class="option" data-value="stress">
+                            <span>紓壓放鬆</span>
+                        </div>
+                        <div class="option" data-value="flexibility">
+                            <span>提升柔軟度</span>
                         </div>
                     </div>
-                    <div class="edit-field">
-                        <label>課程偏好</label>
-                        <div id="edit_course_display" style="color: #5f846f; padding: 10px; background: #f8faf9; border-radius: 8px; line-height: 1.8;"></div>
-                        <div id="edit_course_container" style="display: none;">
-                            <div style="background: #fcf4e3; border-radius: 8px; padding: 12px; margin-bottom: 10px;">
-                                <p style="color: #ba9e60; font-size: 13px; margin: 0;">
-                                    💡 使用 Ctrl (Windows) 或 Command (Mac) + 點擊可複選多個項目
-                                </p>
-                            </div>
-                            <select id="edit_course" class="text-input" multiple size="3" style="height: auto;">
-                                <option value="重量訓練">重量訓練</option>
-                                <option value="器械皮拉提斯">器械皮拉提斯</option>
-                                <option value="伸展課程">伸展課程</option>
-                            </select>
-                        </div>
+                    <div id="edit_courses_display" style="margin-top: 15px;">
+                        <p><strong>想體驗的課程：</strong><span id="review_courses"></span></p>
                     </div>
-                    <div class="edit-field">
-                        <label>疾病史</label>
-                        <div id="edit_diseases_display" style="color: #5f846f; padding: 10px; background: #f8faf9; border-radius: 8px; line-height: 1.8;"></div>
-                        <div id="edit_diseases_container" style="display: none;">
-                            <div style="background: #fcf4e3; border-radius: 8px; padding: 12px; margin-bottom: 10px;">
-                                <p style="color: #ba9e60; font-size: 13px; margin: 0;">
-                                    💡 點擊下方選項進行選擇
-                                </p>
-                            </div>
-                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 15px;">
-                                <label class="option" style="margin: 0;">
-                                    <input type="checkbox" id="edit_disease_heart" value="心臟病">
-                                    <span>心臟病</span>
-                                </label>
-                                <label class="option" style="margin: 0;">
-                                    <input type="checkbox" id="edit_disease_angina" value="心絞痛">
-                                    <span>心絞痛</span>
-                                </label>
-                                <label class="option" style="margin: 0;">
-                                    <input type="checkbox" id="edit_disease_diabetes" value="糖尿病">
-                                    <span>糖尿病</span>
-                                </label>
-                                <label class="option" style="margin: 0;">
-                                    <input type="checkbox" id="edit_disease_hernia" value="疝氣/脫腸">
-                                    <span>疝氣/脫腸</span>
-                                </label>
-                                <label class="option" style="margin: 0;">
-                                    <input type="checkbox" id="edit_disease_hypertension" value="高血壓">
-                                    <span>高血壓</span>
-                                </label>
-                                <label class="option" style="margin: 0;">
-                                    <input type="checkbox" id="edit_disease_asthma" value="氣喘">
-                                    <span>氣喘</span>
-                                </label>
-                                <label class="option" style="margin: 0;">
-                                    <input type="checkbox" id="edit_disease_anemia" value="貧血">
-                                    <span>貧血</span>
-                                </label>
-                                <label class="option" style="margin: 0;">
-                                    <input type="checkbox" id="edit_disease_epilepsy" value="癲癇">
-                                    <span>癲癇</span>
-                                </label>
-                                <label class="option" style="margin: 0;">
-                                    <input type="checkbox" id="edit_disease_thyroid" value="甲狀腺問題">
-                                    <span>甲狀腺問題</span>
-                                </label>
-                                <label class="option" style="margin: 0;">
-                                    <input type="checkbox" id="edit_disease_varicose" value="靜脈瘤">
-                                    <span>靜脈瘤</span>
-                                </label>
-                                <label class="option" style="margin: 0;">
-                                    <input type="checkbox" id="edit_disease_tumor" value="惡性腫瘤">
-                                    <span>惡性腫瘤</span>
-                                </label>
-                                <label class="option" style="margin: 0;">
-                                    <input type="checkbox" id="edit_disease_disc" value="椎間盤突出">
-                                    <span>椎間盤突出</span>
-                                </label>
-                                <label class="option" style="margin: 0;">
-                                    <input type="checkbox" id="edit_disease_dislocation" value="習慣性脫臼">
-                                    <span>習慣性脫臼</span>
-                                </label>
-                                <label class="option" style="margin: 0;">
-                                    <input type="checkbox" id="edit_disease_spondylolisthesis" value="脊椎滑脫">
-                                    <span>脊椎滑脫</span>
-                                </label>
-                                <label class="option" style="margin: 0;">
-                                    <input type="checkbox" id="edit_disease_osteoporosis" value="骨質疏鬆症">
-                                    <span>骨質疏鬆症</span>
-                                </label>
-                                <label class="option" style="margin: 0;">
-                                    <input type="checkbox" id="edit_disease_gout" value="痛風/風濕">
-                                    <span>痛風/風濕</span>
-                                </label>
-                                <label class="option" style="margin: 0;">
-                                    <input type="checkbox" id="edit_disease_none" value="無">
-                                    <span>無</span>
-                                </label>
-                            </div>
-                            
-                            <div style="background: #fff9e6; border-radius: 8px; padding: 12px; margin-bottom: 15px;">
-                                <p style="color: #ba9e60; font-size: 13px; margin: 0;">
-                                    ⚠️ 如有選擇下方項目,請在右側對應欄位填寫詳情
-                                </p>
-                            </div>
-                            
-                            <div style="display: grid; gap: 10px;">
-                                <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
-                                    <label class="option" style="flex: 0 0 auto; margin: 0; min-width: 120px;">
-                                        <input type="checkbox" id="edit_disease_joint" value="關節問題">
-                                        <span>關節問題</span>
-                                    </label>
-                                    <input type="text" id="edit_joint_detail" class="text-input" placeholder="請說明關節問題詳情" style="flex: 1; margin: 0; min-width: 200px;">
-                                </div>
-                                <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
-                                    <label class="option" style="flex: 0 0 auto; margin: 0; min-width: 120px;">
-                                        <input type="checkbox" id="edit_disease_spine" value="脊椎問題">
-                                        <span>脊椎問題</span>
-                                    </label>
-                                    <input type="text" id="edit_spine_detail" class="text-input" placeholder="請說明脊椎問題詳情" style="flex: 1; margin: 0; min-width: 200px;">
-                                </div>
-                                <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
-                                    <label class="option" style="flex: 0 0 auto; margin: 0; min-width: 120px;">
-                                        <input type="checkbox" id="edit_disease_other" value="其他">
-                                        <span>其他</span>
-                                    </label>
-                                    <input type="text" id="edit_other_detail" class="text-input" placeholder="請說明其他疾病" style="flex: 1; margin: 0; min-width: 200px;">
-                                </div>
-                            </div>
+                    <div id="edit_courses_edit" style="display: none; margin-top: 15px;">
+                        <label style="display: block; margin-bottom: 10px; font-weight: 600;">想體驗的課程</label>
+                        <div class="option" data-value="ai">
+                            <span>AI 體態分析</span>
                         </div>
-                    </div>
-                    <div class="edit-field">
-                        <label>備註</label>
-                        <textarea id="edit_remarks" class="text-input" rows="3" disabled></textarea>
+                        <div class="option" data-value="pilates">
+                            <span>器械皮拉提斯</span>
+                        </div>
+                        <div class="option" data-value="weight">
+                            <span>重量訓練</span>
+                        </div>
+                        <div class="option" data-value="stretch">
+                            <span>伸展課程</span>
+                        </div>
                     </div>
                 </div>
-<div class="editable-section">
+
+                <div class="editable-section">
+                    <h3>健康狀況</h3>
+                    <div id="review_diseases"></div>
+                </div>
+
+                <div class="editable-section">
+                    <h3>備註說明</h3>
+                    <p id="review_remarks"></p>
+                </div>
+
+                <div class="editable-section">
                     <h3>上課時段偏好</h3>
                     <div id="edit_time_preferences"></div>
                 </div>
@@ -2184,12 +1138,11 @@
 
                 <div id="editError" class="error-message" style="display: none;"></div>
                 <div class="nav-buttons">
-                    <button class="button secondary" onclick="prevPage()">上一步</button>
-                    <button class="button" onclick="saveEditedData()">確認無誤,繼續</button>
+                    <button type="button" class="button secondary" onclick="prevPage()">上一步</button>
+                    <button type="button" class="button" onclick="saveEditedData()">確認無誤，繼續</button>
                 </div>
             </div>
-
-            <!-- Q12: 場館規範 -->
+<!-- Q12: 場館規範 -->
             <div class="question-page" data-page="12">
                 <h2>場館規範同意書</h2>
                 <p class="subtitle">請詳閱場館規範並同意後才能完成預約</p>
@@ -2202,9 +1155,9 @@
                 </label>
                 <div id="rulesError" class="error-message" style="display: none;">請勾選同意場館規範</div>
                 <div class="nav-buttons" style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
-                    <button class="button secondary" onclick="prevPage()" style="grid-column: 1 / -1;">上一步</button>
-                    <button class="button" onclick="submitForm('later')" style="background: #9fcccc;">稍後預約體驗</button>
-                    <button class="button" onclick="submitForm('now')">馬上預約體驗</button>
+                    <button type="button" class="button secondary" onclick="prevPage()" style="grid-column: 1 / -1;">上一步</button>
+                    <button type="button" class="button" onclick="submitForm('later')" style="background: #9fcccc;">稍後預約體驗</button>
+                    <button type="button" class="button" onclick="submitForm('now')">馬上預約體驗</button>
                 </div>
             </div>
 
@@ -2229,7 +1182,7 @@
                     </div>
 
                     <div id="bookNowButtonContainer" style="display: none; margin-top: 25px;">
-                        <button class="button" onclick="redirectToBooking()" style="animation: fade-in-up 0.6s ease-out 0.6s both;">
+                        <button type="button" class="button" onclick="redirectToBooking()" style="animation: fade-in-up 0.6s ease-out 0.6s both;">
                             📅 馬上預約體驗
                         </button>
                     </div>
@@ -2240,11 +1193,117 @@
                             <span>溫馨提醒</span>
                         </div>
                         <p class="completion-reminder-text" id="completionReminderText">
-                            • 如有任何問題,歡迎直接聯繫我們的客服團隊<br>
+                            • 如有任何問題，歡迎直接聯繫我們的客服團隊<br>
                             • 我們將在 1-2 個工作天內與您聯繫
                         </p>
                     </div>
                 </div>
+
+                <style>
+                    .completion-modern {
+                        text-align: center;
+                        padding: 20px 0;
+                    }
+                    .completion-icon-wrapper {
+                        margin: 0 auto 30px;
+                    }
+                    .completion-icon-bg {
+                        width: 100px;
+                        height: 100px;
+                        background: linear-gradient(135deg, #2d5a3d 0%, #9fcccc 100%);
+                        border-radius: 50%;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        margin: 0 auto;
+                        animation: scaleIn 0.5s ease-out;
+                    }
+                    .completion-icon {
+                        color: white;
+                        font-size: 48px;
+                        font-weight: bold;
+                    }
+                    .completion-title {
+                        color: #2d5a3d;
+                        font-size: 28px;
+                        margin-bottom: 15px;
+                    }
+                    .completion-subtitle {
+                        color: #666;
+                        font-size: 16px;
+                        line-height: 1.6;
+                        margin-bottom: 30px;
+                    }
+                    .completion-info-cards {
+                        display: grid;
+                        gap: 15px;
+                        margin-bottom: 25px;
+                    }
+                    .completion-info-card {
+                        background: #f8fffe;
+                        padding: 20px;
+                        border-radius: 12px;
+                        border-left: 4px solid #9fcccc;
+                    }
+                    .completion-info-icon {
+                        font-size: 32px;
+                        margin-bottom: 10px;
+                    }
+                    .completion-info-title {
+                        color: #2d5a3d;
+                        font-weight: 600;
+                        margin-bottom: 8px;
+                        font-size: 16px;
+                    }
+                    .completion-info-text {
+                        color: #666;
+                        font-size: 14px;
+                        line-height: 1.6;
+                    }
+                    .completion-reminder {
+                        background: #f8f9fa;
+                        padding: 20px;
+                        border-radius: 12px;
+                        margin-top: 25px;
+                    }
+                    .completion-reminder-title {
+                        display: flex;
+                        align-items: center;
+                        gap: 8px;
+                        justify-content: center;
+                        color: #2d5a3d;
+                        font-weight: 600;
+                        margin-bottom: 10px;
+                        font-size: 16px;
+                    }
+                    .completion-reminder-text {
+                        color: #666;
+                        font-size: 14px;
+                        line-height: 1.8;
+                        text-align: left;
+                        margin: 0;
+                    }
+                    @keyframes scaleIn {
+                        from {
+                            transform: scale(0);
+                            opacity: 0;
+                        }
+                        to {
+                            transform: scale(1);
+                            opacity: 1;
+                        }
+                    }
+                    @keyframes fade-in-up {
+                        from {
+                            opacity: 0;
+                            transform: translateY(20px);
+                        }
+                        to {
+                            opacity: 1;
+                            transform: translateY(0);
+                        }
+                    }
+                </style>
             </div>
         </div>
     </div>
@@ -2252,6 +1311,7 @@
     <input type="hidden" id="lineId" value="">
 
     <script>
+        // 全域變數
         let currentPage = 1;
         const totalPages = 12;
         let formData = {};
@@ -2276,6 +1336,7 @@
             { id: 'rightFoot', label: '右腳', x: 0.55, y: 0.95, color: '#ffa647' }
         ];
 
+        // LINE ID 處理
         function getLineIdFromUrl() {
             const urlParams = new URLSearchParams(window.location.search);
             const lineId = urlParams.get('lineId') || urlParams.get('lineid') || urlParams.get('line_id') || '';
@@ -2284,6 +1345,7 @@
             return lineId;
         }
 
+        // 儲存和載入表單資料
         function saveFormDataToStorage() {
             try {
                 const dataToSave = {
@@ -2307,7 +1369,7 @@
                     const hoursDiff = (now - savedTime) / (1000 * 60 * 60);
                     
                     if (hoursDiff < 24) {
-                        if (confirm('偵測到您有未完成的問卷,是否要繼續填寫?')) {
+                        if (confirm('偵測到您有未完成的問卷，是否要繼續填寫？')) {
                             formData = parsed;
                             currentPage = parsed.currentPage || 1;
                             restoreFormState();
@@ -2325,30 +1387,7 @@
             return false;
         }
 
-        function redirectToBooking() {
-            window.location.href = 'https://liff.line.me/2007947083-yb9NPJ7e';
-        }
-
-        function updateCompletionPage() {
-            const bookingType = formData.bookingType || 'later';
-            const subtitle = document.getElementById('completionSubtitle');
-            const infoCards = document.getElementById('completionInfoCards');
-            const bookNowBtn = document.getElementById('bookNowButtonContainer');
-            const reminderText = document.getElementById('completionReminderText');
-            
-            if (bookingType === 'now') {
-                subtitle.innerHTML = '感謝您完成問卷填寫<br>正在為您跳轉至預約頁面...';
-                infoCards.style.display = 'none';
-                bookNowBtn.style.display = 'none';
-                reminderText.innerHTML = '• 系統將在 2 秒後自動跳轉至預約頁面<br>• 如未自動跳轉，請手動前往預約';
-            } else {
-                subtitle.innerHTML = '感謝您完成問卷填寫<br>我們已收到您的資料';
-                infoCards.style.display = 'grid';
-                bookNowBtn.style.display = 'block';
-                reminderText.innerHTML = '• 如有任何問題,歡迎直接聯繫我們的客服團隊<br>• 我們將在 1-2 個工作天內與您聯繫<br>• 也可以點擊下方按鈕立即預約體驗';
-            }
-        }
-function restoreFormState() {
+        function restoreFormState() {
             if (formData.name) document.getElementById('name').value = formData.name;
             if (formData.gender) {
                 document.querySelectorAll('.gender-option').forEach(opt => {
@@ -2385,6 +1424,7 @@ function restoreFormState() {
             showPage(currentPage);
         }
 
+        // 導航功能
         function nextPage() {
             if (!validateCurrentPage()) {
                 return;
@@ -2401,7 +1441,22 @@ function restoreFormState() {
 
         function prevPage() {
             if (currentPage > 1) {
-                currentPage--;
+                // 處理特殊頁面的返回邏輯
+                if (currentPage === 4 && formData.skippedAI) {
+                    // 如果從 Q4 返回且跳過了 AI，返回到 Q2
+                    currentPage = 2;
+                } else if (currentPage === 4 && formData.postureScore) {
+                    // 如果從 Q4 返回且有 AI 分析結果，返回到 Q3
+                    currentPage = 3;
+                } else if (currentPage === 3) {
+                    // 從 Q3 返回到 Q2.5
+                    currentPage = 2.5;
+                } else if (currentPage === 2.5) {
+                    // 從 Q2.5 返回到 Q2
+                    currentPage = 2;
+                } else {
+                    currentPage--;
+                }
                 updateProgress();
                 showPage(currentPage);
             }
@@ -2434,6 +1489,32 @@ function restoreFormState() {
             progressText.textContent = Math.round(percentage) + '%';
         }
 
+        // 重定向到預約頁面
+        function redirectToBooking() {
+            window.location.href = 'https://liff.line.me/2007947083-yb9NPJ7e';
+        }
+
+        // 更新完成頁面
+        function updateCompletionPage() {
+            const bookingType = formData.bookingType || 'later';
+            const subtitle = document.getElementById('completionSubtitle');
+            const infoCards = document.getElementById('completionInfoCards');
+            const bookNowBtn = document.getElementById('bookNowButtonContainer');
+            const reminderText = document.getElementById('completionReminderText');
+            
+            if (bookingType === 'now') {
+                subtitle.innerHTML = '感謝您完成問卷填寫<br>正在為您跳轉至預約頁面...';
+                infoCards.style.display = 'none';
+                bookNowBtn.style.display = 'none';
+                reminderText.innerHTML = '• 系統將在 2 秒後自動跳轉至預約頁面<br>• 如未自動跳轉，請手動前往預約';
+            } else {
+                subtitle.innerHTML = '感謝您完成問卷填寫<br>我們已收到您的資料';
+                infoCards.style.display = 'grid';
+                bookNowBtn.style.display = 'block';
+                reminderText.innerHTML = '• 如有任何問題，歡迎直接聯繫我們的客服團隊<br>• 我們將在 1-2 個工作天內與您聯繫<br>• 也可以點擊下方按鈕立即預約體驗';
+            }
+        }
+// 初始化日期選單
         function initializeDateInputs() {
             const yearSelect = document.getElementById('year');
             const monthSelect = document.getElementById('month');
@@ -2503,6 +1584,7 @@ function restoreFormState() {
             }
         }
 
+        // 初始化疾病複選框
         function initializeDiseaseCheckboxes() {
             const checkboxes = document.querySelectorAll('input[name="diseases"]');
             checkboxes.forEach(checkbox => {
@@ -2521,6 +1603,7 @@ function restoreFormState() {
             });
         }
 
+        // 初始化時段複選框
         function initializeTimeSlotCheckboxes() {
             const checkboxes = document.querySelectorAll('input[name="timeSlots"]');
             checkboxes.forEach(checkbox => {
@@ -2539,6 +1622,7 @@ function restoreFormState() {
             });
         }
 
+        // 設定性別選擇
         function setupGenderInput() {
             document.querySelectorAll('.gender-option').forEach(option => {
                 option.addEventListener('click', function() {
@@ -2551,6 +1635,7 @@ function restoreFormState() {
             });
         }
 
+        // 設定 Email 輸入
         function setupEmailInput() {
             const emailInput = document.getElementById('email');
             const domainButtons = document.querySelectorAll('.email-domain');
@@ -2584,15 +1669,25 @@ function restoreFormState() {
             emailInput.focus();
         }
 
+        // 設定照片上傳 - 修復版
         function setupImageUpload() {
             const uploadBtn = document.getElementById('uploadBtn');
             const photoInput = document.getElementById('photoInput');
             const preview = document.getElementById('photoPreview');
             
-            uploadBtn.addEventListener('click', () => {
+            if (!uploadBtn || !photoInput || !preview) {
+                console.error('照片上傳元素不存在');
+                return;
+            }
+            
+            // 點擊按鈕觸發檔案選擇
+            uploadBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
                 photoInput.click();
             });
             
+            // 監聽檔案選擇
             photoInput.addEventListener('change', function(e) {
                 const file = e.target.files[0];
                 if (file) {
@@ -2603,12 +1698,13 @@ function restoreFormState() {
                             <div style="position: relative; display: inline-block;">
                                 <img src="${uploadedImage}" style="max-width: 100%; max-height: 300px; border-radius: 8px;">
                                 <div style="margin-top: 10px; display: flex; gap: 10px; justify-content: center;">
-                                    <button onclick="reuploadPhoto()" class="button secondary" style="padding: 8px 16px; font-size: 14px;">重新上傳</button>
-                                    <button onclick="deletePhoto()" class="button secondary" style="padding: 8px 16px; font-size: 14px; background: #ff6b6b;">刪除照片</button>
+                                    <button type="button" onclick="reuploadPhoto()" class="button secondary" style="padding: 8px 16px; font-size: 14px;">重新上傳</button>
+                                    <button type="button" onclick="deletePhoto()" class="button secondary" style="padding: 8px 16px; font-size: 14px; background: #ff6b6b;">刪除照片</button>
                                 </div>
                             </div>
                         `;
                         formData.photo = uploadedImage;
+                        console.log('照片上傳成功');
                     };
                     reader.readAsDataURL(file);
                 }
@@ -2626,13 +1722,17 @@ function restoreFormState() {
             document.getElementById('photoInput').value = '';
         }
 
+        // 設定手機號碼輸入
         function setupPhoneInput() {
             const phoneInput = document.getElementById('phone');
-            phoneInput.addEventListener('input', function(e) {
-                this.value = this.value.replace(/[^\d]/g, '');
-            });
+            if (phoneInput) {
+                phoneInput.addEventListener('input', function(e) {
+                    this.value = this.value.replace(/[^\d]/g, '');
+                });
+            }
         }
 
+        // 設定時間輸入
         function setupTimeInputs() {
             const timeInputs = document.querySelectorAll('.time-input');
             timeInputs.forEach(input => {
@@ -2641,7 +1741,9 @@ function restoreFormState() {
                 });
             });
         }
-function formatTimeInput(value) {
+
+        // 時間格式化
+        function formatTimeInput(value) {
             if (!value || value.trim() === '') return '';
             
             value = value.trim();
@@ -2698,6 +1800,7 @@ function formatTimeInput(value) {
             }
         }
 
+        // 隱私同意後處理
         function proceedAfterPrivacy() {
             const agreed = document.getElementById('privacyAgree').checked;
             if (!agreed) {
@@ -2711,15 +1814,25 @@ function formatTimeInput(value) {
             const wantAI = confirm('是否要進行 AI 體態分析？\n\n選擇「確定」進行 AI 分析\n選擇「取消」跳過分析直接填寫問卷');
             
             if (wantAI) {
-                currentPage = 2.5;
-                showPage(2.5);
+                if (uploadedImage) {
+                    currentPage = 2.5;
+                    showPage(2.5);
+                    updateProgress();
+                    setTimeout(() => {
+                        initializeCanvas();
+                    }, 100);
+                } else {
+                    alert('請先在第一頁上傳照片才能進行 AI 分析');
+                    currentPage = 1;
+                    showPage(1);
+                    updateProgress();
+                }
             } else {
                 skipAIAnalysis();
             }
-            
-            updateProgress();
         }
 
+        // 跳過 AI 分析
         function skipAIAnalysis() {
             formData.skippedAI = true;
             formData.aiAnalysis = null;
@@ -2728,6 +1841,7 @@ function formatTimeInput(value) {
             updateProgress();
         }
 
+        // 開始分析
         function startAnalysis() {
             if (!uploadedImage) {
                 alert('請先上傳您的全身正面照片');
@@ -2742,9 +1856,13 @@ function formatTimeInput(value) {
                 initializeCanvas();
             }, 100);
         }
-
+// Canvas 初始化
         function initializeCanvas() {
             canvas = document.getElementById('keypointCanvas');
+            if (!canvas) {
+                console.error('Canvas 元素不存在');
+                return;
+            }
             ctx = canvas.getContext('2d');
             
             const img = new Image();
@@ -2762,6 +1880,7 @@ function formatTimeInput(value) {
             img.src = uploadedImage;
         }
 
+        // 自動偵測關鍵點
         function autoDetectKeypoints() {
             keypoints = {};
             keypointDefinitions.forEach(point => {
@@ -2775,6 +1894,7 @@ function formatTimeInput(value) {
             drawKeypoints();
         }
 
+        // 自動調整關鍵點
         function autoAdjustKeypoints() {
             if (isMobile && navigator.vibrate) {
                 navigator.vibrate(50);
@@ -2782,6 +1902,7 @@ function formatTimeInput(value) {
             autoDetectKeypoints();
         }
 
+        // 繪製關鍵點
         function drawKeypoints() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             
@@ -2794,6 +1915,7 @@ function formatTimeInput(value) {
                 ctx.shadowOffsetX = 2;
                 ctx.shadowOffsetY = 2;
                 
+                // 繪製肩膀連線
                 if (keypoints.leftShoulder && keypoints.rightShoulder) {
                     ctx.beginPath();
                     ctx.moveTo(keypoints.leftShoulder.x, keypoints.leftShoulder.y);
@@ -2803,6 +1925,7 @@ function formatTimeInput(value) {
                     ctx.stroke();
                 }
                 
+                // 繪製腳部連線
                 if (keypoints.leftFoot && keypoints.rightFoot) {
                     ctx.beginPath();
                     ctx.moveTo(keypoints.leftFoot.x, keypoints.leftFoot.y);
@@ -2812,6 +1935,7 @@ function formatTimeInput(value) {
                     ctx.stroke();
                 }
                 
+                // 繪製頭部到肩膀中心連線
                 if (keypoints.head && keypoints.leftShoulder && keypoints.rightShoulder) {
                     const shoulderCenterX = (keypoints.leftShoulder.x + keypoints.rightShoulder.x) / 2;
                     const shoulderCenterY = (keypoints.leftShoulder.y + keypoints.rightShoulder.y) / 2;
@@ -2828,6 +1952,7 @@ function formatTimeInput(value) {
                 ctx.shadowOffsetX = 0;
                 ctx.shadowOffsetY = 0;
                 
+                // 繪製關鍵點
                 Object.entries(keypoints).forEach(([key, point]) => {
                     const gradient = ctx.createRadialGradient(point.x, point.y, 0, point.x, point.y, 15);
                     gradient.addColorStop(0, point.color);
@@ -2843,6 +1968,7 @@ function formatTimeInput(value) {
                     ctx.lineWidth = 3;
                     ctx.stroke();
                     
+                    // 繪製標籤
                     ctx.fillStyle = '#ffffff';
                     ctx.font = 'bold 14px Arial';
                     ctx.textAlign = 'center';
@@ -2871,39 +1997,8 @@ function formatTimeInput(value) {
             img.src = uploadedImage;
         }
 
-        function roundRect(ctx, x, y, width, height, radius, fill) {
-            ctx.beginPath();
-            ctx.moveTo(x + radius, y);
-            ctx.lineTo(x + width - radius, y);
-            ctx.quadraticCurveTo(x + width, y, x + width, y + radius);
-            ctx.lineTo(x + width, y + height - radius);
-            ctx.quadraticCurveTo(x + width, y + height, x + width - radius, y + height);
-            ctx.lineTo(x + radius, y + height);
-            ctx.quadraticCurveTo(x, y + height, x, y + height - radius);
-            ctx.lineTo(x, y + radius);
-            ctx.quadraticCurveTo(x, y, x + radius, y);
-            ctx.closePath();
-            if (fill) ctx.fill();
-        }
-
-        function lightenColor(color, percent) {
-            const num = parseInt(color.replace('#', ''), 16);
-            const amt = Math.round(2.55 * percent);
-            const R = Math.min(255, (num >> 16) + amt);
-            const G = Math.min(255, (num >> 8 & 0x00FF) + amt);
-            const B = Math.min(255, (num & 0x0000FF) + amt);
-            return '#' + (0x1000000 + R * 0x10000 + G * 0x100 + B).toString(16).slice(1);
-        }
-
-        function darkenColor(color, percent) {
-            const num = parseInt(color.replace('#', ''), 16);
-            const amt = Math.round(2.55 * percent);
-            const R = Math.max(0, (num >> 16) - amt);
-            const G = Math.max(0, (num >> 8 & 0x00FF) - amt);
-            const B = Math.max(0, (num & 0x0000FF) - amt);
-            return '#' + (0x1000000 + R * 0x10000 + G * 0x100 + B).toString(16).slice(1);
-        }
-function setupCanvasInteraction() {
+        // Canvas 互動設定
+        function setupCanvasInteraction() {
             canvas.addEventListener('mousedown', handleMouseDown);
             canvas.addEventListener('mousemove', handleMouseMove);
             canvas.addEventListener('mouseup', handleMouseUp);
@@ -3017,6 +2112,40 @@ function setupCanvasInteraction() {
             }
         }
 
+        // 繪圖輔助函數
+        function roundRect(ctx, x, y, width, height, radius, fill) {
+            ctx.beginPath();
+            ctx.moveTo(x + radius, y);
+            ctx.lineTo(x + width - radius, y);
+            ctx.quadraticCurveTo(x + width, y, x + width, y + radius);
+            ctx.lineTo(x + width, y + height - radius);
+            ctx.quadraticCurveTo(x + width, y + height, x + width - radius, y + height);
+            ctx.lineTo(x + radius, y + height);
+            ctx.quadraticCurveTo(x, y + height, x, y + height - radius);
+            ctx.lineTo(x, y + radius);
+            ctx.quadraticCurveTo(x, y, x + radius, y);
+            ctx.closePath();
+            if (fill) ctx.fill();
+        }
+
+        function lightenColor(color, percent) {
+            const num = parseInt(color.replace('#', ''), 16);
+            const amt = Math.round(2.55 * percent);
+            const R = Math.min(255, (num >> 16) + amt);
+            const G = Math.min(255, (num >> 8 & 0x00FF) + amt);
+            const B = Math.min(255, (num & 0x0000FF) + amt);
+            return '#' + (0x1000000 + R * 0x10000 + G * 0x100 + B).toString(16).slice(1);
+        }
+
+        function darkenColor(color, percent) {
+            const num = parseInt(color.replace('#', ''), 16);
+            const amt = Math.round(2.55 * percent);
+            const R = Math.max(0, (num >> 16) - amt);
+            const G = Math.max(0, (num >> 8 & 0x00FF) - amt);
+            const B = Math.max(0, (num & 0x0000FF) - amt);
+            return '#' + (0x1000000 + R * 0x10000 + G * 0x100 + B).toString(16).slice(1);
+        }
+// 計算體態
         function calculatePosture() {
             const overlay = document.getElementById('analysisOverlay');
             overlay.style.display = 'flex';
@@ -3028,28 +2157,34 @@ function setupCanvasInteraction() {
                 const leftFoot = keypoints.leftFoot;
                 const rightFoot = keypoints.rightFoot;
                 
+                // 計算肩部平衡
                 const shoulderHeightDiff = Math.abs(leftShoulder.y - rightShoulder.y);
                 const shoulderWidth = Math.abs(leftShoulder.x - rightShoulder.x);
                 const shoulderBalance = Math.max(0, 100 - (shoulderHeightDiff / shoulderWidth * 100));
                 
+                // 計算頭部對齊
                 const shoulderCenterX = (leftShoulder.x + rightShoulder.x) / 2;
                 const headDeviation = Math.abs(head.x - shoulderCenterX);
                 const headAlignment = Math.max(0, 100 - (headDeviation / shoulderWidth * 100));
                 
+                // 計算腳部對稱
                 const footHeightDiff = Math.abs(leftFoot.y - rightFoot.y);
                 const footWidth = Math.abs(leftFoot.x - rightFoot.x);
                 const footSymmetry = Math.max(0, 100 - (footHeightDiff / footWidth * 100));
                 
+                // 計算身體穩定性
                 const bodyHeight = canvas.height;
                 const footCenterX = (leftFoot.x + rightFoot.x) / 2;
                 const centerLineDeviation = Math.abs(head.x - footCenterX);
                 const bodyStability = Math.max(0, 100 - (centerLineDeviation / bodyHeight * 50));
                 
+                // 計算平行度
                 const shoulderSlope = (rightShoulder.y - leftShoulder.y) / (rightShoulder.x - leftShoulder.x);
                 const footSlope = (rightFoot.y - leftFoot.y) / (rightFoot.x - leftFoot.x);
                 const slopeDiff = Math.abs(shoulderSlope - footSlope);
                 const parallelScore = Math.max(0, 100 - (slopeDiff * 100));
                 
+                // 計算總分
                 const overallScore = (
                     shoulderBalance * 0.25 +
                     headAlignment * 0.25 +
@@ -3058,6 +2193,7 @@ function setupCanvasInteraction() {
                     parallelScore * 0.12
                 );
                 
+                // 儲存結果
                 formData.shoulderBalance = shoulderBalance.toFixed(1);
                 formData.pelvisBalance = footSymmetry.toFixed(1);
                 formData.spineAlignment = headAlignment.toFixed(1);
@@ -3084,6 +2220,7 @@ function setupCanvasInteraction() {
             }, 3000);
         }
 
+        // 生成建議
         function generateRecommendations(score) {
             let recommendExercise = '';
             let recommendDiet = '';
@@ -3144,7 +2281,9 @@ function setupCanvasInteraction() {
             formData.recommendDiet = recommendDiet;
             formData.detailedAnalysis = detailedAnalysis;
         }
-function displayAnalysisResults() {
+
+        // 顯示分析結果
+        function displayAnalysisResults() {
             document.getElementById('shoulderBalance').textContent = formData.shoulderBalance;
             document.getElementById('pelvisBalance').textContent = formData.pelvisBalance;
             document.getElementById('spineAlignment').textContent = formData.spineAlignment;
@@ -3174,7 +2313,7 @@ function displayAnalysisResults() {
             document.getElementById('recommendDiet').textContent = formData.recommendDiet;
             document.getElementById('detailedAnalysis').textContent = formData.detailedAnalysis;
         }
-
+// 顯示確認資料
         function displayReviewData() {
             document.getElementById('review_name').textContent = formData.name || '未填寫';
             document.getElementById('review_gender').textContent = formData.gender === 'male' ? '男' : formData.gender === 'female' ? '女' : '其他';
@@ -3289,11 +2428,15 @@ function displayAnalysisResults() {
             const displayElement = document.getElementById(`edit_${type}_display`);
             const editElement = document.getElementById(`edit_${type}_edit`);
             
+            if (!displayElement || !editElement) return;
+            
             if (values && values.length > 0) {
                 const displayText = values.map(v => labelMap[v] || v).join('、');
-                displayElement.textContent = displayText;
+                const span = displayElement.querySelector('span') || displayElement;
+                span.textContent = displayText;
             } else {
-                displayElement.textContent = '未選擇';
+                const span = displayElement.querySelector('span') || displayElement;
+                span.textContent = '未選擇';
             }
             
             editElement.querySelectorAll('.option').forEach(option => {
@@ -3304,12 +2447,15 @@ function displayAnalysisResults() {
             });
         }
 
+        // 切換編輯模式
         function toggleEdit(section) {
             editingSections[section] = !editingSections[section];
             
             const displayElement = document.getElementById(`edit_${section}_display`);
             const editElement = document.getElementById(`edit_${section}_edit`);
             const button = document.querySelector(`button[onclick="toggleEdit('${section}')"]`);
+            
+            if (!displayElement || !editElement || !button) return;
             
             if (editingSections[section]) {
                 displayElement.style.display = 'none';
@@ -3324,6 +2470,7 @@ function displayAnalysisResults() {
             }
         }
 
+        // 驗證基本資料編輯
         function validateBasicInfoEdit() {
             const name = document.getElementById('edit_name').value.trim();
             const gender = document.querySelector('.gender-option.selected')?.dataset.value;
@@ -3369,6 +2516,7 @@ function displayAnalysisResults() {
             return true;
         }
 
+        // 儲存編輯資料
         function saveEditedData() {
             if (!validateBasicInfoEdit()) {
                 return;
@@ -3396,7 +2544,9 @@ function displayAnalysisResults() {
             
             nextPage();
         }
-function loadVenueRules() {
+
+        // 載入場館規範
+        function loadVenueRules() {
             const rulesContainer = document.getElementById('venueRules');
             rulesContainer.innerHTML = `
                 <h3 style="color: #2d5a3d; margin-bottom: 20px; font-size: 20px;">衡點健身場館使用規範</h3>
@@ -3497,7 +2647,7 @@ function loadVenueRules() {
                 }
             });
         }
-
+// 驗證當前頁面
         function validateCurrentPage() {
             const errorElements = document.querySelectorAll('.error-message');
             errorElements.forEach(el => el.style.display = 'none');
@@ -3639,7 +2789,9 @@ function loadVenueRules() {
             page.insertBefore(errorDiv, navButtons);
             return errorDiv;
         }
-function saveCurrentPageData() {
+
+        // 儲存當前頁面資料
+        function saveCurrentPageData() {
             if (currentPage === 4) {
                 const selectedGoals = [];
                 document.querySelectorAll('#goalsPage .option.selected').forEach(option => {
@@ -3721,6 +2873,7 @@ function saveCurrentPageData() {
             }
         }
 
+        // 提交表單
         function submitForm(bookingType) {
             if (!validateCurrentPage()) {
                 return;
@@ -3794,15 +2947,20 @@ function saveCurrentPageData() {
                 alert('提交失敗，請稍後再試或聯繫客服人員');
             });
         }
-
+// DOMContentLoaded 事件 - 修復版
         document.addEventListener('DOMContentLoaded', function() {
+            console.log('頁面載入完成，開始初始化...');
+            
+            // 1. 獲取 LINE ID
             getLineIdFromUrl();
             
+            // 2. 載入儲存的資料
             if (!loadFormDataFromStorage()) {
                 showPage(1);
                 updateProgress();
             }
             
+            // 3. 初始化所有表單元素
             initializeDateInputs();
             initializeDiseaseCheckboxes();
             initializeTimeSlotCheckboxes();
@@ -3812,20 +2970,27 @@ function saveCurrentPageData() {
             setupPhoneInput();
             setupTimeInputs();
             
+            // 4. 設定選項點擊事件
             document.querySelectorAll('.option').forEach(option => {
                 option.addEventListener('click', function() {
                     this.classList.toggle('selected');
                 });
             });
             
+            // 5. 初始化 LIFF
+            console.log('開始初始化 LIFF...');
             liff.init({
                 liffId: '2007947083-yb9NPJ7e'
             }).then(() => {
+                console.log('LIFF 初始化成功');
                 if (!liff.isLoggedIn()) {
+                    console.log('使用者未登入，導向登入頁面');
                     liff.login();
                 } else {
+                    console.log('使用者已登入，取得個人資料');
                     liff.getProfile().then(profile => {
                         const lineUserId = profile.userId;
+                        console.log('LINE User ID:', lineUserId);
                         document.getElementById('lineId').value = lineUserId;
                         formData.lineId = lineUserId;
                     }).catch(err => {
@@ -3835,6 +3000,8 @@ function saveCurrentPageData() {
             }).catch(err => {
                 console.error('LIFF 初始化失敗:', err);
             });
+            
+            console.log('初始化完成！');
         });
     </script>
 </body>
