@@ -1866,7 +1866,7 @@
                         <div class="completion-info-card">
                             <div class="completion-info-icon">💬</div>
                             <div class="completion-info-title">LINE 訊息通知</div>
-                            <div class="completion-info-text">我們將透過 LINE<br>與您聯繫</div>
+                            <div class="completion-info-text">我們將透過 LINE與您聯繫</div>
                         </div>
                     </div>
 
@@ -1876,8 +1876,8 @@
                             <span>溫馨提醒</span>
                         </div>
                         <p class="completion-reminder-text">
-                            • 如有任何問題,歡迎直接聯繫我們的客服團隊<br>
-                            • 我們將在 1-2 個工作天內與您聯繫
+                            • 如有任何問題,請透過官方LINE洽詢<br>
+                            • 我們將盡快與您聯繫
                         </p>
                     </div>
 
@@ -2357,69 +2357,98 @@ function proceedAfterPrivacy() {
             window.scrollTo(0, 0);
         }
 function drawKeypoints() {
-            var img = new Image();
-            img.onload = function() {
-                ctx.clearRect(0, 0, canvas.width, canvas.height);
-                ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+    var img = new Image();
+    img.onload = function() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
 
-                ctx.fillStyle = 'rgba(226, 237, 230, 0.15)';
-                ctx.fillRect(0, 0, canvas.width, canvas.height);
+        ctx.fillStyle = 'rgba(226, 237, 230, 0.15)';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-                var pointIds = Object.keys(keypoints);
-                var totalConnections = (pointIds.length * (pointIds.length - 1)) / 2;
-                document.getElementById('edgeCount').textContent = totalConnections;
+        var pointIds = Object.keys(keypoints);
+        var totalConnections = (pointIds.length * (pointIds.length - 1)) / 2;
+        document.getElementById('edgeCount').textContent = totalConnections;
+        
+        // 繪製連線
+        for (var i = 0; i < pointIds.length; i++) {
+            for (var j = i + 1; j < pointIds.length; j++) {
+                var p1 = keypoints[pointIds[i]];
+                var p2 = keypoints[pointIds[j]];
                 
-                for (var i = 0; i < pointIds.length; i++) {
-                    for (var j = i + 1; j < pointIds.length; j++) {
-                        var p1 = keypoints[pointIds[i]];
-                        var p2 = keypoints[pointIds[j]];
-                        
-                        var gradient = ctx.createLinearGradient(p1.x, p1.y, p2.x, p2.y);
-                        gradient.addColorStop(0, p1.color + '55');
-                        gradient.addColorStop(0.5, '#7ac19a70');
-                        gradient.addColorStop(1, p2.color + '55');
-                        
-                        ctx.strokeStyle = gradient;
-                        ctx.lineWidth = 3;
-                        ctx.lineCap = 'round';
-                        
-                        ctx.beginPath();
-                        ctx.moveTo(p1.x, p1.y);
-                        ctx.lineTo(p2.x, p2.y);
-                        ctx.stroke();
-                    }
-                }
-
-                Object.keys(keypoints).forEach(function(id) {
-                    var point = keypoints[id];
-                    var isActive = isDragging && draggedPoint === id;
-                    var baseRadius = isMobile ? 28 : 20;
-                    var radius = isActive ? baseRadius + 8 : baseRadius;
-                    
-                    ctx.beginPath();
-                    ctx.arc(point.x, point.y, radius + 5, 0, Math.PI * 2);
-                    ctx.fillStyle = 'rgba(255, 255, 255, 0.9)';
-                    ctx.fill();
-                    
-                    ctx.beginPath();
-                    ctx.arc(point.x, point.y, radius, 0, Math.PI * 2);
-                    ctx.fillStyle = point.color;
-                    ctx.fill();
-                    
-                    ctx.font = 'bold ' + (isMobile ? 12 : 14) + 'px Arial';
-                    var textWidth = ctx.measureText(point.label).width;
-                    var labelX = id.includes('left') ? point.x - textWidth - 30 : point.x + 30;
-                    var labelY = point.y + 5;
-                    
-                    ctx.fillStyle = 'rgba(95, 132, 111, 0.9)';
-                    ctx.fillRect(labelX - 5, labelY - 15, textWidth + 10, 20);
-                    
-                    ctx.fillStyle = '#ffffff';
-                    ctx.fillText(point.label, labelX, labelY);
-                });
-            };
-            img.src = uploadedImage;
+                var gradient = ctx.createLinearGradient(p1.x, p1.y, p2.x, p2.y);
+                gradient.addColorStop(0, p1.color + '55');
+                gradient.addColorStop(0.5, '#7ac19a70');
+                gradient.addColorStop(1, p2.color + '55');
+                
+                ctx.strokeStyle = gradient;
+                ctx.lineWidth = 3;
+                ctx.lineCap = 'round';
+                
+                ctx.beginPath();
+                ctx.moveTo(p1.x, p1.y);
+                ctx.lineTo(p2.x, p2.y);
+                ctx.stroke();
+            }
         }
+
+        // 繪製關鍵點（有發光效果）
+        Object.keys(keypoints).forEach(function(id) {
+            var point = keypoints[id];
+            var isActive = isDragging && draggedPoint === id;
+            var baseRadius = isMobile ? 28 : 20;
+            var radius = isActive ? baseRadius + 8 : baseRadius;
+            
+            // ★★★ 外層發光效果 ★★★
+            ctx.shadowColor = point.color;
+            ctx.shadowBlur = isActive ? 35 : 25;
+            ctx.shadowOffsetX = 0;
+            ctx.shadowOffsetY = 0;
+            
+            // 白色外圈
+            ctx.beginPath();
+            ctx.arc(point.x, point.y, radius + 5, 0, Math.PI * 2);
+            ctx.fillStyle = 'rgba(255, 255, 255, 0.9)';
+            ctx.fill();
+            
+            // 彩色主圓（帶發光）
+            ctx.beginPath();
+            ctx.arc(point.x, point.y, radius, 0, Math.PI * 2);
+            ctx.fillStyle = point.color;
+            ctx.fill();
+            
+            // ★★★ 內層高光效果 ★★★
+            ctx.shadowBlur = 0; // 關閉陰影
+            var innerGradient = ctx.createRadialGradient(
+                point.x - radius * 0.3, point.y - radius * 0.3, 0,
+                point.x, point.y, radius
+            );
+            innerGradient.addColorStop(0, 'rgba(255, 255, 255, 0.8)');
+            innerGradient.addColorStop(0.3, 'rgba(255, 255, 255, 0.3)');
+            innerGradient.addColorStop(1, 'rgba(255, 255, 255, 0)');
+            
+            ctx.beginPath();
+            ctx.arc(point.x, point.y, radius, 0, Math.PI * 2);
+            ctx.fillStyle = innerGradient;
+            ctx.fill();
+            
+            // 關閉陰影效果（避免影響標籤）
+            ctx.shadowBlur = 0;
+            
+            // 標籤
+            ctx.font = 'bold ' + (isMobile ? 12 : 14) + 'px Arial';
+            var textWidth = ctx.measureText(point.label).width;
+            var labelX = id.includes('left') ? point.x - textWidth - 30 : point.x + 30;
+            var labelY = point.y + 5;
+            
+            ctx.fillStyle = 'rgba(95, 132, 111, 0.9)';
+            ctx.fillRect(labelX - 5, labelY - 15, textWidth + 10, 20);
+            
+            ctx.fillStyle = '#ffffff';
+            ctx.fillText(point.label, labelX, labelY);
+        });
+    };
+    img.src = uploadedImage;
+}
 
         function setupCanvasInteraction() {
             canvas.addEventListener('mousedown', handleMouseDown);
