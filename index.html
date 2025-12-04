@@ -1473,6 +1473,8 @@
             }
         }
     </style>
+<!-- LINE LIFF SDK -->
+<script charset="utf-8" src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
 </head>
 <body>
     <div class="container">
@@ -1973,28 +1975,7 @@
                 </div>
             </div>
 
-            <!-- Q10: 體驗時段 -->
-            <div class="question-page" data-page="10">
-                <h2>至少三個理想的體驗時段</h2>
-                <p class="subtitle">請選擇日期並輸入時段(不含當天)</p>
-                <div class="time-slot-input">
-                    <input type="date" class="text-input" id="slotDate" min="" style="flex: 1;">
-                    <input type="text" class="text-input" id="slotTime" placeholder="例:14:00" style="flex: 1;">
-                    <button class="button" onclick="addTimeSlot()">新增</button>
-                </div>
-                <div style="background: #fcf4e3; border-radius: 8px; padding: 12px; margin-top: 10px; margin-bottom: 15px;">
-                    <p style="color: #ba9e60; font-size: 13px; line-height: 1.5;">
-                        💡 <strong>提示:</strong>體驗時段需選擇明天(含)之後的日期,以便我們安排合適的教練與場地
-                    </p>
-                </div>
-                <div class="time-slot-list" id="timeSlotList"></div>
-                <div id="timeSlotError" class="error-message" style="display: none;">請至少新增三個體驗時段</div>
-                <div class="nav-buttons">
-                    <button class="button secondary" onclick="prevPage()">上一步</button>
-                    <button class="button" onclick="nextPage()">下一步</button>
-                </div>
-            </div>
-<!-- Q11: 資料確認 -->
+            <!-- Q11: 資料確認 -->
             <div class="question-page" data-page="11">
                 <h2>資料確認</h2>
                 <p class="subtitle">請確認所有資料正確,點擊「修改」按鈕可編輯</p>
@@ -2192,12 +2173,7 @@
                     <h3>上課時段偏好</h3>
                     <div id="edit_time_preferences"></div>
                 </div>
-
-                <div class="editable-section">
-                    <h3>理想體驗時段</h3>
-                    <div id="edit_experience_slots"></div>
-                </div>
-
+                
                 <div class="editable-section" id="aiAnalysisSection">
                     <h3 id="aiAnalysisTitle">AI 體態分析</h3>
                     <div id="aiAnalysisContent">
@@ -2279,10 +2255,9 @@
 
     <script>
         let currentPage = 1;
-        const totalPages = 13;
+        const totalPages = 12;
         let formData = {};
         let uploadedImage = null;
-        let timeSlots = [];
         let keypoints = {};
         let canvas, ctx;
         let isDragging = false;
@@ -2314,11 +2289,10 @@
         function saveFormDataToStorage() {
             try {
                 const dataToSave = {
-                    ...formData,
-                    currentPage: currentPage,
-                    timeSlots: timeSlots,
-                    timestamp: new Date().toISOString()
-                };
+    ...formData,
+    currentPage: currentPage,
+    timestamp: new Date().toISOString()
+};
                 localStorage.setItem('fitnessFormData', JSON.stringify(dataToSave));
             } catch (e) {
                 console.error('無法儲存資料:', e);
@@ -2337,8 +2311,7 @@
                     if (hoursDiff < 24) {
                         if (confirm('偵測到您有未完成的問卷,是否要繼續填寫?')) {
                             formData = parsed;
-                            timeSlots = parsed.timeSlots || [];
-                            currentPage = parsed.currentPage || 1;
+currentPage = parsed.currentPage || 1;
                             restoreFormState();
                             return true;
                         } else {
@@ -2511,10 +2484,6 @@ function restoreFormState() {
                 });
             }
             
-            if (timeSlots.length > 0) {
-                renderTimeSlots();
-            }
-            
             document.querySelectorAll('.question-page').forEach(page => page.classList.remove('active'));
             const targetPage = document.querySelector(`[data-page="${currentPage}"]`);
             if (targetPage) {
@@ -2524,6 +2493,25 @@ function restoreFormState() {
         }
 
         document.addEventListener('DOMContentLoaded', function() {
+    // LINE LIFF 初始化
+    liff.init({
+        liffId: '2007947083-yb9NPJ7e' // 您的 LIFF ID
+    }).then(() => {
+        if (!liff.isLoggedIn()) {
+            liff.login();
+        } else {
+            // 已登入,取得 LINE 用戶資料
+            liff.getProfile().then(profile => {
+                const lineUserId = profile.userId;
+                document.getElementById('lineId').value = lineUserId;
+                formData.lineId = lineUserId;
+            }).catch(err => {
+                console.error('取得 LINE Profile 失敗:', err);
+            });
+        }
+    }).catch(err => {
+        console.error('LIFF 初始化失敗:', err);
+    });
             getLineIdFromUrl();
             const restored = loadFormDataFromStorage();
             if (!restored) {
@@ -2569,13 +2557,6 @@ function restoreFormState() {
             yearSelect.addEventListener('change', updateHiddenDate);
             monthSelect.addEventListener('change', updateHiddenDate);
             document.getElementById('birthdayDay').addEventListener('change', updateHiddenDate);
-            
-            const tomorrow = new Date(today);
-            tomorrow.setDate(tomorrow.getDate() + 1);
-            const tomorrowStr = tomorrow.toISOString().split('T')[0];
-            
-            const slotDateInput = document.getElementById('slotDate');
-            slotDateInput.min = tomorrowStr;
         }
         
         function updateDayOptions() {
@@ -2810,7 +2791,7 @@ function restoreFormState() {
             }
         }
 function setupTimeInputs() {
-            const timeInputIds = ['weekdayDayTime', 'weekdayNightTime', 'weekendDayTime', 'weekendNightTime', 'slotTime'];
+            const timeInputIds = ['weekdayDayTime', 'weekdayNightTime', 'weekendDayTime', 'weekendNightTime'];
             timeInputIds.forEach(id => {
                 const input = document.getElementById(id);
                 if (input) {
@@ -3542,77 +3523,6 @@ function generateRecommendations(overall, shoulder, foot, head, stability, paral
             document.getElementById('detailedAnalysis').textContent = formData.detailedAnalysis;
         }
 
-        function addTimeSlot() {
-            const dateInput = document.getElementById('slotDate');
-            const timeInput = document.getElementById('slotTime');
-            const date = dateInput.value;
-            let time = timeInput.value.trim();
-            
-            if (!date || !time) {
-                alert('請選擇日期和時段');
-                return;
-            }
-            
-            const selectedDate = new Date(date);
-            const today = new Date();
-            today.setHours(0, 0, 0, 0);
-            
-            if (selectedDate <= today) {
-                alert('體驗時段需選擇明天(含)之後的日期,以便安排教練與場地');
-                dateInput.value = '';
-                return;
-            }
-            
-            const formatted = formatSingleTime(time.replace(/[^0-9]/g, ''));
-            if (!formatted) {
-                alert('時間格式不正確,請輸入如 14:00 或 1430 的格式');
-                return;
-            }
-            
-            const isDuplicate = timeSlots.some(slot => 
-                slot.date === date && slot.time === formatted
-            );
-            
-            if (isDuplicate) {
-                alert('⚠️ 此時段已經存在!\n\n您已經選擇過這個日期和時間,請選擇不同的時段。');
-                return;
-            }
-            
-            const slot = { date, time: formatted };
-            timeSlots.push(slot);
-            
-            timeSlots.sort((a, b) => {
-                if (a.date !== b.date) {
-                    return a.date.localeCompare(b.date);
-                }
-                return a.time.localeCompare(b.time);
-            });
-            
-            renderTimeSlots();
-            
-            dateInput.value = '';
-            timeInput.value = '';
-        }
-
-        function renderTimeSlots() {
-            const list = document.getElementById('timeSlotList');
-            list.innerHTML = '';
-            timeSlots.forEach((slot, idx) => {
-                const tag = document.createElement('div');
-                tag.className = 'time-slot-tag';
-                tag.innerHTML = `
-                    <span>${slot.date} ${slot.time}</span>
-                    <button onclick="removeTimeSlot(${idx})">×</button>
-                `;
-                list.appendChild(tag);
-            });
-        }
-
-        function removeTimeSlot(index) {
-            timeSlots.splice(index, 1);
-            renderTimeSlots();
-        }
-
         function loadVenueRules() {
             const rulesHTML = `
                 <div style="color: #5f846f; line-height: 1.6; font-size: 15px;">
@@ -4147,14 +4057,6 @@ function toggleEdit(section) {
                     }
                     break;
                     
-                case 10:
-                    if (timeSlots.length < 3) {
-                        document.getElementById('timeSlotError').style.display = 'block';
-                        alert('⚠️ 請至少新增三個理想的體驗時段\n\n目前已新增:' + timeSlots.length + ' 個\n還需要:' + (3 - timeSlots.length) + ' 個');
-                        return false;
-                    }
-                    break;
-                    
                 case 12:
                     if (!document.getElementById('agreeRules').checked) {
                         document.getElementById('rulesError').style.display = 'block';
@@ -4254,9 +4156,6 @@ function toggleEdit(section) {
                         formData.timePreferences.push({ slot: '彈性不固定', time: '' });
                     }
                     break;
-                case 10:
-                    formData.experienceSlots = timeSlots;
-                    break;
             }
         }
 function displayReviewData() {
@@ -4352,17 +4251,6 @@ function displayReviewData() {
                 timePrefContainer.innerHTML = '<p style="color: #999;">未填寫</p>';
             }
             
-            const experienceSlotsContainer = document.getElementById('edit_experience_slots');
-            if (formData.experienceSlots && formData.experienceSlots.length > 0) {
-                experienceSlotsContainer.innerHTML = formData.experienceSlots.map(slot => 
-                    `<p style="padding: 10px; background: #f8faf9; border-radius: 8px; margin-bottom: 8px;">
-                        ${slot.date} ${slot.time}
-                    </p>`
-                ).join('');
-            } else {
-                experienceSlotsContainer.innerHTML = '<p style="color: #999;">未填寫</p>';
-            }
-            
             const aiAnalysisSection = document.getElementById('aiAnalysisSection');
             const aiAnalysisTitle = document.getElementById('aiAnalysisTitle');
             const aiAnalysisContent = document.getElementById('aiAnalysisContent');
@@ -4411,22 +4299,21 @@ function displayReviewData() {
 
             try {
                 const submitData = {
-                    lineId: formData.lineId,
-                    name: formData.name,
-                    gender: formData.gender,
-                    birthday: formData.birthday,
-                    email: formData.email,
-                    phone: formData.phone,
-                    goals: formData.goals,
-                    courses: formData.courses,
-                    diseases: formData.diseases,
-                    remarks: formData.remarks,
-                    timePreferences: formData.timePreferences,
-                    experienceSlots: formData.experienceSlots,
-                    photo: formData.photo || null,
-                    skippedAI: formData.skippedAI || false,
-                    bookingType: bookingType
-                };
+    lineId: formData.lineId,
+    name: formData.name,
+    gender: formData.gender,
+    birthday: formData.birthday,
+    email: formData.email,
+    phone: formData.phone,
+    goals: formData.goals,
+    courses: formData.courses,
+    diseases: formData.diseases,
+    remarks: formData.remarks,
+    timePreferences: formData.timePreferences,
+    photo: formData.photo || null,
+    skippedAI: formData.skippedAI || false,
+    bookingType: bookingType
+};
 
                 if (!formData.skippedAI && formData.postureScore) {
                     submitData.aiAnalysis = {
@@ -4442,7 +4329,7 @@ function displayReviewData() {
                     };
                 }
 
-                const webhookUrl = 'https://hook.eu2.make.com/gsmu65fcx7xo5xpy7fk75b2ygcwxxxx6';
+                const webhookUrl = 'https://hook.us2.make.com/6rfz9vsjnqqxr6s6bnx2cr9njax93yyg';
                 
                 const response = await fetch(webhookUrl, {
                     method: 'POST',
