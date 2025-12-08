@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="zh-TW">
 <head>
@@ -3024,75 +3023,105 @@ async function submitFormLater() {
             await submitToWebhook(true);
         }
 
-        async function submitToWebhook(redirectToBooking) {
-            var buttons = document.querySelectorAll('[data-page="11"] .button');
-            buttons.forEach(function(btn) {
-                btn.disabled = true;
-                btn.style.opacity = '0.6';
-            });
-            
-            saveCurrentPageData();
-            
-            var submitData = {
-                action: 'submit',
-                lineId: formData.lineId || '',
-displayName: formData.displayName || '',
-                name: formData.name || '',
-                gender: formData.gender || '',
-                birthday: formData.birthday || '',
-                email: formData.email || '',
-                phone: formData.phone || '',
-                goals: (formData.goals || []).join('、'),
-                courses: (formData.courses || []).join('、'),
-                diseases: (formData.diseases || []).join('、'),
-                remarks: formData.remarks || '',
-                timePreferences: (formData.timePreferences || []).map(function(tp) { return tp.slot + ': ' + (tp.time || '全時段'); }).join(' | '),
-                bookingType: formData.bookingType || '',
-                skippedAI: formData.skippedAI || false,
-                postureScore: formData.postureScore || null,
-                shoulderBalance: formData.shoulderBalance || null,
-                pelvisBalance: formData.pelvisBalance || null,
-                spineAlignment: formData.spineAlignment || null,
-                overallStability: formData.overallStability || null,
-                recommendExercise: formData.recommendExercise || null,
-                recommendDiet: formData.recommendDiet || null,
-                detailedAnalysis: formData.detailedAnalysis || null,
-                photo: formData.photo || null,
-                submittedAt: new Date().toISOString()
-            };
-            
-            try {
-                var response = await fetch(WEBHOOK_URL, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(submitData)
-                });
-                
-                if (response.ok) {
-                    localStorage.removeItem('fitnessFormData');
-                    
-                    if (redirectToBooking) {
-                        window.location.href = 'https://liff.line.me/2007947083-yb9NPJ7e';
-                    } else {
-                        document.querySelectorAll('.question-page').forEach(function(page) {
-                            page.classList.remove('active');
-                        });
-                        currentPage = 12;
-                        document.querySelector('[data-page="12"]').classList.add('active');
-                        document.getElementById('bookNowButtonContainer').style.display = 'block';
-                        updateProgress();
-                        window.scrollTo(0, 0);
-                    }
-                } else {
-                    buttons.forEach(function(btn) { btn.disabled = false; btn.style.opacity = '1'; });
-                    alert('提交失敗,請稍後再試');
-                }
-            } catch (error) {
-                console.error('提交錯誤:', error);
-                buttons.forEach(function(btn) { btn.disabled = false; btn.style.opacity = '1'; });
-                alert('網路錯誤,請稍後再試');
-            }
+        function compressImage(base64, maxWidth, quality) {
+    return new Promise(function(resolve) {
+        var img = new Image();
+        img.onload = function() {
+            var canvas = document.createElement('canvas');
+            var ratio = Math.min(maxWidth / img.width, 1);
+            canvas.width = img.width * ratio;
+            canvas.height = img.height * ratio;
+            var ctx = canvas.getContext('2d');
+            ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+            resolve(canvas.toDataURL('image/jpeg', quality));
+        };
+        img.onerror = function() {
+            resolve(null);
+        };
+        img.src = base64;
+    });
+}
+
+async function submitToWebhook(redirectToBooking) {
+    var buttons = document.querySelectorAll('[data-page="11"] .button');
+    buttons.forEach(function(btn) {
+        btn.disabled = true;
+        btn.style.opacity = '0.6';
+    });
+    
+    saveCurrentPageData();
+    
+    // ★★★ 壓縮圖片 ★★★
+    var compressedPhoto = null;
+    if (formData.photo) {
+        try {
+            compressedPhoto = await compressImage(formData.photo, 400, 0.5);
+        } catch (e) {
+            console.error('圖片壓縮失敗:', e);
+            compressedPhoto = null;
         }
+    }
+    
+    var submitData = {
+        action: 'submit',
+        lineId: formData.lineId || '',
+        displayName: formData.displayName || '',
+        name: formData.name || '',
+        gender: formData.gender || '',
+        birthday: formData.birthday || '',
+        email: formData.email || '',
+        phone: formData.phone || '',
+        goals: (formData.goals || []).join('、'),
+        courses: (formData.courses || []).join('、'),
+        diseases: (formData.diseases || []).join('、'),
+        remarks: formData.remarks || '',
+        timePreferences: (formData.timePreferences || []).map(function(tp) { return tp.slot + ': ' + (tp.time || '全時段'); }).join(' | '),
+        bookingType: formData.bookingType || '',
+        skippedAI: formData.skippedAI || false,
+        postureScore: formData.postureScore || null,
+        shoulderBalance: formData.shoulderBalance || null,
+        pelvisBalance: formData.pelvisBalance || null,
+        spineAlignment: formData.spineAlignment || null,
+        overallStability: formData.overallStability || null,
+        recommendExercise: formData.recommendExercise || null,
+        recommendDiet: formData.recommendDiet || null,
+        detailedAnalysis: formData.detailedAnalysis || null,
+        photo: compressedPhoto,
+        submittedAt: new Date().toISOString()
+    };
+    
+    try {
+        var response = await fetch(WEBHOOK_URL, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(submitData)
+        });
+        
+        if (response.ok) {
+            localStorage.removeItem('fitnessFormData');
+            
+            if (redirectToBooking) {
+                window.location.href = 'https://liff.line.me/2007947083-yb9NPJ7e';
+            } else {
+                document.querySelectorAll('.question-page').forEach(function(page) {
+                    page.classList.remove('active');
+                });
+                currentPage = 12;
+                document.querySelector('[data-page="12"]').classList.add('active');
+                document.getElementById('bookNowButtonContainer').style.display = 'block';
+                updateProgress();
+                window.scrollTo(0, 0);
+            }
+        } else {
+            buttons.forEach(function(btn) { btn.disabled = false; btn.style.opacity = '1'; });
+            alert('提交失敗,請稍後再試');
+        }
+    } catch (error) {
+        console.error('提交錯誤:', error);
+        buttons.forEach(function(btn) { btn.disabled = false; btn.style.opacity = '1'; });
+        alert('網路錯誤,請稍後再試');
+    }
+}
 
         function updateProgress() {
             var progressPage = currentPage;
